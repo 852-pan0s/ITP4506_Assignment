@@ -1,8 +1,12 @@
-.navbar-fixed-top{
+.navbar-fixed-top {
     position: relative;
-  }
+}
 
-  .carouselExampleCaptions{
-      width:50%;
-      height: 50%;
-  }
+.carouselExampleCaptions {
+    width: 50%;
+    height: 50%;
+}
+
+.hide {
+    display: none;
+}

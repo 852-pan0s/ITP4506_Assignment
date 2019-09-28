@@ -1,16 +1,16 @@
 {
     "User": {
-        "u1": {
+        "uid1": {
             "username": "u1",
             "password": "u1"
         },
-        "u2": {
+        "uid2": {
             "username": "u2",
             "password": "u2"
         }
     },
     "Admin": {
-        "a1": {
+        "aid1": {
             "username": "a1",
             "password": "a1"
         }
