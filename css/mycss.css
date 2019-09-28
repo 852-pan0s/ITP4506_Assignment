@@ -1,5 +1,10 @@
-.navbar-fixed-top {
-    position: relative;
+.absolute-top{
+    position: absolute;
+    top:-6px;
+}
+
+.navbar{
+    transition: all 0.4s ;
 }
 
 .carouselExampleCaptions {

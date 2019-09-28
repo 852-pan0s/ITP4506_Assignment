@@ -1,5 +1,5 @@
 import * as User from './login.js';
-
+import "./scrolling.js"
 
 $(document).ready(() => {
   $("#btn-login").on("click", (e) => {

@@ -18,13 +18,12 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top absolute-top" id="navbar">
     <a class="navbar-brand" href="#">Yummy Everywhere</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item ">
@@ -46,20 +45,24 @@
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
+      <form class="form-inline my-2 my-lg-0" style="margin: 0 10px">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <button class="btn btn-outline-light my-2 my-sm-0" id="btn-search" type="submit">Search</button>
       </form>
-      <button id="btn-ac" type="button" class="btn btn-outline-dark" style="margin-left:24px" data-toggle="modal"
-        data-target="#loginModal">
-        <i class="material-icons" style="font-size: 36px; position: relative; margin-top:6px">
-          account_circle
-        </i>
-      </button>
+      <span class="navbar-text">
+        <button id="btn-ac" type="button" class="btn btn-outline-light" style="border:none;" data-toggle="modal"
+          data-target="#loginModal">
+          <i class="material-icons" id="user-icon"
+            style="font-size: 36px; position: relative; margin-top:6px">
+            account_circle
+          </i>
+        </button>
+      </span>
+
     </div>
   </nav>
 
-  <div style="position: absolute;left:0;right:0;top:-29px">
+  <div class="content" style="position: absolute;left:0;right:0;">
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
         <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -98,7 +101,49 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
+    <div data-spy="scroll" data-target="#navbar" data-offset="0">
+      <h4 id="fat">@fat</h4>
+      <p>Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr
+        farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3
+        wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of
+        them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony
+        biodiesel keffiyeh artisan ullamco consequat.</p>
+      <h4 id="mdo">@mdo</h4>
+      <p>Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr
+        farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3
+        wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of
+        them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony
+        biodiesel keffiyeh artisan ullamco consequat.</p>
+      <h4 id="one">one</h4>
+      <p>Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr
+        farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3
+        wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of
+        them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony
+        biodiesel keffiyeh artisan ullamco consequat.</p>
+      <h4 id="two">two</h4>
+      <p>Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui. Tumblr
+        farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo booth 3
+        wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't heard of
+        them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony
+        biodiesel keffiyeh artisan ullamco consequat.</p>
+      <h4 id="three">three</h4>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+    </div>
   </div>
+
 
 
 
@@ -137,10 +182,10 @@
             </div>
             <!-- <button type="button" class="btn btn-outline-primary" id="btn-login">Login</button> -->
             <div class="modal-footer">
-                <button class="btn btn-primary hide" id="loginLoading" type="button" disabled>
-                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                    Loading...
-                  </button>
+              <button class="btn btn-primary hide" id="loginLoading" type="button" disabled>
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                Loading...
+              </button>
               <button type="button" class="btn btn-outline-primary" id="btn-login">Login</button>
             </div>
         </div>
