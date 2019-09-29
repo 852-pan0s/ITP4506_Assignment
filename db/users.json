@@ -1,18 +1,22 @@
 {
     "User": {
-        "uid1": {
-            "username": "u1",
-            "password": "u1"
+        "1": {
+            "id": "1",
+            "type": "administrator",
+            "username": "admin",
+            "password": "admin"
         },
-        "uid2": {
-            "username": "u2",
-            "password": "u2"
-        }
-    },
-    "Admin": {
-        "aid1": {
-            "username": "a1",
-            "password": "a1"
+        "2": {
+            "id": "2",
+            "type": "operator",
+            "username": "operator",
+            "password": "operator"
+        },
+        "3": {
+            "id": "3",
+            "type": "normal_user",
+            "username": "user",
+            "password": "user"
         }
     }
 }

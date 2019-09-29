@@ -1,10 +1,10 @@
-.absolute-top{
+.absolute-top {
     position: absolute;
-    top:-6px;
+    top: -6px;
 }
 
-.navbar{
-    transition: all 0.4s ;
+.navbar {
+    transition: all 0.4s;
 }
 
 .carouselExampleCaptions {
@@ -14,4 +14,13 @@
 
 .hide {
     display: none;
+}
+
+@media (min-width:768px) {
+    .card-deck > .card
+    {
+        width: 29%;
+        flex-wrap: wrap;
+        flex: initial; 
+    }
 }
