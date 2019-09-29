@@ -1,7 +1,13 @@
 import * as User from './login.js';
-import "./scrolling.js"
+import { darkStyle, lightStyle } from "./scrolling.js"
 
 $(document).ready(() => {
+  $("#btn-menu").on("click", () => {
+    lightStyle();
+  });
+  $("#btn-home").on("click", () => {
+    darkStyle();
+  });
   $("#btn-login").on("click", (e) => {
     $(e.delegateTarget).addClass("hide");
     $("#loginLoading").removeClass("hide");

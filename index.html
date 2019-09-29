@@ -15,15 +15,36 @@
   <script type="module" src="./js/myjs.js"></script>
   <script>
     $(document).ready(() => {
-      $(".container").load("./home.html");
-      $("a").on("click",()=>{
+      const footerMarginFix = () => {
+        $(".margin").css("marginBottom", $(".content:first").height());
+      }
+
+      const marginFix = () => {
+        setTimeout(footerMarginFix, 50)
+        if (window.home) {
+          $(".container:first").parent(0).css("margin-top", "0");
+        } else {
+          $(".container:first").parent(0).css("margin-top", "100px");
+        }
+      }
+      setTimeout(footerMarginFix, 500)
+      $(window).resize(footerMarginFix);
+
+      $(".container:first").load("./home.html");
+      window.home = true;
+      $("#btn-home, #btn-menu").on("click", () => {
         $(window).scrollTop("0");
       });
-      $("#btn-home").on("click",()=>{
-        $(".container").load("./home.html");
+
+      $("#btn-home").on("click", () => {
+        $(".container:first").load("./home.html");
+        window.home = true;
+        marginFix();
       });
-      $("#btn-menu").on("click",()=>{
-        $(".container").load("./menu.html");
+      $("#btn-menu").on("click", () => {
+        $(".container:first").load("./menu.html");
+        window.home = false;
+        marginFix();
       });
     });
   </script>
@@ -128,11 +149,18 @@
   <!-- Login Modal -->
 
   <!-- main content -->
-  <div class="container">
-    <!-- Content here -->
-  </div>
-  <!-- main content -->
+  <div>
+    <div class="container">
+      <!-- Content here -->
+    </div>
+    <div class="card-footer text-muted" style="position:relative">
+      <div class="container">
+        <p>Copyright 2019 Yummy Everywhere</p>
+      </div>
 
+    </div>
+    <!-- main content -->
+  </div>
 </body>
 
 </html>
