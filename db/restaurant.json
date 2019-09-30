@@ -1,0 +1,11 @@
+{
+    "Restaurant":{
+        "1":{
+            "id":1,
+            "name":"McDonald's",
+            "address":"McDelivery 1F",
+            "tel":"23382338",
+            "join_date":"1-10-2019"
+        }
+    }
+}

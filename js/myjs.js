@@ -1,6 +1,6 @@
 import * as Login from './login.js';
 import './profile.js';
-import { darkStyle, lightStyle } from "./scrolling.js"
+import { darkStyle, lightStyle } from "./scrolling.js";
 
 // animation
 window.sr = ScrollReveal(); // declare animation object
@@ -13,13 +13,25 @@ $(document).ready(() => {
     window.home = true;
     setTimeout(footerMarginFix, 50);
     marginFix();
+    darkStyle();
   };
 
   const menuPage = () => {
     $(".main-content").load("./menu.html");
     window.home = false;
     marginFix();
+    lightStyle();
+    setSecondDirectory("Menu");
   };
+
+  const managePage = (name,url) => {
+    $(".main-content").load(`./${url}`);
+    window.home = false;
+    marginFix();
+    lightStyle();
+    setSecondDirectory(name);
+
+  }
 
   const marginFix = () => {
     if (window.home) {
@@ -29,6 +41,10 @@ $(document).ready(() => {
       $("#directory").removeClass("hide");
     }
   }
+
+  const setSecondDirectory = (name) => {
+    $("#directory>ol>li:nth-child(2)").text(name);
+  };
 
   //fix home footer 
   const footerMarginFix = () => {
@@ -41,12 +57,6 @@ $(document).ready(() => {
   } else {
     $("#btn-ac").attr("data-target", "#loginModal");
   }
-  $("#btn-menu").on("click", () => {
-    lightStyle();
-  });
-  $(".btn-home").on("click", () => {
-    darkStyle();
-  });
 
   $(window).resize(footerMarginFix);
   homePage();
@@ -62,6 +72,15 @@ $(document).ready(() => {
   });
   $("#btn-menu").on("click", () => {
     menuPage();
+  });
+  // $(".btn-manage").on("click",()=> {
+  //   managePage();
+  // });
+  $(".btn-manage-restaurant").on("click",()=>{
+    managePage(`${$(".btn-manage").text()} / ${$(".btn-manage-restaurant").text()}`,"manage_restaurant.html");
+  });
+  $(".btn-manage-user").on("click",()=>{
+    managePage(`${$(".btn-manage").text()} / ${$(".btn-manage-user").text()}`,"manage_user.html");
   });
 
 

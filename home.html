@@ -27,14 +27,13 @@
             $(window).resize(resizeCarousel);
 
             // animation
-            window.sr = ScrollReveal();
-            sr.reveal('.info-left>img,.info-left>.info', {
+            ScrollReveal().reveal('.info-left>img,.info-left>.info', {
                 duration: 3000,
                 origin: 'left',
                 distance: '100px',
                 viewFactor: 0.4,
             });
-            sr.reveal('.info-right>img,.info-right>.info', {
+            ScrollReveal().reveal('.info-right>img,.info-right>.info', {
                 duration: 3000,
                 origin: 'right',
                 distance: '100px',
