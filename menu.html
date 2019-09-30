@@ -6,6 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script>
+        $(document).ready(() => {
+            setTimeout(() => {
+                $(".card").css("opacity", "1");
+            }, 50);
+
+        });
+    </script>
+    <style>
+        .card {
+            opacity: 0;
+            transition: all 1.5s;
+        }
+    </style>
 </head>
 
 <body>
@@ -81,20 +95,20 @@
                     </div>
                 </div>
                 <div class="card mb-2">
-                        <img class="card-img-top img-fluid" src="./img/mcdonald/pineapple_mcspicy.png" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Pineapple McSpicy</h5>
-                        </div>
-                        <div class="card-footer text-muted btn-add">
-                            <div class="text-monospace">
-                                From $30.00
-                                <button type="button" class="btn btn-outline-info" style="float: right;">
-                                   ADD
-                                </button>
-                            </div>
-    
-                        </div>
+                    <img class="card-img-top img-fluid" src="./img/mcdonald/pineapple_mcspicy.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Pineapple McSpicy</h5>
                     </div>
+                    <div class="card-footer text-muted btn-add">
+                        <div class="text-monospace">
+                            From $30.00
+                            <button type="button" class="btn btn-outline-info" style="float: right;">
+                                ADD
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>

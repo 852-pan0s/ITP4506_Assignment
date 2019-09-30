@@ -20,22 +20,30 @@
     </style>
     <script>
         $(document).ready(() => {
+            const resizeCarousel = () => {
+                $(".carousel-item>img").css("maxHeight", window.innerHeight);
+            }
+            resizeCarousel();
+            $(window).resize(resizeCarousel);
+
             // animation
             window.sr = ScrollReveal();
-            sr.reveal('.info-left>img', {
+            sr.reveal('.info-left>img,.info-left>.info', {
                 duration: 3000,
                 origin: 'left',
                 distance: '100px',
-                viewFactor: 0.2,
+                viewFactor: 0.4,
             });
-            sr.reveal('.info-right>p', {
+            sr.reveal('.info-right>img,.info-right>.info', {
                 duration: 3000,
                 origin: 'right',
                 distance: '100px',
-                viewFactor: 0.2,
+                viewFactor: 0.4,
             });
         });
     </script>
+    <style>
+    </style>
 </head>
 
 <body>
@@ -91,14 +99,28 @@
                         </div>
                         <div class="col-md-6 col-sm-6">
                             <div class="info-right">
-                        
-                                <p>InnoTech HK Inc.<br>
+                                <div class="info">
+                                    <h4>InnoTech HK Inc.</h4>
                                     Yummy Everywhere provides an online portal for customers to browse takeaway menus
                                     of various restaurants in Hong Kong. Therefore, it provides services to two parties,
                                     restaurants and customers. You are the designer of this online portal. In order to
                                     develop a user-centered web application, you are going to create a prototype for the
                                     UI first.
-                                </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="info-left">
+                                <div class="info">
+                                    <h4>Make Order</h4>
+                                    Yummy Everywhere provides an easy and quick way to let you place order!<br>
+                                    <button type="button" class="btn btn-primary">Place Order Now</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="info-right">
+                                <img src="./img/Food-Delivery-App.jpg" alt="">
                             </div>
                         </div>
                     </div>
@@ -107,7 +129,7 @@
             </div>
         </section>
     </div>
-    <div class="margin">123</div>
+    <div class="margin">.</div>
 </body>
 
 </html>

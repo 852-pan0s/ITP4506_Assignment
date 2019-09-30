@@ -16,52 +16,21 @@
   <link rel="stylesheet" href="./bootstrap-4.3.1-dist/css/bootstrap.min.css">
   <script src="./bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 
+  <!-- scroll animation -->
+  <script src="https://unpkg.com/scrollreveal"></script>
+
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="./css/mycss.css">
+
   <script type="module" src="./js/myjs.js"></script>
-  <script>
-    $(document).ready(() => {
-      const footerMarginFix = () => {
-        $(".margin").css("marginBottom", $(".content:first").height());
-      }
-
-      const marginFix = () => {
-        setTimeout(footerMarginFix, 50)
-        if (window.home) {
-          $(".container:first").parent(0).css("margin-top", "0");
-        } else {
-          $(".container:first").parent(0).css("margin-top", "100px");
-        }
-      }
-      setTimeout(footerMarginFix, 500)
-      $(window).resize(footerMarginFix);
-
-      $(".container:first").load("./home.html");
-      window.home = true;
-      $("#btn-home, #btn-menu").on("click", () => {
-        $(window).scrollTop("0");
-      });
-
-      $("#btn-home").on("click", () => {
-        $(".container:first").load("./home.html");
-        window.home = true;
-        marginFix();
-      });
-      $("#btn-menu").on("click", () => {
-        $(".container:first").load("./menu.html");
-        window.home = false;
-        marginFix();
-      });
-    });
-  </script>
 
 
 </head>
 
 <body>
   <!-- navigation bar -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top absolute-top" id="navbar">
-    <a class="navbar-brand" href="#home" id="btn-home">Yummy Everywhere</a>
+  <nav class="navbar navbar-expand-sm navbar-dark fixed-top absolute-top animationTop" id="navbar">
+    <a class="navbar-brand btn-home" href="#home">Yummy Everywhere</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -85,6 +54,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+        <li class="nav-item admin hide">
+          <button type="button" class="btn btn-outline-success btn-manage ">Manage</button>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0" style="margin: 0 10px">
@@ -120,13 +92,12 @@
             <div class="form-group">
               <div class="hide" id="profileEditFailMsg" style="color: red"></div>
               <label for="username">Username</label>
-              <input type="email" class="form-control" name="username"
-                aria-describedby="emailHelp" placeholder="Enter your username" disabled>
+              <input type="email" class="form-control" name="username" aria-describedby="emailHelp"
+                placeholder="Enter your username" disabled>
             </div>
             <div class="form-group">
               <label for="password">Password</label>
-              <input type="password" class="form-control" name="password" 
-                placeholder="Password">
+              <input type="password" class="form-control" name="password" placeholder="Password">
             </div>
             <!-- <button type="button" class="btn btn-outline-primary" id="btn-login">Login</button> -->
             <div class="modal-footer">
@@ -163,13 +134,12 @@
             <div class="form-group">
               <div class="hide" id="loginFailMsg" style="color: red"></div>
               <label for="username">Username</label>
-              <input type="email" class="form-control" name="username" id="username"
-                aria-describedby="emailHelp" placeholder="Enter your username">
+              <input type="email" class="form-control" name="username" id="username" aria-describedby="emailHelp"
+                placeholder="Enter your username">
             </div>
             <div class="form-group">
               <label for="password">Password</label>
-              <input type="password" class="form-control" name="password" id="password"
-                placeholder="Password">
+              <input type="password" class="form-control" name="password" id="password" placeholder="Password">
             </div>
             <div class="form-group form-check">
               <input type="checkbox" class="form-check-input" id="remember">
@@ -198,17 +168,30 @@
   <!-- main content -->
   <div>
     <div class="container">
+      <!-- directory -->
+      <nav aria-label="breadcrumb" id="directory">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#home" class="btn-home">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Menu</li>
+        </ol>
+      </nav>
+      <div class="main-content"></div>
       <!-- Content here -->
     </div>
-    <div class="card-footer text-muted" style="position:relative">
-      <div class="container">
-        <p>Copyright 2019 Yummy Everywhere</p>
-      </div>
 
-    </div>
-    <!-- main content -->
   </div>
+  <!-- main content -->
+  <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+    <div class="container text-center">
+      <small>Copyright &copy; InnoTech HK Inc. - Yummy Everywhere</small>
+    </div>
+  </footer>
 
+  <script>
+    setTimeout(()=>{
+      
+    },1000);
+  </script>
 </body>
 
 </html>

@@ -1,10 +1,11 @@
 .absolute-top {
     position: absolute;
-    top: -6px;
+    top:-6px;
 }
 
-.navbar {
-    transition: all 0.4s;
+.animationTop {
+    transition: top 0.5s ;
+    transition: background-color 0.3s;
 }
 
 .carouselExampleCaptions {
@@ -14,6 +15,10 @@
 
 .hide {
     display: none;
+}
+
+.navbar{
+    font-family: Poppins;
 }
 
 @media (min-width:768px) {

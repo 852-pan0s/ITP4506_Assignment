@@ -1,5 +1,7 @@
 // the file needs to run with jQuery.
-const get = (username, password) => {
+window.user = {};
+
+const get = () => {
     return $.getJSON("../db/users.json").then((data) => {
         return data;
     });
@@ -9,6 +11,20 @@ const showErrorMsg = (msg) => {
     $("#loginFailMsg").removeClass("hide");
     $("#loginFailMsg").text(msg);
 }
+
+const adminFunc = () => {
+    if (user != null && user.type === "administrator") {
+        $(".admin").removeClass("hide");
+    } else {
+        $(".admin").addClass("hide");
+    }
+}
+const loadUser = () => {
+    window.user = JSON.parse(sessionStorage.getItem("user"));
+    adminFunc();
+};
+
+adminFunc();
 
 $("#username, #password").on("keydown", () => {
     $("#loginFailMsg").addClass("hide");
@@ -49,8 +65,11 @@ $("#btn-login").on("click", (e) => {
         setTimeout(() => {
             $("#username, #password, #remember").removeAttr("disabled");
             if (isValid) {
+                user = JSON.parse(sessionStorage.getItem("user"));
+                adminFunc();
                 $("#loginModal").modal('hide');
-                $("#btn-ac").attr("data-target","#profileModal");
+                $("#btn-ac").attr("data-target", "#profileModal");
+
             } else {
                 showErrorMsg("Your username or password is wrong!");
             }
@@ -60,3 +79,5 @@ $("#btn-login").on("click", (e) => {
         /* Login function*/
     }
 });
+
+export { loadUser };

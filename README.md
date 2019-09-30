@@ -6,4 +6,4 @@ Group members (Github username):
 * WAN Tung Ling (tuningwan)
 
 ## Requirement
-* These HTML files can be run on the server perfectly only so you may need to install xampp first.
+* These HTML files can be ran on the server perfectly only so you may need to install xampp first.
