@@ -1,13 +1,14 @@
 import * as Login from './login.js';
 import './profile.js';
+// import './restaurant.js';
 import { darkStyle, lightStyle } from "./scrolling.js";
 
 // animation
 window.sr = ScrollReveal(); // declare animation object
-
+var homePage;
 $(document).ready(() => {
   //***************** Declare Functions *****************/ 
-  const homePage = () => {
+  homePage = () => {
     $(".main-content").load("./home.html");
     $("#directory").addClass("hide");
     window.home = true;
@@ -24,7 +25,7 @@ $(document).ready(() => {
     setSecondDirectory("Menu");
   };
 
-  const managePage = (name,url) => {
+  const managePage = (name, url) => {
     $(".main-content").load(`./${url}`);
     window.home = false;
     marginFix();
@@ -76,14 +77,16 @@ $(document).ready(() => {
   // $(".btn-manage").on("click",()=> {
   //   managePage();
   // });
-  $(".btn-manage-restaurant").on("click",()=>{
-    managePage(`${$(".btn-manage").text()} / ${$(".btn-manage-restaurant").text()}`,"manage_restaurant.html");
+  $(".btn-manage-restaurant").on("click", () => {
+    managePage(`${$(".btn-manage").text()} / ${$(".btn-manage-restaurant").text()}`, "manage_restaurant.html");
   });
-  $(".btn-manage-user").on("click",()=>{
-    managePage(`${$(".btn-manage").text()} / ${$(".btn-manage-user").text()}`,"manage_user.html");
+  $(".btn-manage-user").on("click", () => {
+    managePage(`${$(".btn-manage").text()} / ${$(".btn-manage-user").text()}`, "manage_user.html");
   });
 
 
   /**Admin function */
   Login.loadUser();
 });
+
+export { homePage}

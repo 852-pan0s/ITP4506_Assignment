@@ -7,14 +7,50 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script>
-        // animation
-        ScrollReveal().reveal('.jumbotron-fluid', {
-            duration: 1000,
-            origin: 'bottom',
-            distance: '100px',
-            viewFactor: 0.4,
+        get = () => {
+            return $.getJSON("../db/restaurant.json", (data) => {
+                $.each(data, (key, val) => {
+                    $.each(val, (idx, res) => {
+                        var info = `
+                        <tr class="tr-hover">
+                             <th scope="row">${res.id}</th>
+                            <td>${res.name}</td>
+                            <td>${res.address}</td>
+                            <td>${res.tel}</td>
+                            <td>${res.join_date}</td>
+                            <td>
+                                <button type="button" class="btn btn-outline-info">Edit</button>
+                                <button type="button" class="btn btn-outline-primary">Menu</button>
+                            </td>
+                         </tr>`;
+                        $("#restaurant-list").append(info);
+                    });
+
+                });
+
+                // $("#restaurant-list").append()
+            }).then((data) => {
+                return data;
+            });
+        };
+
+        restaurants = {};
+        $(document).ready(() => {
+            get().then((data) => {
+                restaurants = data;
+            });
         });
     </script>
+    <style>
+        .tr-hover {
+            background-color: #ffffff;
+            transition: background-color 0.5s;
+        }
+
+        .tr-hover:hover {
+            background-color: #d8d8d8;
+        }
+    </style>
 </head>
 
 <body>
@@ -23,40 +59,71 @@
         <div class="container">
             <h1 class="display-4">Restaurants Management</h1>
             <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-            <a class="btn btn-primary btn-lg" href="#" role="button">New Restaurant</a>
+            <a class="btn btn-primary btn-lg" href="#" role="button" data-toggle="modal"
+                data-target="#restaurantModal">New Restaurant</a>
             <hr class="my-4">
-            <table class="table table-hover">
+            <table class="table table-hover" id="restaurant-list">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Telephone</th>
+                        <th scope="col">Join Date</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
+                <tbody id="restaurant-list">
                 </tbody>
             </table>
         </div>
     </div>
+
+    <!-- New Restaurant Modal -->
+    <div class="modal fade" id="restaurantModal" tabindex="-1" role="dialog" aria-labelledby="new-restaurant"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="new-restaurant">New Restaurant</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="login.html" method="get" id="loginForm">
+                        <div class="form-group">
+                            <div class="hide" id="loginFailMsg" style="color: red"></div>
+                            <label for="res-name">Name</label>
+                            <input type="email" class="form-control" name="res-name" id="res-name"
+                                aria-describedby="emailHelp" placeholder="Enter your username">
+                        </div>
+                        <!-- <button type="button" class="btn btn-outline-primary" id="btn-login">Login</button> -->
+                        <div class="modal-footer">
+                            <button class="btn btn-primary hide" id="new-loading" type="button" disabled>
+                                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                Loading...
+                            </button>
+                            <button type="button" class="btn btn-outline-primary" id="btn-new">New</button>
+                        </div>
+                </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- New Restaurant Modal -->
+
+    <script>
+        // animation
+        ScrollReveal().reveal('.jumbotron-fluid', {
+            duration: 1000,
+            origin: 'bottom',
+            distance: '100px',
+            viewFactor: 0.4,
+        });
+    </script>
 </body>
 
 </html>
