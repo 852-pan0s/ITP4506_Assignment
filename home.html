@@ -6,7 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home</title>
+    <style>
+        .info-left>img,
+        .info-right>img {
+            width: 100%;
+            height: 230px;
+        }
 
+        .info-right,
+        .info-left {
+            margin-top: 100px;
+        }
+    </style>
+    <script>
+        $(document).ready(() => {
+            // animation
+            window.sr = ScrollReveal();
+            sr.reveal('.info-left>img', {
+                duration: 3000,
+                origin: 'left',
+                distance: '100px',
+                viewFactor: 0.2,
+            });
+            sr.reveal('.info-right>p', {
+                duration: 3000,
+                origin: 'right',
+                distance: '100px',
+                viewFactor: 0.2,
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -50,64 +79,35 @@
             </a>
         </div>
 
-        <div class="container">
-            <h4 id="fat">@fat</h4>
-            <p>Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui.
-                Tumblr
-                farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
-                booth 3
-                wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't
-                heard of
-                them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony
-                biodiesel keffiyeh artisan ullamco consequat.</p>
-            <h4 id="mdo">@mdo</h4>
-            <p>Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui.
-                Tumblr
-                farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
-                booth 3
-                wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't
-                heard of
-                them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony
-                biodiesel keffiyeh artisan ullamco consequat.</p>
-            <h4 id="one">one</h4>
-            <p>Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui.
-                Tumblr
-                farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
-                booth 3
-                wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't
-                heard of
-                them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony
-                biodiesel keffiyeh artisan ullamco consequat.</p>
-            <h4 id="two">two</h4>
-            <p>Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui.
-                Tumblr
-                farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
-                booth 3
-                wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't
-                heard of
-                them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus, cred irony
-                biodiesel keffiyeh artisan ullamco consequat.</p>
-            <h4 id="three">three</h4>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-    
+        <section id="info1">
 
-        </div>
+            <div class="container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="info-left">
+                                <img src="./img/about-us.jpg" alt="">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="info-right">
+                        
+                                <p>InnoTech HK Inc.<br>
+                                    Yummy Everywhere provides an online portal for customers to browse takeaway menus
+                                    of various restaurants in Hong Kong. Therefore, it provides services to two parties,
+                                    restaurants and customers. You are the designer of this online portal. In order to
+                                    develop a user-centered web application, you are going to create a prototype for the
+                                    UI first.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
     </div>
     <div class="margin">123</div>
-
 </body>
 
 </html>
