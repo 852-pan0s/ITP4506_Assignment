@@ -8,6 +8,7 @@
     <title>Document</title>
     <script>
         var restaurants = getSessionObj("restaurants");
+        var selectedRow = null;
         var getRestaurants = () => {
             return $.getJSON("../db/restaurant.json").then((data) => {
                 return data;
@@ -35,7 +36,7 @@
                             <td>${res.tel}</td>
                             <td>${res.join_date}</td>
                             <td>
-                                <button type="button" class="btn btn-outline-info btn-edit-restaurant" data-toggle="modal"
+                                <button type="button" class="btn btn-outline-info btn-edit-restaurant" onclick="editRestaurant(this)" data-toggle="modal"
                 data-target="#restaurantModal">Edit</button>
                                 <button type="button" class="btn btn-outline-primary btn-edit-menu">Menu</button>
                                 <button type="button" class="btn btn-outline-success btn-edit-branch">Branch</button>
@@ -46,7 +47,7 @@
 
         var checkAllData = () => {
             var input = $("#restaurantForm input");
-            var isValid = true
+            var isValid = true;
             $.each(input, (idx, val) => {
                 isValid = checkData(val);
             });
@@ -58,56 +59,72 @@
             var isValid = true
             if ($(element).val() === "") {
                 $(element).addClass("is-invalid");
-                isValid = true;
+                isValid = false;
             } else {
                 $(element).removeClass("is-invalid");
-                isValid = false;
+                isValid = true;
             }
             return isValid;
         }
 
+        var editRestaurant = (element) => {
+            var i = 0;
+            $.each($($(element)).parent().siblings(), (key, res_data) => {
+                $($("#restaurantForm input")[i++]).val($(res_data).text());
+            });
+            $("#btn-new").text("Save");
+            $("#new-restaurant").text("Edit Restaurant");
+            selectedRow = $(element).parent().parent();
+            console.log(selectedRow);
+        }
 
+        var updateRow = (name, address, telephone, element) =>{
+            $($(selectedRow).children()[1]).text(name);
+            $($(selectedRow).children()[2]).text(address);
+            $($(selectedRow).children()[3]).text(telephone);
+        }
 
         $(document).ready(() => {
             loadRestaurants();
-            //add new restaurant
+            //add new restaurant form
             $("#btn-new-restaurant").on("click", () => {
                 $("#restaurantForm input").val("");
                 $("#btn-new").text("New");
                 $("#res-id").val(Object.keys(restaurants).length + 1);
                 $("#res-join-date").val(today);
                 $("#new-restaurant").text("New Restaurant");
+                $(".is-invalid").removeClass("is-invalid");
             });
 
-
+            //add new restaurant
             $("#btn-new").on("click", (e) => {
-                if ($(e.delegateTarget).text() === "New") {
-                    if (checkAllData()) {
+                if (checkAllData()) {
+                    if ($("#res-telephone").val().length === 8) {
+                        $("#res-telephone").removeClass("is-invalid");
                         var id = $("#res-id").val();
+                        var name = $("#res-name").val();
+                        var address = $("#res-address").val();
+                        var telephone =$("#res-telephone").val();
                         restaurants[id] = {
                             "id": id,
-                            "name": $("#res-name").val(),
-                            "address": $("#res-address").val(),
-                            "tel": $("#res-telephone").val(),
+                            "name": name,
+                            "address": address,
+                            "tel": telephone,
                             "join_date": $("#res-join-date").val(),
                             "stop": false
                         };
                         setSessionObj("restaurants", restaurants);
-                        appendTable(restaurants[id]);
+                        $("#restaurantModal").modal("hide");
+                        if($(e.delegateTarget).text()==="Save" && selectedRow !== null){
+                            updateRow(name,address,telephone,e.delegateTarget);
+                        }else{
+                            appendTable(restaurants[id]);
+                        }
+                    } else {
+                        $("#res-telephone").addClass("is-invalid");
                     }
-                } else {
-
                 }
-            });
 
-            $("button.btn-edit-restaurant").on("click", (e) => {
-                var i = 0;
-                $.each($(e.delegateTarget).parent().siblings(), (key, res_data) => {
-                    $($("#restaurantForm input")[i++]).val($(res_data).text());
-
-                });
-                $("#btn-new").text("Save");
-                $("#new-restaurant").text("Edit Restaurant");
             });
 
             //on key down event
@@ -116,8 +133,8 @@
             });
             $("#res-telephone").on("keyup", (e) => {
                 var phone = $(e.delegateTarget);
-                if(phone.val().length >8){
-                    phone.val(phone.val().substring(0,8));
+                if (phone.val().length > 8) {
+                    phone.val(phone.val().substring(0, 8));
                 }
             });
 
@@ -191,7 +208,7 @@
                             <label for="res-id" class="col-sm-3 col-form-label">ID#:</label>
                             <div class="col-sm-2">
                                 <input type="text" class="form-control-plaintext" name="res-id" id="res-id"
-                                    placeholder="Enter your username">
+                                    placeholder="Enter your username" readonly>
                             </div>
 
                         </div>
@@ -226,7 +243,7 @@
                                 <input type="number" class="form-control col-sm-5" name="res-telephone"
                                     id="res-telephone" placeholder="Enter tel.">
                                 <div class="invalid-feedback" id="invalid-telephone">
-                                    Please enter the telephone of the restaurant.
+                                    Please enter the telephone of the restaurant. (8 lengths)
                                 </div>
                             </div>
 
@@ -235,7 +252,7 @@
                             <label for="res-join-date" class="col-sm-3 col-form-label">Join date</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control-plaintext" name="res-join-date"
-                                    id="res-join-date" placeholder="Enter restaurant Join date">
+                                    id="res-join-date" placeholder="Enter restaurant Join date" readonly>
                             </div>
                         </div>
                         <!-- <button type="button" class="btn btn-outline-primary" id="btn-login">Login</button> -->
