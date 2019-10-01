@@ -7,38 +7,120 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script>
-        get = () => {
-            return $.getJSON("../db/restaurant.json", (data) => {
-                $.each(data, (key, val) => {
-                    $.each(val, (idx, res) => {
-                        var info = `
-                        <tr class="tr-hover">
+        var restaurants = getSessionObj("restaurants");
+        var getRestaurants = () => {
+            return $.getJSON("../db/restaurant.json").then((data) => {
+                return data;
+            });
+        };
+        getRestaurants().then((data) => {
+            if (restaurants === null) {
+                setSessionObj("restaurants", data.Restaurant);
+                restaurants = getSessionObj("restaurants");
+                loadRestaurants();
+            }
+        });
+
+
+        loadRestaurants = () => {
+            $.each(restaurants, (idx, res) => {
+                appendTable(res);
+            });
+        }
+        appendTable = (res) => {
+            info = `<tr class="tr-hover">
                              <th scope="row">${res.id}</th>
                             <td>${res.name}</td>
                             <td>${res.address}</td>
                             <td>${res.tel}</td>
                             <td>${res.join_date}</td>
                             <td>
-                                <button type="button" class="btn btn-outline-info">Edit</button>
-                                <button type="button" class="btn btn-outline-primary">Menu</button>
+                                <button type="button" class="btn btn-outline-info btn-edit-restaurant" data-toggle="modal"
+                data-target="#restaurantModal">Edit</button>
+                                <button type="button" class="btn btn-outline-primary btn-edit-menu">Menu</button>
+                                <button type="button" class="btn btn-outline-success btn-edit-branch">Branch</button>
                             </td>
                          </tr>`;
-                        $("#restaurant-list").append(info);
-                    });
+            $("#restaurant-list").append(info);
+        }
 
-                });
-
-                // $("#restaurant-list").append()
-            }).then((data) => {
-                return data;
+        var checkAllData = () => {
+            var input = $("#restaurantForm input");
+            var isValid = true
+            $.each(input, (idx, val) => {
+                isValid = checkData(val);
             });
+            return isValid;
+
         };
 
-        restaurants = {};
+        var checkData = (element) => {
+            var isValid = true
+            if ($(element).val() === "") {
+                $(element).addClass("is-invalid");
+                isValid = true;
+            } else {
+                $(element).removeClass("is-invalid");
+                isValid = false;
+            }
+            return isValid;
+        }
+
+
+
         $(document).ready(() => {
-            get().then((data) => {
-                restaurants = data;
+            loadRestaurants();
+            //add new restaurant
+            $("#btn-new-restaurant").on("click", () => {
+                $("#restaurantForm input").val("");
+                $("#btn-new").text("New");
+                $("#res-id").val(Object.keys(restaurants).length + 1);
+                $("#res-join-date").val(today);
+                $("#new-restaurant").text("New Restaurant");
             });
+
+
+            $("#btn-new").on("click", (e) => {
+                if ($(e.delegateTarget).text() === "New") {
+                    if (checkAllData()) {
+                        var id = $("#res-id").val();
+                        restaurants[id] = {
+                            "id": id,
+                            "name": $("#res-name").val(),
+                            "address": $("#res-address").val(),
+                            "tel": $("#res-telephone").val(),
+                            "join_date": $("#res-join-date").val(),
+                            "stop": false
+                        };
+                        setSessionObj("restaurants", restaurants);
+                        appendTable(restaurants[id]);
+                    }
+                } else {
+
+                }
+            });
+
+            $("button.btn-edit-restaurant").on("click", (e) => {
+                var i = 0;
+                $.each($(e.delegateTarget).parent().siblings(), (key, res_data) => {
+                    $($("#restaurantForm input")[i++]).val($(res_data).text());
+
+                });
+                $("#btn-new").text("Save");
+                $("#new-restaurant").text("Edit Restaurant");
+            });
+
+            //on key down event
+            $("#res-name,#res-telephone,#res-address").on("keyup", (e) => {
+                checkData(e.delegateTarget);
+            });
+            $("#res-telephone").on("keyup", (e) => {
+                var phone = $(e.delegateTarget);
+                if(phone.val().length >8){
+                    phone.val(phone.val().substring(0,8));
+                }
+            });
+
         });
     </script>
     <style>
@@ -50,6 +132,19 @@
         .tr-hover:hover {
             background-color: #d8d8d8;
         }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            /* display: none; <- Crashes Chrome on hover */
+            -webkit-appearance: none;
+            margin: 0;
+            /* <-- Apparently some margin are still there even though it's hidden */
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+            /* Firefox */
+        }
     </style>
 </head>
 
@@ -59,7 +154,7 @@
         <div class="container">
             <h1 class="display-4">Restaurants Management</h1>
             <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-            <a class="btn btn-primary btn-lg" href="#" role="button" data-toggle="modal"
+            <a class="btn btn-primary btn-lg" id="btn-new-restaurant" href="#" role="button" data-toggle="modal"
                 data-target="#restaurantModal">New Restaurant</a>
             <hr class="my-4">
             <table class="table table-hover" id="restaurant-list">
@@ -82,7 +177,7 @@
     <!-- New Restaurant Modal -->
     <div class="modal fade" id="restaurantModal" tabindex="-1" role="dialog" aria-labelledby="new-restaurant"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered  " role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="new-restaurant">New Restaurant</h5>
@@ -91,12 +186,57 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="login.html" method="get" id="loginForm">
-                        <div class="form-group">
-                            <div class="hide" id="loginFailMsg" style="color: red"></div>
-                            <label for="res-name">Name</label>
-                            <input type="email" class="form-control" name="res-name" id="res-name"
-                                aria-describedby="emailHelp" placeholder="Enter your username">
+                    <form action="#" method="get" id="restaurantForm">
+                        <div class="form-group row">
+                            <label for="res-id" class="col-sm-3 col-form-label">ID#:</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control-plaintext" name="res-id" id="res-id"
+                                    placeholder="Enter your username">
+                            </div>
+
+                        </div>
+                        <!-- Name -->
+                        <div class="form-group row">
+                            <div class="hide" id="editRestaurantError" style="color: red"></div>
+                            <label for="res-name" class="col-sm-3 col-form-label">Name:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="res-name" id="res-name"
+                                    placeholder="Enter name">
+                                <div class="invalid-feedback" id="invalid-name">
+                                    Please enter the name of the restaurant.
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Address -->
+                        <div class="form-group row">
+                            <label for="res-address" class="col-sm-3 col-form-label">Address:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="res-address" id="res-address"
+                                    placeholder="Enter address">
+                                <div class="invalid-feedback " id="invalid-address">
+                                    Please enter the address of the restaurant.
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- telephone -->
+                        <div class="form-group row">
+                            <label for="res-telephone" class="col-sm-3 col-form-label">Telephone:</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control col-sm-5" name="res-telephone"
+                                    id="res-telephone" placeholder="Enter tel.">
+                                <div class="invalid-feedback" id="invalid-telephone">
+                                    Please enter the telephone of the restaurant.
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <label for="res-join-date" class="col-sm-3 col-form-label">Join date</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control-plaintext" name="res-join-date"
+                                    id="res-join-date" placeholder="Enter restaurant Join date">
+                            </div>
                         </div>
                         <!-- <button type="button" class="btn btn-outline-primary" id="btn-login">Login</button> -->
                         <div class="modal-footer">
@@ -104,7 +244,7 @@
                                 <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
                                 Loading...
                             </button>
-                            <button type="button" class="btn btn-outline-primary" id="btn-new">New</button>
+                            <button type="button" class="btn btn-outline-warning" id="btn-new">New</button>
                         </div>
                 </div>
                 </form>

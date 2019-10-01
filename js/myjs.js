@@ -1,7 +1,29 @@
 import * as Login from './login.js';
 import './profile.js';
-// import './restaurant.js';
 import { darkStyle, lightStyle } from "./scrolling.js";
+
+window.today = () => {
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = today.getFullYear();
+
+  today = dd + '-' + mm + '-' + yyyy;
+  return today;
+}
+
+window.setSessionObj = (session, obj) => {
+  sessionStorage.setItem(session, JSON.stringify(obj));
+}
+
+window.getSessionObj = (session) => {
+  return JSON.parse(sessionStorage.getItem(session));
+}
+
+window.isLoad = {
+  "restaurants": false,
+};
+
 
 // animation
 window.sr = ScrollReveal(); // declare animation object
@@ -89,4 +111,4 @@ $(document).ready(() => {
   Login.loadUser();
 });
 
-export { homePage}
+export { homePage }
