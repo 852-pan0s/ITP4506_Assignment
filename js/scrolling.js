@@ -1,8 +1,19 @@
+var hide = false;
 $(window).scroll(() => {
     if (window.home) {
         if ($(window).scrollTop() > 50) { //if the scroll axis Y is more than 100
-            lightStyle();
+            if(!hide){
+                $("#navbar").css("top", "-100px");
+                $("#navbar").css("transition", "top 0");
+                hide = true;
+            }
+            if($(window).scrollTop() > 200){
+                $("#navbar").css("transition", "top 0.5s");
+                lightStyle();
+            }
         } else {
+            hide = false;
+            $("#navbar").css("transition", "top 0.5s");
             darkStyle();
         }
     }

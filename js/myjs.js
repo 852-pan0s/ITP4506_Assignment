@@ -82,6 +82,7 @@ $(document).ready(() => {
   }
 
   $(window).resize(footerMarginFix);
+  $(window).scroll(footerMarginFix)
   homePage();
 
 
