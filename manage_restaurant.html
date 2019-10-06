@@ -5,96 +5,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script type="module" src="./js/restaurant.js"></script>
     <title>Document</title>
     <script>
-        var restaurants = getSessionObj("restaurants");
-        var selectedRow = null;
-        var getRestaurants = () => {
-            return $.getJSON("../db/restaurant.json").then((data) => {
-                return data;
-            });
-        };
-        getRestaurants().then((data) => {
-            if (restaurants === null) {
-                setSessionObj("restaurants", data.Restaurant);
-                restaurants = getSessionObj("restaurants");
-                loadRestaurants();
+        $(() => {
+            if (typeof loadBranch !== "undefined") {
+                loadBranch();
             }
-        });
-
-
-        loadRestaurants = () => {
-            $.each(restaurants, (idx, res) => {
-                appendTable(res);
-            });
-        }
-        appendTable = (res) => {
-            info = `<tr class="tr-hover">
-                             <th scope="row">${res.id}</th>
-                            <td>${res.name}</td>
-                            <td>${res.address}</td>
-                            <td>${res.tel}</td>
-                            <td>${res.join_date}</td>
-                            <td>
-                                <button type="button" class="btn btn-outline-info btn-edit-restaurant" onclick="editRestaurant(this)" data-toggle="modal"
-                data-target="#restaurantModal">Edit</button>
-                                <button type="button" class="btn btn-outline-primary btn-edit-menu">Menu</button>
-                                <button type="button" class="btn btn-outline-success btn-edit-branch">Branch</button>
-                            </td>
-                         </tr>`;
-            $("#restaurant-list").append(info);
-        }
-
-        var checkAllData = () => {
-            var input = $("#restaurantForm input");
-            var isValid = true;
-            $.each(input, (idx, val) => {
-                isValid = checkData(val);
-            });
-            return isValid;
-
-        };
-
-        var checkData = (element) => {
-            var isValid = true
-            if ($(element).val() === "") {
-                $(element).addClass("is-invalid");
-                isValid = false;
-            } else {
-                $(element).removeClass("is-invalid");
-                isValid = true;
-            }
-            return isValid;
-        }
-
-        var editRestaurant = (element) => {
-            var i = 0;
-            $.each($($(element)).parent().siblings(), (key, res_data) => {
-                $($("#restaurantForm input")[i++]).val($(res_data).text());
-            });
-            $("#btn-new").text("Save");
-            $("#new-restaurant").text("Edit Restaurant");
-            selectedRow = $(element).parent().parent();
-            console.log(selectedRow);
-        }
-
-        var updateRow = (name, address, telephone, element) =>{
-            $($(selectedRow).children()[1]).text(name);
-            $($(selectedRow).children()[2]).text(address);
-            $($(selectedRow).children()[3]).text(telephone);
-        }
-
-        $(document).ready(() => {
-            loadRestaurants();
-            //add new restaurant form
             $("#btn-new-restaurant").on("click", () => {
                 $("#restaurantForm input").val("");
+                $("#res-stop").prop("checked",false);
                 $("#btn-new").text("New");
-                $("#res-id").val(Object.keys(restaurants).length + 1);
+                $("#res-id").val(`b${Object.keys(restaurant.branches).length + 1}`);
                 $("#res-join-date").val(today);
                 $("#new-restaurant").text("New Restaurant");
                 $(".is-invalid").removeClass("is-invalid");
             });
+
+            var checkAllData = () => {
+                var input = $("#restaurantForm input");
+                var isValid = true;
+                $.each(input, (idx, val) => {
+                    isValid = checkData(val);
+                });
+                return isValid;
+
+            };
+
+            var checkData = (element) => {
+                var isValid = true
+                if ($(element).attr("type") === "checkbox") {
+                    return isValid;
+                }
+                if ($(element).val() === "") {
+                    $(element).addClass("is-invalid");
+                    isValid = false;
+                } else {
+                    $(element).removeClass("is-invalid");
+                    isValid = true;
+                }
+                return isValid;
+            }
+            window.selectedRow = null;
+            window.editRestaurant = (element) => {
+                var i = 0;
+                var column = $(element).parent().siblings();
+                var rCheckbox = $(column[4]).children();
+                selectedRow = $(element).parent().parent();
+                $.each(column, (key, res_data) => {
+                    $($("#restaurantForm input")[i++]).val($(res_data).text());
+                    if (i == 5) {
+                        var fromCheckbox = $($("#restaurantForm input")[4]).prop("checked");
+                        $($("#restaurantForm input")[4]).prop("checked", $(res_data).children()
+                            .prop("checked"))
+                        return false;
+                    }
+                });
+                $("#btn-new").text("Save");
+                $("#new-restaurant").text("Edit Restaurant");
+            }
+
+            window.updateRow = (address, telephone, stop) => {
+                $($(selectedRow).children()[1]).text(address);
+                $($(selectedRow).children()[2]).text(telephone);
+                $($(selectedRow).children()[4]).children().prop("checked", stop)
+            }
+
+            window.deleteBranch = (element) => {
+                if (true) {
+                    selectedRow = $(element).parent().parent();
+                    var column = $(element).parent().siblings();
+                    var id = $(column[0]).text();
+                    restaurant.branches[id] = null;
+                    setSessionObj("restaurant",restaurant);
+                    $(selectedRow).remove();
+                }
+            }
 
             //add new restaurant
             $("#btn-new").on("click", (e) => {
@@ -102,23 +89,23 @@
                     if ($("#res-telephone").val().length === 8) {
                         $("#res-telephone").removeClass("is-invalid");
                         var id = $("#res-id").val();
-                        var name = $("#res-name").val();
                         var address = $("#res-address").val();
-                        var telephone =$("#res-telephone").val();
-                        restaurants[id] = {
-                            "id": id,
-                            "name": name,
+                        var telephone = $("#res-telephone").val();
+                        var stop = $("#res-stop").prop("checked");
+                        restaurant.branches[id] = {
+                            "bid": id,
                             "address": address,
                             "tel": telephone,
                             "join_date": $("#res-join-date").val(),
-                            "stop": false
+                            "stop": stop,
                         };
-                        setSessionObj("restaurants", restaurants);
+                        setSessionObj("restaurant", restaurant);
                         $("#restaurantModal").modal("hide");
-                        if($(e.delegateTarget).text()==="Save" && selectedRow !== null){
-                            updateRow(name,address,telephone,e.delegateTarget);
-                        }else{
-                            appendTable(restaurants[id]);
+                        if ($(e.delegateTarget).text() === "Save" && selectedRow !== null) {
+                            var telephone = $("#res-telephone").val();
+                            updateRow(address, telephone, stop);
+                        } else {
+                            appendTable(restaurant.branches[id]);
                         }
                     } else {
                         $("#res-telephone").addClass("is-invalid");
@@ -162,12 +149,21 @@
             -moz-appearance: textfield;
             /* Firefox */
         }
+
+        div.jumbotron.jumbotron-fluid {
+            background-color: rgb(255, 255, 255);
+            box-shadow: none;
+            transition: box-shadow 1s;
+        }
+
+        div.jumbotron.jumbotron-fluid:hover {
+            box-shadow: 0px 0px 10px 5px rgb(216, 216, 216);
+        }
     </style>
 </head>
 
-<body>
-    <div class="jumbotron jumbotron-fluid"
-        style="background-color: rgb(255, 255, 255); box-shadow: 0px 0px 10px 5px rgb(216, 216, 216)">
+<body onload="">
+    <div class="jumbotron jumbotron-fluid">
         <div class="container">
             <h1 class="display-4">Restaurants Management</h1>
             <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
@@ -178,10 +174,10 @@
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Address</th>
+                        <th scope="col">Branch Address</th>
                         <th scope="col">Telephone</th>
                         <th scope="col">Join Date</th>
+                        <th scope="col">Stop?</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -211,18 +207,6 @@
                                     placeholder="Enter your username" readonly>
                             </div>
 
-                        </div>
-                        <!-- Name -->
-                        <div class="form-group row">
-                            <div class="hide" id="editRestaurantError" style="color: red"></div>
-                            <label for="res-name" class="col-sm-3 col-form-label">Name:</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" name="res-name" id="res-name"
-                                    placeholder="Enter name">
-                                <div class="invalid-feedback" id="invalid-name">
-                                    Please enter the name of the restaurant.
-                                </div>
-                            </div>
                         </div>
                         <!-- Address -->
                         <div class="form-group row">
@@ -255,6 +239,15 @@
                                     id="res-join-date" placeholder="Enter restaurant Join date" readonly>
                             </div>
                         </div>
+
+                        <!-- Stop -->
+                        <div class="form-group row">
+                            <div class="hide" id="editRestaurantError" style="color: red"></div>
+                            <label for="res-stop" class="col-sm-3 col-form-label">Stop?</label>
+                            <div class="col-sm-1">
+                                <input type="checkbox" class="form-control" name="res-stop" id="res-stop">
+                            </div>
+                        </div>
                         <!-- <button type="button" class="btn btn-outline-primary" id="btn-login">Login</button> -->
                         <div class="modal-footer">
                             <button class="btn btn-primary hide" id="new-loading" type="button" disabled>
@@ -270,6 +263,8 @@
 
         </div>
     </div>
+
+
     <!-- New Restaurant Modal -->
 
     <script>

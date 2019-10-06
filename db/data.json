@@ -1,0 +1,107 @@
+{
+    "user": {
+        "u1": {
+            "uid": "1",
+            "type": "administrator",
+            "username": "admin",
+            "password": "admin"
+        },
+        "u2": {
+            "uid": "2",
+            "type": "normal_user",
+            "username": "user",
+            "password": "user",
+            "favorite": {
+                "1": {
+                    "name": "",
+                    "price": "",
+                    "session": "",
+                    "image": ""
+                }
+            }
+        },
+        "u3": {
+            "uid": "3",
+            "type": "operator",
+            "username": "kfc",
+            "password": "kfc"
+        },
+        "u4": {
+            "uid": "4",
+            "type": "operator",
+            "username": "mcd",
+            "password": "mcd"
+
+        }
+    },
+    "restaurant": {
+        "kfc": {
+            "name": "KFC",
+            "owner":"3",
+            "branches": {
+                "b1": {
+                    "bid":"b1",
+                    "address": "KFCDelivery 2F",
+                    "tel": "21800000",
+                    "join_date": "01-10-2019",
+                    "stop":false
+                },
+                "b2": {
+                    "bid":"b2",
+                    "address": "KFCDelivery 1F",
+                    "tel": "21800001",
+                    "join_date": "01-10-2019",
+                    "stop":false
+                }
+            }
+        },
+        "mcd": {
+            "name": "McDonald's",
+            "owner":"4",
+            "branches": {
+                "b1": {
+                    "bid":"b1",
+                    "address": "McDelivery 1F",
+                    "tel": "23382338",
+                    "join_date": "01-10-2019",
+                    "stop":false
+                },
+                "b2": {
+                    "bid":"b2",
+                    "address": "McDelivery 2F",
+                    "tel": "23382339",
+                    "join_date": "01-10-2019",
+                    "stop":false
+                }
+            }
+        }
+    },
+    "menu": {
+        "kfc": {
+            "m1": {
+                "name": "Yummy Set",
+                "price": "100",
+                "image": "./img/yummy_set.jpg",
+                "show": true,
+                "description": "",
+                "special": {
+                    "type": "temporary",
+                    "start_date": "01-10-2019",
+                    "end_date": "05-10-2019"
+                }
+            },
+            "m2": {
+                "name": "Burger",
+                "price": "20",
+                "image": "./img/burger.jpg",
+                "show": true,
+                "description": "",
+                "special": {
+                    "type": "special",
+                    "start_date": "01-10-2019",
+                    "end_date": "05-10-2019"
+                }
+            }
+        }
+    }
+}

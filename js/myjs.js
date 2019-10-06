@@ -2,6 +2,7 @@ import * as Login from './login.js';
 import './profile.js';
 import { darkStyle, lightStyle } from "./scrolling.js";
 
+/**Global variables */
 window.today = () => {
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
@@ -20,10 +21,36 @@ window.getSessionObj = (session) => {
   return JSON.parse(sessionStorage.getItem(session));
 }
 
+window.clearSessionObj = (session) => {
+  sessionStorage.removeItem(session);
+}
+
+window.clear = () => {
+  sessionStorage.clear();
+}
+
+
+
 window.isLoad = {
   "restaurants": false,
 };
 
+window._db = {};
+
+const db_load = () => {
+  return $.getJSON("../db/data.json").then((data) => {
+    return data;
+  });
+}
+/**Global variables */
+
+//load the database first
+db_load().then((data) => {
+  _db = data;
+  if (getSessionObj("db") === null) {
+    setSessionObj("db", data);
+  }
+});
 
 // animation
 window.sr = ScrollReveal(); // declare animation object
@@ -106,10 +133,11 @@ $(document).ready(() => {
   $(".btn-manage-user").on("click", () => {
     managePage(`${$(".btn-manage").text()} / ${$(".btn-manage-user").text()}`, "manage_user.html");
   });
+  /**On click event */
 
 
-  /**Admin function */
-  Login.loadUser();
+  //Admin function 
+  // Login.loadUser();
 });
 
 export { homePage }
