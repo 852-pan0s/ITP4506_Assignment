@@ -13,18 +13,32 @@
             if (typeof loadBranch !== "undefined") {
                 loadBranch();
             }
-            $("#btn-new-restaurant").on("click", () => {
-                $("#restaurantForm input").val("");
-                $("#res-stop").prop("checked",false);
+
+            $("#btn-res-save").on("click", () => {
+                restaurant.name = $("#res-name").val();
+                saveToRestaurantsSession();
+                console.log(restaurant.name);
+                showToast(`The restaurant name has changed to <span class="text-success">${restaurant.name}</span>`);
+            });
+
+            $("#btn-res-cancel").on("click", () => {
+                $("#res-name").val(restaurant.name);
+                console.log(restaurant.name);
+                showToast(`The restaurant name has restored to <span class="text-success">${restaurant.name}</span>`);
+            });
+
+            $("#btn-new-branch").on("click", () => {
+                $("#BranchForm input").val("");
+                $("#branch-stop").prop("checked", false);
                 $("#btn-new").text("New");
-                $("#res-id").val(`b${Object.keys(restaurant.branches).length + 1}`);
-                $("#res-join-date").val(today);
-                $("#new-restaurant").text("New Restaurant");
+                $("#branch-id").val(`b${Object.keys(restaurant.branches).length + 1}`);
+                $("#branch-join-date").val(today);
+                $("#new-branch").text("New Branch");
                 $(".is-invalid").removeClass("is-invalid");
             });
 
             var checkAllData = () => {
-                var input = $("#restaurantForm input");
+                var input = $("#BranchForm input");
                 var isValid = true;
                 $.each(input, (idx, val) => {
                     isValid = checkData(val);
@@ -48,77 +62,85 @@
                 return isValid;
             }
             window.selectedRow = null;
-            window.editRestaurant = (element) => {
+            window.editBranch = (element) => {
                 var i = 0;
                 var column = $(element).parent().siblings();
                 var rCheckbox = $(column[4]).children();
                 selectedRow = $(element).parent().parent();
                 $.each(column, (key, res_data) => {
-                    $($("#restaurantForm input")[i++]).val($(res_data).text());
+                    $($("#BranchForm input")[i++]).val($(res_data).text());
                     if (i == 5) {
-                        var fromCheckbox = $($("#restaurantForm input")[4]).prop("checked");
-                        $($("#restaurantForm input")[4]).prop("checked", $(res_data).children()
+                        var fromCheckbox = $($("#BranchForm input")[4]).prop("checked");
+                        $($("#BranchForm input")[4]).prop("checked", $(res_data).children()
                             .prop("checked"))
                         return false;
                     }
                 });
                 $("#btn-new").text("Save");
-                $("#new-restaurant").text("Edit Restaurant");
+                $("#new-branch").text("Edit Restaurant");
             }
 
             window.updateRow = (address, telephone, stop) => {
+                var id = $($(selectedRow).children()[0]).text();
                 $($(selectedRow).children()[1]).text(address);
                 $($(selectedRow).children()[2]).text(telephone);
-                $($(selectedRow).children()[4]).children().prop("checked", stop)
+                $($(selectedRow).children()[4]).children().prop("checked", stop);
+                showToast(
+                    `The information of branch ID <span class="text-danger">${id}</span> <span class="text-success">has been updated!</span>`
+                    );
             }
 
             window.deleteBranch = (element) => {
                 if (true) {
+                    var id = $($(selectedRow).children()[0]).text();
                     selectedRow = $(element).parent().parent();
                     var column = $(element).parent().siblings();
                     var id = $(column[0]).text();
                     restaurant.branches[id] = null;
-                    setSessionObj("restaurant",restaurant);
+                    saveToRestaurantsSession();
                     $(selectedRow).remove();
+                    showToast(
+                        `The information of branch ID <span class="text-danger">${id}</span> <span class="text-success">has been deleted!</span>`
+                        );
                 }
             }
 
-            //add new restaurant
+            //add New Branch
             $("#btn-new").on("click", (e) => {
                 if (checkAllData()) {
-                    if ($("#res-telephone").val().length === 8) {
-                        $("#res-telephone").removeClass("is-invalid");
-                        var id = $("#res-id").val();
-                        var address = $("#res-address").val();
-                        var telephone = $("#res-telephone").val();
-                        var stop = $("#res-stop").prop("checked");
+                    if ($("#branch-telephone").val().length === 8) {
+                        $("#branch-telephone").removeClass("is-invalid");
+                        var id = $("#branch-id").val();
+                        var address = $("#branch-address").val();
+                        var telephone = $("#branch-telephone").val();
+                        var stop = $("#branch-stop").prop("checked");
                         restaurant.branches[id] = {
                             "bid": id,
                             "address": address,
                             "tel": telephone,
-                            "join_date": $("#res-join-date").val(),
+                            "join_date": $("#branch-join-date").val(),
                             "stop": stop,
                         };
-                        setSessionObj("restaurant", restaurant);
-                        $("#restaurantModal").modal("hide");
+                        saveToRestaurantsSession();
+                        $("#branchModal").modal("hide");
                         if ($(e.delegateTarget).text() === "Save" && selectedRow !== null) {
-                            var telephone = $("#res-telephone").val();
+                            var telephone = $("#branch-telephone").val();
                             updateRow(address, telephone, stop);
                         } else {
                             appendTable(restaurant.branches[id]);
                         }
                     } else {
-                        $("#res-telephone").addClass("is-invalid");
+                        $("#branch-telephone").addClass("is-invalid");
                     }
                 }
 
             });
 
             //on key down event
-            $("#res-name,#res-telephone,#res-address").on("keyup", (e) => {
+            $("#branch-name,#branch-telephone,#branch-address").on("keyup", (e) => {
                 checkData(e.delegateTarget);
             });
-            $("#res-telephone").on("keyup", (e) => {
+            $("#branch-telephone").on("keyup", (e) => {
                 var phone = $(e.delegateTarget);
                 if (phone.val().length > 8) {
                     phone.val(phone.val().substring(0, 8));
@@ -153,7 +175,7 @@
         div.jumbotron.jumbotron-fluid {
             background-color: rgb(255, 255, 255);
             box-shadow: none;
-            transition: box-shadow 1s;
+            transition: box-shadow 0.25s;
         }
 
         div.jumbotron.jumbotron-fluid:hover {
@@ -165,10 +187,26 @@
 <body onload="">
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4">Restaurants Management</h1>
-            <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-            <a class="btn btn-primary btn-lg" id="btn-new-restaurant" href="#" role="button" data-toggle="modal"
-                data-target="#restaurantModal">New Restaurant</a>
+            <h1 class="display-4">Restaurant and Branch Management</h1>
+            <p class="lead">You can manage the information of your restaurant and branch here.</p>
+            <hr class="my-4">
+            <form>
+                <div class="form-group row">
+                    <label for="res-name" class="col-sm-2 col-form-label">Restaurant Name:</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="res-name" value="">
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="button" id="btn-res-save" class="btn btn-outline-success ">Save</button>
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="button" id="btn-res-cancel" class="btn btn-outline-danger ">Cancel</button>
+                    </div>
+                </div>
+            </form>
+            <hr class="my-4">
+            <a class="btn btn-primary btn-lg" id="btn-new-branch" href="#" role="button" data-toggle="modal"
+                data-target="#branchModal">New Branch</a>
             <hr class="my-4">
             <table class="table table-hover" id="restaurant-list">
                 <thead class="thead-dark">
@@ -187,32 +225,32 @@
         </div>
     </div>
 
-    <!-- New Restaurant Modal -->
-    <div class="modal fade" id="restaurantModal" tabindex="-1" role="dialog" aria-labelledby="new-restaurant"
+    <!-- New Branch Modal -->
+    <div class="modal fade" id="branchModal" tabindex="-1" role="dialog" aria-labelledby="new-branch"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered  " role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="new-restaurant">New Restaurant</h5>
+                    <h5 class="modal-title" id="new-branch">New Branch</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="#" method="get" id="restaurantForm">
+                    <form action="#" method="get" id="BranchForm">
                         <div class="form-group row">
-                            <label for="res-id" class="col-sm-3 col-form-label">ID#:</label>
+                            <label for="branch-id" class="col-sm-3 col-form-label">ID#:</label>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control-plaintext" name="res-id" id="res-id"
+                                <input type="text" class="form-control-plaintext" name="branch-id" id="branch-id"
                                     placeholder="Enter your username" readonly>
                             </div>
 
                         </div>
                         <!-- Address -->
                         <div class="form-group row">
-                            <label for="res-address" class="col-sm-3 col-form-label">Address:</label>
+                            <label for="branch-address" class="col-sm-3 col-form-label">Address:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="res-address" id="res-address"
+                                <input type="text" class="form-control" name="branch-address" id="branch-address"
                                     placeholder="Enter address">
                                 <div class="invalid-feedback " id="invalid-address">
                                     Please enter the address of the restaurant.
@@ -222,10 +260,10 @@
                         </div>
                         <!-- telephone -->
                         <div class="form-group row">
-                            <label for="res-telephone" class="col-sm-3 col-form-label">Telephone:</label>
+                            <label for="branch-telephone" class="col-sm-3 col-form-label">Telephone:</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control col-sm-5" name="res-telephone"
-                                    id="res-telephone" placeholder="Enter tel.">
+                                <input type="number" class="form-control col-sm-5" name="branch-telephone"
+                                    id="branch-telephone" placeholder="Enter tel.">
                                 <div class="invalid-feedback" id="invalid-telephone">
                                     Please enter the telephone of the restaurant. (8 lengths)
                                 </div>
@@ -233,19 +271,19 @@
 
                         </div>
                         <div class="form-group row">
-                            <label for="res-join-date" class="col-sm-3 col-form-label">Join date</label>
+                            <label for="branch-join-date" class="col-sm-3 col-form-label">Join date</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control-plaintext" name="res-join-date"
-                                    id="res-join-date" placeholder="Enter restaurant Join date" readonly>
+                                <input type="text" class="form-control-plaintext" name="branch-join-date"
+                                    id="branch-join-date" placeholder="Enter restaurant Join date" readonly>
                             </div>
                         </div>
 
                         <!-- Stop -->
                         <div class="form-group row">
-                            <div class="hide" id="editRestaurantError" style="color: red"></div>
-                            <label for="res-stop" class="col-sm-3 col-form-label">Stop?</label>
+                            <div class="hide" id="editBranchError" style="color: red"></div>
+                            <label for="branch-stop" class="col-sm-3 col-form-label">Stop?</label>
                             <div class="col-sm-1">
-                                <input type="checkbox" class="form-control" name="res-stop" id="res-stop">
+                                <input type="checkbox" class="form-control" name="branch-stop" id="branch-stop">
                             </div>
                         </div>
                         <!-- <button type="button" class="btn btn-outline-primary" id="btn-login">Login</button> -->
@@ -263,9 +301,9 @@
 
         </div>
     </div>
+    <!-- New Branch Modal -->
 
 
-    <!-- New Restaurant Modal -->
 
     <script>
         // animation

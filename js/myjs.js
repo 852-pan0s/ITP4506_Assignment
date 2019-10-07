@@ -29,7 +29,16 @@ window.clear = () => {
   sessionStorage.clear();
 }
 
+$('.toast').toast({
+  delay: 2000,
+  animation: true,
+  autohide: true
+})
 
+window.showToast = (message) => {
+  $("#toast-message").html(message);
+  $(".toast").toast('show');
+}
 
 window.isLoad = {
   "restaurants": false,
@@ -55,7 +64,7 @@ db_load().then((data) => {
 // animation
 window.sr = ScrollReveal(); // declare animation object
 var homePage;
-$(document).ready(() => {
+$(() => {
   //***************** Declare Functions *****************/ 
   homePage = () => {
     $(".main-content").load("./home.html");
@@ -102,6 +111,8 @@ $(document).ready(() => {
   }
   //***************** Declare Functions *****************/ 
 
+
+
   if (sessionStorage.getItem("user") !== null) {
     $("#btn-ac").attr("data-target", "#profileModal");
   } else {
@@ -133,6 +144,11 @@ $(document).ready(() => {
   $(".btn-manage-user").on("click", () => {
     managePage(`${$(".btn-manage").text()} / ${$(".btn-manage-user").text()}`, "manage_user.html");
   });
+
+  $(".btn-manage-menu").on("click", () => {
+    managePage(`${$(".btn-manage").text()} / ${$(".btn-manage-menu").text()}`, "manage_menu.html");
+  });
+  
   /**On click event */
 
 

@@ -35,7 +35,8 @@
         }
     },
     "restaurant": {
-        "kfc": {
+        "r1": {
+            "id":"r1",
             "name": "KFC",
             "owner":"3",
             "branches": {
@@ -55,7 +56,8 @@
                 }
             }
         },
-        "mcd": {
+        "r2": {
+            "id":"r2",
             "name": "McDonald's",
             "owner":"4",
             "branches": {

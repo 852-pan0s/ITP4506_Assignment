@@ -1,25 +1,39 @@
 
-var operator = getSessionObj("user");
+window.allRestaurants = {};
 window.restaurant = {};
 window.getRestaurant = () => {
+    var operator = getSessionObj("user");
     var loadFromDb = getSessionObj("db").restaurant;
-    var loadFromSession = getSessionObj("restaurant");
-    if (loadFromSession === null) {
+    var loadFromSession = getSessionObj("restaurants");
+    if (loadFromSession === null) { //load from db or load from session
+        setSessionObj("restaurants", loadFromDb); //set add the restaurant to the session
+        allRestaurants = loadFromDb;
         $.each(loadFromDb, (res, data) => {
             if (data.owner === operator.uid) {
                 restaurant = data;
-                setSessionObj("restaurant", restaurant);
                 return false;
             }
         });
     } else {
-        restaurant = loadFromSession;
+        $.each(loadFromSession, (res, data) => {
+            console.log(data.owner+","+operator.uid)
+            if (data.owner === operator.uid) {
+                restaurant = data;
+                return false;
+            }
+        });
     }
+}
+
+window.saveToRestaurantsSession = () => {
+    allRestaurants[restaurant.id] = restaurant;
+    setSessionObj("restaurants", allRestaurants);
 }
 
 var info = "";
 window.loadBranch = () => {
     getRestaurant();
+    $("#res-name").val(restaurant.name);
     $.each(restaurant.branches, (id, branch) => {
         appendTable(branch);
     });
@@ -36,8 +50,8 @@ window.appendTable = (branch) => {
        <td>${branch.join_date}</td>
        <td>${checkbox}</td>
        <td>
-           <button type="button" class="btn btn-outline-info btn-edit-restaurant" onclick="editRestaurant(this)" data-toggle="modal"
-    data-target="#restaurantModal">Edit</button>
+           <button type="button" class="btn btn-outline-info btn-edit-editBranch" onclick="editBranch(this)" data-toggle="modal"
+    data-target="#branchModal">Edit</button>
            <button type="button" class="btn btn-outline-danger btn-edit-men" onclick="deleteBranch(this)">Remove</button>
        </td>
     </tr>`;

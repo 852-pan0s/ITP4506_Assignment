@@ -44,12 +44,14 @@
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li>
         <li class="nav-item dropdown management hide">
-          <button type="button" class="btn btn-outline-warning btn-manage dropdown-toggle dropdown-toggle-split" id="navbarDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">Management</button>
+          <button type="button" class="btn btn-outline-warning btn-manage dropdown-toggle dropdown-toggle-split"
+            id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">Management</button>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item btn-manage-restaurant operator admin" href="#">Restaurants</a>
-              <a class="dropdown-item btn-manage-user admin" href="#">Users</a>
-            </div>
+            <a class="dropdown-item btn-manage-restaurant operator admin" href="#">Restaurant & Branch</a>
+            <a class="dropdown-item btn-manage-menu operator admin" href="#">Menu</a>
+            <a class="dropdown-item btn-manage-user admin" href="#">Users</a>
+          </div>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0" style="margin: 0 10px">
@@ -179,12 +181,23 @@
       <small>Copyright &copy; InnoTech HK Inc. - Yummy Everywhere</small>
     </div>
   </footer>
-
-  <script>
-    setTimeout(()=>{
-      
-    },1000);
-  </script>
+  <!-- Message toast -->
+  <div aria-live="polite" aria-atomic="true" style="position: fixed; min-height: 400px; z-index: 99999;">
+    <div class="toast" style=" position: fixed; bottom: 0%; left:50%; margin-left:-200px; width:400px">
+      <div class="toast-header">
+        <div id="toast-icon"
+          style="margin-right:12px;height:18px;width: 18px;background-color: rgb(0, 255, 13); border-radius: 30%">
+        </div>
+        <strong class="mr-auto" id="toast-title">Reminder</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body" id="toast-message">
+        Hello, world! This is a toast message.
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
