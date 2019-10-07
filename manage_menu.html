@@ -1,12 +1,343 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=123, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script type="module" src="./js/menu.js"></script>
     <title>Document</title>
+    <script>
+        $(() => {
+            if (typeof loadMenu !== "undefined") {
+                loadMenu();
+            }
+
+            $("#btn-menu-save").on("click", () => {
+                saveToMenusSession();
+                showToast(
+                    `The menu name has changed to <span class="text-success">${menu.name}</span>`);
+            });
+
+
+            $("#btn-new-menu").on("click", () => {
+                $("#menuForm input").val("");
+                $("#menu-special-type>option").removeAttr("selected");
+                $("#menu-stop").prop("checked", false);
+                $("#btn-new").text("New");
+                $("#menu-id").val(`m${Object.keys(menu.menus).length + 1}`);
+                $("#new-menu").text("New Menu");
+                $(".is-invalid").removeClass("is-invalid");
+            });
+
+            var checkAllData = () => {
+                var input = $("#menuForm input");
+                var isValid = true;
+                $.each(input, (idx, val) => {
+                    isValid = checkData(val);
+                });
+                return isValid;
+
+            };
+
+            var checkData = (element) => {
+                var isValid = true
+                if ($(element).attr("type") === "checkbox") {
+                    return isValid;
+                }
+                if ($(element).val() === "") {
+                    $(element).addClass("is-invalid");
+                    isValid = false;
+                } else {
+                    $(element).removeClass("is-invalid");
+                    isValid = true;
+                }
+                return isValid;
+            }
+            window.selectedRow = null;
+            window.editMenu = (element) => {
+                var i = 0;
+                var column = $(element).parent().siblings();
+                var type = $(column[4]).text();
+                var special = type.substring(0, type.indexOf(" ("));
+                var start_date = type.substring(type.indexOf("(") + 1, type.indexOf(" T"));
+                var end_date = type.substring(type.indexOf("o ") + 2, type.indexOf(")"));
+                $.each($("#menu-special-type>option"), (key, values) => {
+                    if ($(values).val() === special) {
+                        $(values).attr("selected","");
+                    } else {
+                        $(values).removeAttr("selected");
+                    }
+                });
+
+
+                $("#menu-id").val($(column[0]).text());
+                $("#menu-name").val($(column[1]).text());
+                $("#menu-price").val($(column[2]).text().substring(1));
+                $("#menu-image").val($(column[3]).text());
+
+                console.log(special);
+                console.log(start_date);
+                console.log(end_date);
+                $("#menu-stop").prop("checked", $(column[5]).prop("checked"));
+
+                $("#btn-new").text("Save");
+                $("#new-menu").text("Edit Menu");
+            }
+
+            window.updateRow = (address, telephone, stop) => {
+                var id = $($(selectedRow).children()[0]).text();
+                $($(selectedRow).children()[1]).text(address);
+                $($(selectedRow).children()[2]).text(telephone);
+                $($(selectedRow).children()[4]).children().prop("checked", stop);
+                showToast(
+                    `The information of menu ID <span class="text-danger">${id}</span> <span class="text-success">has been updated!</span>`
+                );
+            }
+
+            window.deleteMenu = (element) => {
+                if (true) {
+                    var id = $($(selectedRow).children()[0]).text();
+                    selectedRow = $(element).parent().parent();
+                    var column = $(element).parent().siblings();
+                    var id = $(column[0]).text();
+                    menu.menus[id] = null;
+                    saveToMenusSession();
+                    $(selectedRow).remove();
+                    showToast(
+                        `The information of menu ID <span class="text-danger">${id}</span> <span class="text-success">has been deleted!</span>`
+                    );
+                }
+            }
+
+            //add New Menu
+            $("#btn-new").on("click", (e) => {
+                if (checkAllData()) {
+                    $("#menu-telephone").removeClass("is-invalid");
+                    var id = $("#menu-id").val();
+                    var name = $("#menu-name").val();
+                    var price = $("#menu-price").val();
+                    var image = $("#menu-image").val();
+                    var stop = $("#menu-stop").val();
+                    var type = $("#menu-type").val();
+                    var start_date = $("#menu-start_date").val();
+                    var end_date = $("#menu-end_date").val();
+
+                    var stop = $("#menu-stop").prop("checked");
+                    menu.menus[id] = {
+                        "id": id,
+                        "name": name,
+                        "price": price,
+                        "image": $("#menu-image").val(),
+                        "stop": stop,
+                        "type": type,
+                        "start_date": start_date,
+                        "end_date": end_date
+                    };
+                    saveToMenusSession();
+                    $("#menuModal").modal("hide");
+                    if ($(e.delegateTarget).text() === "Save" && selectedRow !== null) {
+                        var telephone = $("#menu-telephone").val();
+                        updateRow(address, telephone, stop);
+                    } else {
+                        appendMenuTable(menu.menus[id]);
+                    }
+                }
+
+            });
+
+            //on key down event
+            $("#menu-name,#menu-telephone,#menu-name").on("keyup", (e) => {
+                checkData(e.delegateTarget);
+            });
+            $("#menu-telephone").on("keyup", (e) => {
+                var phone = $(e.delegateTarget);
+                if (phone.val().length > 8) {
+                    phone.val(phone.val().substring(0, 8));
+                }
+            });
+
+        });
+    </script>
+    <style>
+        .tr-hover {
+            background-color: #ffffff;
+            transition: background-color 0.5s;
+        }
+
+        .tr-hover:hover {
+            background-color: #d8d8d8;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            /* display: none; <- Crashes Chrome on hover */
+            -webkit-appearance: none;
+            margin: 0;
+            /* <-- Apparently some margin are still there even though it's hidden */
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+            /* Firefox */
+        }
+
+        div.jumbotron.jumbotron-fluid {
+            background-color: rgb(255, 255, 255);
+            box-shadow: none;
+            transition: box-shadow 0.25s;
+        }
+
+        div.jumbotron.jumbotron-fluid:hover {
+            box-shadow: 0px 0px 10px 5px rgb(216, 216, 216);
+        }
+    </style>
 </head>
-<body>
-    123
+
+<body onload="">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Menu Management</h1>
+            <p class="lead">You can the menu of the menu here.</p>
+            <hr class="my-4">
+            <form>
+                <div class="form-group row">
+                    <label for="res-name" class="col-sm-2 col-form-label">Restaurant Name:</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="res-name" value="">
+                    </div>
+                    <button type="button" id="btn-menu-save" class="btn btn-outline-success ">Save</button>
+                    <button type="button" id="btn-menu-cancel" class="btn btn-outline-danger ">Cancel</button>
+
+                </div>
+            </form>
+            <hr class="my-4">
+            <a class="btn btn-primary btn-lg" id="btn-new-menu" href="#" role="button" data-toggle="modal"
+                data-target="#menuModal">New Menu</a>
+            <hr class="my-4">
+            <table class="table table-hover" id="menu-list">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Food/Drink Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Special Period</th>
+                        <th scope="col">Stop?</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="menu-list">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- New Menu Modal -->
+    <div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="new-menu" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered  " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="new-menu">New Menu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="#" method="get" id="menuForm">
+                        <div class="form-group row">
+                            <label for="menu-id" class="col-sm-4 col-form-label">ID#:</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control-plaintext" name="menu-id" id="menu-id"
+                                    placeholder="Enter your username" readonly>
+                            </div>
+
+                        </div>
+                        <!-- Name -->
+                        <div class="form-group row">
+                            <label for="menu-name" class="col-sm-4 col-form-label">Name:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="menu-name" id="menu-name"
+                                    placeholder="Food / drink name">
+                                <div class="invalid-feedback " id="invalid-name">
+                                    The name can't be empty.
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- price -->
+                        <div class="form-group row">
+                            <label for="menu-price" class="col-sm-4 col-form-label">Price:</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control col-sm-5" name="menu-price" id="menu-price"
+                                    placeholder="Food price">
+                                <div class="invalid-feedback" id="invalid-price">
+                                   Price
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- image -->
+                        <div class="form-group row">
+                            <label for="menu-image" class="col-sm-4 col-form-label">Image:</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="menu-image" id="menu-image"
+                                    placeholder="Name of image(example.jpg)">
+                            </div>
+                        </div>
+
+
+                        <!-- Special -->
+                        <div class="form-group row">
+                            <label for="menu-special-type" class="col-sm-4 col-form-label">Special Period:</label>
+                            <div class="col-sm-4">
+                                <select class="custom-select" name="menu-special-type" id="menu-special-type">
+                                    <option value="">--None--</option>
+                                    <option value="Special">Special</option>
+                                    <option value="Temporary">Temporary</option>
+                                    <option value="Seasonal">Seasonal</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Stop -->
+                        <div class="form-group row">
+                            <div class="hide" id="editMenuError" style="color: red"></div>
+                            <label for="menu-stop" class="col-sm-4 col-form-label">Stop?</label>
+                            <div class="col-sm-1">
+                                <input type="checkbox" class="form-control" name="menu-stop" id="menu-stop">
+                            </div>
+                        </div>
+                        <!-- <button type="button" class="btn btn-outline-primary" id="btn-login">Login</button> -->
+                        <div class="modal-footer">
+                            <button class="btn btn-primary hide" id="new-loading" type="button" disabled>
+                                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                Loading...
+                            </button>
+                            <button type="button" class="btn btn-outline-warning" id="btn-new">New</button>
+                        </div>
+                </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- New Menu Modal -->
+
+
+
+    <script>
+        // animation
+        ScrollReveal().reveal('.jumbotron-fluid', {
+            duration: 1000,
+            origin: 'bottom',
+            distance: '100px',
+            viewFactor: 0.4,
+        });
+    </script>
 </body>
+
 </html>

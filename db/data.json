@@ -80,30 +80,34 @@
     },
     "menu": {
         "kfc": {
-            "m1": {
-                "name": "Yummy Set",
-                "price": "100",
-                "image": "./img/yummy_set.jpg",
-                "show": true,
-                "description": "",
-                "special": {
-                    "type": "temporary",
-                    "start_date": "01-10-2019",
-                    "end_date": "05-10-2019"
-                }
-            },
-            "m2": {
-                "name": "Burger",
-                "price": "20",
-                "image": "./img/burger.jpg",
-                "show": true,
-                "description": "",
-                "special": {
-                    "type": "special",
-                    "start_date": "01-10-2019",
-                    "end_date": "05-10-2019"
+            "owner":"3",
+            "menus":{
+                "m1": {
+                    "id":"m1",
+                    "name": "Yummy Set",
+                    "price": "100.00",
+                    "image": "./img/yummy_set.jpg",
+                    "stop": false,
+                    "special": {
+                        "type": "Temporary",
+                        "start_date": "01-10-2019",
+                        "end_date": "05-10-2019"
+                    }
+                },
+                "m2": {
+                    "id":"m2",
+                    "name": "Burger",
+                    "price": "20.00",
+                    "image": "./img/burger.jpg",
+                    "stop": false,
+                    "special": {
+                        "type": "Special",
+                        "start_date": "01-10-2019",
+                        "end_date": "05-10-2019"
+                    }
                 }
             }
+            
         }
     }
 }

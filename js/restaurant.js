@@ -35,13 +35,13 @@ window.loadBranch = () => {
     getRestaurant();
     $("#res-name").val(restaurant.name);
     $.each(restaurant.branches, (id, branch) => {
-        appendTable(branch);
+        appendToBranchTable(branch);
     });
 }
 
-window.appendTable = (branch) => {
+window.appendToBranchTable = (branch) => {
     if (branch !== null) {
-
+        var remove = branch.bid==="b1"? ``:`<button type="button" class="btn btn-outline-danger btn-edit-men" onclick="deleteBranch(this)">Remove</button>`;
         var checkbox = branch.stop ? `<input type="checkbox" checked disabled>` : `<input type="checkbox" disabled>`;
         info = `<tr class="tr-hover">
         <th scope="row">${branch.bid}</th>
@@ -52,7 +52,7 @@ window.appendTable = (branch) => {
        <td>
            <button type="button" class="btn btn-outline-info btn-edit-editBranch" onclick="editBranch(this)" data-toggle="modal"
     data-target="#branchModal">Edit</button>
-           <button type="button" class="btn btn-outline-danger btn-edit-men" onclick="deleteBranch(this)">Remove</button>
+           ${remove}
        </td>
     </tr>`;
         $("#restaurant-list").append(info);

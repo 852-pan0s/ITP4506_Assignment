@@ -18,13 +18,17 @@
                 restaurant.name = $("#res-name").val();
                 saveToRestaurantsSession();
                 console.log(restaurant.name);
-                showToast(`The restaurant name has changed to <span class="text-success">${restaurant.name}</span>`);
+                showToast(
+                    `The restaurant name has changed to <span class="text-success">${restaurant.name}</span>`
+                    );
             });
 
             $("#btn-res-cancel").on("click", () => {
                 $("#res-name").val(restaurant.name);
                 console.log(restaurant.name);
-                showToast(`The restaurant name has restored to <span class="text-success">${restaurant.name}</span>`);
+                showToast(
+                    `The restaurant name has restored to <span class="text-success">${restaurant.name}</span>`
+                    );
             });
 
             $("#btn-new-branch").on("click", () => {
@@ -87,7 +91,7 @@
                 $($(selectedRow).children()[4]).children().prop("checked", stop);
                 showToast(
                     `The information of branch ID <span class="text-danger">${id}</span> <span class="text-success">has been updated!</span>`
-                    );
+                );
             }
 
             window.deleteBranch = (element) => {
@@ -101,7 +105,7 @@
                     $(selectedRow).remove();
                     showToast(
                         `The information of branch ID <span class="text-danger">${id}</span> <span class="text-success">has been deleted!</span>`
-                        );
+                    );
                 }
             }
 
@@ -127,7 +131,7 @@
                             var telephone = $("#branch-telephone").val();
                             updateRow(address, telephone, stop);
                         } else {
-                            appendTable(restaurant.branches[id]);
+                            appendToBranchTable(restaurant.branches[id]);
                         }
                     } else {
                         $("#branch-telephone").addClass("is-invalid");
@@ -196,12 +200,9 @@
                     <div class="col-sm-6">
                         <input type="text" class="form-control" id="res-name" value="">
                     </div>
-                    <div class="col-sm-1">
-                        <button type="button" id="btn-res-save" class="btn btn-outline-success ">Save</button>
-                    </div>
-                    <div class="col-sm-1">
-                        <button type="button" id="btn-res-cancel" class="btn btn-outline-danger ">Cancel</button>
-                    </div>
+                    <button type="button" id="btn-res-save" class="btn btn-outline-success ">Save</button>
+                    <button type="button" id="btn-res-cancel" class="btn btn-outline-danger" style="margin-left: 5px;">Cancel</button>
+
                 </div>
             </form>
             <hr class="my-4">
