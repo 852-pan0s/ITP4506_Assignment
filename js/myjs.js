@@ -148,6 +148,10 @@ $(() => {
   $(".btn-manage-menu").on("click", () => {
     managePage(`${$(".btn-manage").text()} / ${$(".btn-manage-menu").text()}`, "manage_menu.html");
   });
+
+  $("#btn-restaurant").on("click",()=>{
+    managePage(`${$("#btn-restaurant").text()}`,"testing.html");
+  });
   
   /**On click event */
 
