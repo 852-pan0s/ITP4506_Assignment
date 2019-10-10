@@ -1,4 +1,4 @@
-# ITP4506_Assigment
+# ITP4506_Assignment
 
 Group members (Github username):
 
