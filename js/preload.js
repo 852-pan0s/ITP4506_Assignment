@@ -154,7 +154,7 @@ window.today = () => {
       managePage(`${$(".btn-manage").text()} / ${$(".btn-manage-branch").text()}`, "manage_branch.html");
     });
 
-    $(".btn-restaurant").on("click",()=>{
+    $("#btn-restaurant").on("click",()=>{
       managePage(`${$("#btn-restaurant").text()}`,"customer_menu.html");
     });
 
