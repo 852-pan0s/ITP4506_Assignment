@@ -1,6 +1,7 @@
 import * as Login from './login.js';
 import './profile.js';
 import { darkStyle, lightStyle } from "./scrolling.js";
+//import './load_restaurant.js';
 
 /**Global variables */
 window.today = () => {
