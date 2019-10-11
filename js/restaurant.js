@@ -33,8 +33,6 @@ window.saveToRestaurantsSession = () => {
 var info = "";
 window.loadBranch = () => {
     getRestaurant();
-    $("#res-name").val(restaurant.name);
-    $("#res-introduction").val(restaurant.introduction);
     $.each(restaurant.branches, (id, branch) => {
         appendToBranchTable(branch);
     });

@@ -10,13 +10,17 @@
     <title>Document</title>
     <script>
         $(() => {
+            setTimeout(() => {
+                $("#res-name").val(restaurant.name);
+                $("#res-introduction").val(restaurant.introduction);
+            }, 500);
             $("#btn-res-save").on("click", () => {
                 restaurant.name = $("#res-name").val();
                 restaurant.introduction = $("#res-introduction").val();
                 saveToRestaurantsSession();
                 // console.log(restaurant.name);
                 showToast(
-                    `The information of ${restaurant.name} has beed updated.`
+                    `The information of <span class="text-danger">${restaurant.name}</span> has beed <span class="text-success">updated</span>.`
                 );
             });
 
@@ -25,7 +29,7 @@
                 $("#res-introduction").val(restaurant.introduction);
                 // console.log(restaurant.name);
                 showToast(
-                    `The information of <span> ${restaurant.name} has beed reset.`);
+                    `The information of <span class="text-danger">${restaurant.name}</span> has beed <span class="text-success">reset</reset>.`);
             });
 
         });
@@ -65,7 +69,7 @@
                 <br>
                 <button type="button" id="btn-res-save" class="btn btn-outline-success ">Save</button>
                 <button type="button" id="btn-res-cancel" class="btn btn-outline-danger"
-                    style="margin-left: 5px;">Restore</button>
+                    style="margin-left: 5px;">Reset</button>
             </form>
         </div>
     </div>

@@ -14,7 +14,7 @@
                 loadMenu();
             }
 
-            $("#menu-special-type").on("change",(e)=>{
+            $("#menu-special-type").on("change", (e) => {
                 console.log("OK");
                 var selectedOption = $(e.delegateTarget).val();
                 console.log($(e.delegateTarget).val());
@@ -71,7 +71,7 @@
                 var end_date = type.substring(type.indexOf("o ") + 2, type.indexOf(")"));
                 $.each($("#menu-special-type>option"), (key, values) => {
                     if ($(values).val() === special) {
-                        $(values).attr("selected","");
+                        $(values).attr("selected", "");
                     } else {
                         $(values).removeAttr("selected");
                     }
@@ -279,7 +279,7 @@
                                 <input type="number" class="form-control col-sm-5" name="menu-price" id="menu-price"
                                     placeholder="Food price">
                                 <div class="invalid-feedback" id="invalid-price">
-                                   Price
+                                    Price
                                 </div>
                             </div>
 
@@ -308,15 +308,31 @@
                             </div>
                         </div>
 
+                        <!-- Special start date -->
                         <div class="form-group row">
-                            <label for="menu-special-sDate" class="col-sm-4 col-form-label">Special Period:</label>
+                            <label for="menu-special-start_date" class="col-sm-4 col-form-label">Special Period:</label>
                             <div class="col-sm-4">
                                 <div class="input-group flex-nowrap">
                                     <div class="input-group-prepend">
-                                      <span class="input-group-text" id="addon-wrapping">@</span>
+                                        <span class="input-group-text" id="addon-wrapping">@</span>
                                     </div>
-                                    <input type="date" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
-                                  </div>
+                                    <input type="date" class="form-control" placeholder="Username" aria-label="Username"
+                                        aria-describedby="addon-wrapping">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Special end date -->
+                        <div class="form-group row">
+                            <label for="menu-special-eDate" class="col-sm-4 col-form-label">Special Period:</label>
+                            <div class="col-sm-4">
+                                <div class="input-group flex-nowrap">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="addon-wrapping">@</span>
+                                    </div>
+                                    <input type="date" class="form-control" placeholder="Username" aria-label="Username"
+                                        aria-describedby="addon-wrapping">
+                                </div>
                             </div>
                         </div>
 
