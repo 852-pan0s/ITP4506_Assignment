@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="customer_menu.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <!--
+<div class="search-box">
+    <input type="text" name="" class="search-txt" placeholder="Type to search"/>
+    <a class="search-btn" href="#">
+        <i class="fas fa-search"></i>
+    </a>
+</div>
+
+<div>
+  <ul>
+    <li>Burger</li>
+    <li>Chinese</li>
+    <li>Italian</li>
+    <li>Japanese</li>
+    <li>Mexican</li>
+    <li>Thai</li>
+  </ul>
+</div>
+
+<div class="tag_row">
+  <div class="tag_title">
+    <h4>Related Tags/ Sort By</h4>
+  </div>
+  <div class="tag_boxes_container">
+    <ul class="tag_boxes_container_ul">
+      <li>Popular</li>
+      <li>Recommended</li>
+      <li>Highest Rated</li>
+      <li>Most Reviewed</li>
+    </ul>
+  </div>
+</div>
+-->
+  <div class="row">
+    <!--sidebar-->
+    <div class="col-3">
+      <div id="list-example" class="list-group">
+        <div class="list-group-item">Restaurant choices</div>
+        <div class="list-group-item">
+          <!-- Default dropright button -->
+          <div class="btn-group dropright">
+            <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Burger
+            </button>
+            <div class="dropdown-menu">
+              <!-- Dropdown menu links -->
+              <button type="button" class="dropdown-item">Burger</button>
+              <button type="button" class="dropdown-item">Chinese</button>
+              <button type="button" class="dropdown-item">Italian</button>
+              <button type="button" class="dropdown-item">Japanese</button>
+              <button type="button" class="dropdown-item">Mexican</button>
+              <button type="button" class="dropdown-item">Thai</button>
+            </div>
+          </div>
+        </div>
+        <a class="list-group-item list-group-item-action active" href="#list-item-1">Popular</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-2">Recommended</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-3">Highest Rated</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-4">Most Reviewed</a>
+      </div>
+    </div>
+
+    <!--restaurant card-->
+    <div class="col-9">
+      <div class="card-deck">
+
+        <div class="card mb-3">
+          <img class="card-img-top img-fluid" src="./img/mcdonald/pineapple_mcspicy.png" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Pineapple McSpicy</h5>
+          </div>
+          <div class="card-footer text-muted btn-add">
+            <div class="text-monospace">
+              From $30.00
+              <button type="button" class="btn btn-outline-info" style="float: right;">
+                ADD
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--restaurant card-->
+      <div class="card mb-3">
+        <img class="card-img" src="./img/mcdonald/pineapple_mcspicy.png" alt="Card image cap" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">It's a broader card with text below as a natural lead-in to extra content. This content is a little longer.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-auto">
+            <img class="card-img" src="./img/mcdonald/pineapple_mcspicy.png" alt="Card image cap" style="width: 15rem">
+          </div>
+          <div class="col">
+            <div class="card-body px-2">
+              <h4 class="card-title">Title</h4>
+              <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis quaerat doloribus rerum. Suscipit ea pariatur neque voluptate voluptatem quo adipisci quod aperiam, in beatae minus maiores laborum molestiae voluptatum blanditiis? </p>
+              <a href="#" class="btn btn-primary">BUTTON</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer w-100 text-muted">
+          Footer stating cats are CUTE little animals
+        </div>
+      </div>
+
+      <div class="card flex-row flex-wrap">
+        <div class="card-header border-0">
+          <img class="card-img" src="./img/mcdonald/pineapple_mcspicy.png" alt="Card image cap" style="width: 15rem">
+        </div>
+        <div class="card-body px-2">
+          <h4 class="card-title">Title</h4>
+          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde provident alias debitis, nam nulla beatae. Aliquam, dolorem. Deleniti magnam recusandae sed magni accusantium. Neque dolor ipsum repellat, optio praesentium animi!</p>
+          <a href="#" class="btn btn-primary">BUTTON</a>
+        </div>
+        <div class="w-100"></div>
+        <div class="card-footer w-100 text-muted">
+          FOOTER
+        </div>
+      </div>
+
+
+        <div class="card mb-3">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card-body">
+                <h2>Title</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis maiores voluptate eius laboriosam neque accusamus, hic officia quod dicta. Saepe eum vero, quis dolore animi molestiae id commodi necessitatibus amet.</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <img src="https://picsum.photos/800" class="img-fluid">
+            </div>
+          </div>
+        </div>
+
+
+    </div>
+
+
+  </div>
+
+</body>
+
+</html>

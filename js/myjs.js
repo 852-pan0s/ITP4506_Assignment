@@ -150,7 +150,7 @@ $(() => {
   });
 
   $("#btn-restaurant").on("click",()=>{
-    managePage(`${$("#btn-restaurant").text()}`,"testing.html");
+    managePage(`${$("#btn-restaurant").text()}`,"customer_menu.html");
   });
   
   /**On click event */
