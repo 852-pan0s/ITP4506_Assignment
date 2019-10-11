@@ -149,10 +149,15 @@ window.today = () => {
     $(".btn-manage-menu").on("click", () => {
       managePage(`${$(".btn-manage").text()} / ${$(".btn-manage-menu").text()}`, "manage_menu.html");
     });
-  
-    $("#btn-restaurant").on("click",()=>{
+
+    $(".btn-manage-branch ").on("click",()=>{
+      managePage(`${$(".btn-manage").text()} / ${$(".btn-manage-branch").text()}`, "manage_branch.html");
+    });
+
+    $(".btn-restaurant").on("click",()=>{
       managePage(`${$("#btn-restaurant").text()}`,"customer_menu.html");
     });
+
     
     /**On click event */
   
