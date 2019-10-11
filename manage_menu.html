@@ -16,6 +16,7 @@
 
             $("#menu-special-type").on("change",(e)=>{
                 console.log("OK");
+                var selectedOption = $(e.delegateTarget).val();
                 console.log($(e.delegateTarget).val());
             })
 

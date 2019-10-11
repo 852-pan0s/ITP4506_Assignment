@@ -61,6 +61,7 @@
             "id":"r2",
             "name": "McDonald's",
             "owner":"4",
+            "introduction":"McDonald is a restaurant that the main menu is fired chickens.",
             "branches": {
                 "b1": {
                     "bid":"b1",
