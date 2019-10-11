@@ -16,7 +16,7 @@ window.getRestaurant = () => {
         });
     } else {
         $.each(loadFromSession, (res, data) => {
-            console.log(data.owner+","+operator.uid)
+            // console.log(data.owner+","+operator.uid)
             if (data.owner === operator.uid) {
                 restaurant = data;
                 return false;

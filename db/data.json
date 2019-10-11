@@ -39,6 +39,7 @@
             "id":"r1",
             "name": "KFC",
             "owner":"3",
+            "introduction":"KFC is a restaurant that the main menu is fired chickens.",
             "branches": {
                 "b1": {
                     "bid":"b1",

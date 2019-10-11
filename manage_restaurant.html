@@ -17,7 +17,7 @@
             $("#btn-res-save").on("click", () => {
                 restaurant.name = $("#res-name").val();
                 saveToRestaurantsSession();
-                console.log(restaurant.name);
+                // console.log(restaurant.name);
                 showToast(
                     `The restaurant name has changed to <span class="text-success">${restaurant.name}</span>`
                     );
@@ -25,7 +25,7 @@
 
             $("#btn-res-cancel").on("click", () => {
                 $("#res-name").val(restaurant.name);
-                console.log(restaurant.name);
+                // console.log(restaurant.name);
                 showToast(
                     `The restaurant name has restored to <span class="text-success">${restaurant.name}</span>`
                     );

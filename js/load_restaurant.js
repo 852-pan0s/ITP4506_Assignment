@@ -25,8 +25,8 @@ window.getAllRestaurants = () => {
       loadAllRestaurants = loadFromSession;
     }
 }
+setTimeout(()=>{getAllRestaurants()},500);
 
-getAllRestaurants();
 
 //window.saveToRestaurantsSession = () => {
 //    allRestaurants[restaurant.id] = restaurant;
