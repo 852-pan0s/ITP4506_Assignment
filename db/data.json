@@ -36,56 +36,72 @@
     },
     "restaurant": {
         "r1": {
-            "id":"r1",
+            "id": "r1",
             "name": "KFC",
-            "owner":"3",
-            "introduction":"KFC is a restaurant that the main menu is fired chickens.",
+            "owner": "3",
+            "introduction": "KFC is a restaurant that the main menu is fired chickens.",
             "branches": {
                 "b1": {
-                    "bid":"b1",
+                    "bid": "b1",
                     "address": "KFCDelivery 2F",
                     "tel": "21800000",
+                    "businessHours": {
+                        "start": "09:00",
+                        "end": "21:00"
+                    },
                     "join_date": "01-10-2019",
-                    "stop":false
+                    "stop": false
                 },
                 "b2": {
-                    "bid":"b2",
+                    "bid": "b2",
                     "address": "KFCDelivery 1F",
                     "tel": "21800001",
+                    "businessHours": {
+                        "start": "09:00",
+                        "end": "21:00"
+                    },
                     "join_date": "01-10-2019",
-                    "stop":false
+                    "stop": false
                 }
             }
         },
         "r2": {
-            "id":"r2",
+            "id": "r2",
             "name": "McDonald's",
-            "owner":"4",
-            "introduction":"McDonald is a restaurant that the main menu is fired chickens.",
+            "owner": "4",
+            "introduction": "McDonald is a restaurant that the main menu is fired chickens.",
             "branches": {
                 "b1": {
-                    "bid":"b1",
+                    "bid": "b1",
                     "address": "McDelivery 1F",
                     "tel": "23382338",
+                    "businessHours": {
+                        "start": "09:00",
+                        "end": "21:00"
+                    },
                     "join_date": "01-10-2019",
-                    "stop":false
+                    "stop": false
                 },
                 "b2": {
-                    "bid":"b2",
+                    "bid": "b2",
                     "address": "McDelivery 2F",
                     "tel": "23382339",
+                    "businessHours": {
+                        "start": "09:00",
+                        "end": "21:00"
+                    },
                     "join_date": "01-10-2019",
-                    "stop":false
+                    "stop": false
                 }
             }
         }
     },
     "menu": {
         "kfc": {
-            "owner":"3",
-            "menus":{
+            "owner": "3",
+            "menus": {
                 "m1": {
-                    "id":"m1",
+                    "id": "m1",
                     "name": "Yummy Set",
                     "price": "100.00",
                     "image": "./img/yummy_set.jpg",
@@ -97,7 +113,7 @@
                     }
                 },
                 "m2": {
-                    "id":"m2",
+                    "id": "m2",
                     "name": "Burger",
                     "price": "20.00",
                     "image": "./img/burger.jpg",
@@ -109,7 +125,7 @@
                     }
                 }
             }
-            
+
         }
     }
 }
