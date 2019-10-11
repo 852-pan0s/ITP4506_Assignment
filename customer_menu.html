@@ -7,75 +7,43 @@
   <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
   <title>Document</title>
   <script>
-    $.each(loadAllRestaurants,(key,value)=>{
-      console.log(value.name);
-      
-    });
-    
-    
-    
-    window.loadBranch = () => {
-    getRestaurant();
-    $("#res-name").val(restaurant.name);
-    $.each(restaurant.branches, (id, branch) => {
-        appendToBranchTable(branch);
-    });
-}
+    window.appendToCard = (value) => {
+      if (value !== null) {
+//        content = `<div class="card mb-3">
+//          <div class="row">
+//            <div class="col-md-8">
+//              <div class="card-body">
+//                <h2>${value.name}</h2>
+//                <p>${value.introduction}</p>
+//              </div>
+//            </div>
+//            <div class="col-md-4">
+//              <img src="https://picsum.photos/800" class="img-fluid" style="width: 18rem">
+//            </div>
+//          </div>
+//        </div>`;
 
-window.appendToBranchTable = (branch) => {
-    if (branch !== null) {
-        var remove = branch.bid==="b1"? ``:`<button type="button" class="btn btn-outline-danger btn-edit-men" onclick="deleteBranch(this)">Remove</button>`;
-        var checkbox = branch.stop ? `<input type="checkbox" checked disabled>` : `<input type="checkbox" disabled>`;
-        info = `<tr class="tr-hover">
-        <th scope="row">${branch.bid}</th>
-       <td>${branch.address}</td>
-       <td>${branch.tel}</td>
-       <td>${branch.join_date}</td>
-       <td>${checkbox}</td>
-       <td>
-           <button type="button" class="btn btn-outline-info btn-edit-editBranch" onclick="editBranch(this)" data-toggle="modal"
-    data-target="#branchModal">Edit</button>
-           ${remove}
-       </td>
-    </tr>`;
-        $("#restaurant-list").append(info);
+        console.log(content);
+        $("#restaurant-card").append(content);
+      }
     }
-}
+
+    $.each(loadAllRestaurants, (key, value) => {
+      console.log(value.name);
+      appendToCard(value);
+    });
+
   </script>
 </head>
 
 <body>
+
   <!--
 <div class="search-box">
     <input type="text" name="" class="search-txt" placeholder="Type to search"/>
     <a class="search-btn" href="#">
         <i class="fas fa-search"></i>
     </a>
-</div>
-
-<div>
-  <ul>
-    <li>Burger</li>
-    <li>Chinese</li>
-    <li>Italian</li>
-    <li>Japanese</li>
-    <li>Mexican</li>
-    <li>Thai</li>
-  </ul>
-</div>
-
-<div class="tag_row">
-  <div class="tag_title">
-    <h4>Related Tags/ Sort By</h4>
-  </div>
-  <div class="tag_boxes_container">
-    <ul class="tag_boxes_container_ul">
-      <li>Popular</li>
-      <li>Recommended</li>
-      <li>Highest Rated</li>
-      <li>Most Reviewed</li>
-    </ul>
-  </div>
 </div>
 -->
   <div class="row">
@@ -108,18 +76,11 @@ window.appendToBranchTable = (branch) => {
     </div>
     <!--restaurant card-->
 
-    <div class="col-9">
-      <div class="card mb-3">
-        <div class="row">
-          <div class="col-md-8">
-            <div class="card-body">
-              <h2>Title</h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis maiores voluptate eius laboriosam neque accusamus, hic officia quod dicta. Saepe eum vero, quis dolore animi molestiae id commodi necessitatibus amet.</p>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <img src="https://picsum.photos/800" class="img-fluid">
-          </div>
+    <div class="col-9" id="restaurant-card">
+      <div class="card" style="width: 18rem;">
+        <img src="https://picsum.photos/800" class="card-img-top" alt="..." style="18rem">
+        <div class="card-body">
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         </div>
       </div>
     </div>
