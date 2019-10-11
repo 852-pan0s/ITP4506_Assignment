@@ -27,6 +27,7 @@ window.today = () => {
   
   window.clear = () => {
     sessionStorage.clear();
+    location.reload();
   }
   
   $('.toast').toast({
