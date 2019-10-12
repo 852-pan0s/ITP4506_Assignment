@@ -46,6 +46,7 @@ window.appendToBranchTable = (branch) => {
         <th scope="row">${branch.bid}</th>
        <td>${branch.address}</td>
        <td>${branch.tel}</td>
+       <td>${branch.businessHours.start_time} - ${branch.businessHours.end_time}</td>
        <td>${branch.join_date}</td>
        <td>${checkbox}</td>
        <td>

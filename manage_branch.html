@@ -14,7 +14,6 @@
                 loadBranch();
             }
 
-
             $("#btn-new-branch").on("click", () => {
                 $("#BranchForm input").val("");
                 $("#branch-stop").prop("checked", false);
@@ -53,26 +52,48 @@
             window.editBranch = (element) => {
                 var i = 0;
                 var column = $(element).parent().siblings();
-                var rCheckbox = $(column[4]).children();
                 selectedRow = $(element).parent().parent();
-                $.each(column, (key, res_data) => {
-                    $($("#BranchForm input")[i++]).val($(res_data).text());
-                    if (i == 5) {
-                        var fromCheckbox = $($("#BranchForm input")[4]).prop("checked");
-                        $($("#BranchForm input")[4]).prop("checked", $(res_data).children()
-                            .prop("checked"))
-                        return false;
-                    }
-                });
+
+                var bHours = $(column[3]).text();
+                var sTime = bHours.substring(0, bHours.indexOf(" -"));
+                var eTime = bHours.substring(bHours.indexOf("- ") + 2);
+
+                $("#branch-id").val($(column[0]).text());
+                $("#branch-address").val($(column[1]).text());
+                $("#branch-telephone").val($(column[2]).text());
+                $("#branch-business-sTime").val(sTime);
+                $("#branch-business-eTime").val(eTime);
+                $("#branch-join-date").val($(column[4]).text());
+                $("#branch-stop").prop("checked", $(column[5]).children().prop("checked"));
                 $("#btn-new").text("Save");
                 $("#new-branch").text("Edit Restaurant");
+                new Picker(document.getElementById("branch-business-sTime"), {
+                    format: 'HH:mm',
+                    date: sTime,
+                    headers: true,
+                    text: {
+                        title: 'Pick the start time',
+                    },
+
+                });
+
+                new Picker(document.getElementById("branch-business-eTime"), {
+                    format: 'HH:mm',
+                    headers: true,
+                    date: eTime,
+                    text: {
+                        title: 'Pick the end time',
+                    },
+                });
             }
 
-            window.updateRow = (address, telephone, stop) => {
+            window.updateRow = (address, telephone, stop, sTime, eTime) => {
                 var id = $($(selectedRow).children()[0]).text();
                 $($(selectedRow).children()[1]).text(address);
                 $($(selectedRow).children()[2]).text(telephone);
-                $($(selectedRow).children()[4]).children().prop("checked", stop);
+
+                $($(selectedRow).children()[3]).text(`${sTime} - ${eTime}`);
+                $($(selectedRow).children()[5]).children().prop("checked", stop);
                 showToast(
                     `The information of branch ID <span class="text-danger">${id}</span> <span class="text-success">has been updated!</span>`
                 );
@@ -101,21 +122,26 @@
                         var id = $("#branch-id").val();
                         var address = $("#branch-address").val();
                         var telephone = $("#branch-telephone").val();
-                        var start = $("#branch-start").val();
-                        var end = $("#branch-start").val();
+                        var start = $("#branch-business-sTime").val();
+                        var end = $("#branch-business-eTime").val();
                         var stop = $("#branch-stop").prop("checked");
                         restaurant.branches[id] = {
                             "bid": id,
                             "address": address,
                             "tel": telephone,
+                            "businessHours": {
+                                "start_time": start,
+                                "end_time": end
+                            },
                             "join_date": $("#branch-join-date").val(),
                             "stop": stop,
                         };
                         saveToRestaurantsSession();
                         $("#branchModal").modal("hide");
+                        console.log(restaurant.branches[id].businessHours.start_date)
                         if ($(e.delegateTarget).text() === "Save" && selectedRow !== null) {
                             var telephone = $("#branch-telephone").val();
-                            updateRow(address, telephone, stop);
+                            updateRow(address, telephone, stop, start, end);
                         } else {
                             appendToBranchTable(restaurant.branches[id]);
                         }
@@ -189,6 +215,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Branch Address</th>
                         <th scope="col">Telephone</th>
+                        <th scope="col">Business Hours</th>
                         <th scope="col">Join Date</th>
                         <th scope="col">Stop?</th>
                         <th scope="col">Action</th>
@@ -245,6 +272,25 @@
                             </div>
 
                         </div>
+
+                        <!-- Business Hours -->
+                        <div class="form-group row">
+                            <label for="branch-business-hour" class="col-sm-3 col-form-label">Business Hours:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="branch-business-hour"
+                                    id="branch-business-sTime" placeholder="Start time">
+                            </div>
+
+                            <div class="col-sm-1">
+                                -
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="datetime" class="form-control" name="branch-business-eTime"
+                                    id="branch-business-eTime" placeholder="End time">
+                            </div>
+                        </div>
+
+                        <!-- John date -->
                         <div class="form-group row">
                             <label for="branch-join-date" class="col-sm-3 col-form-label">Join date</label>
                             <div class="col-sm-4">
