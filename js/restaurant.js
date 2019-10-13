@@ -1,4 +1,3 @@
-
 window.allRestaurants = {};
 window.restaurant = {};
 window.getRestaurant = () => {

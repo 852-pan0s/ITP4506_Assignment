@@ -41,10 +41,22 @@ window.loadMenu = () => {
 
 window.appendToMenuTable = (menu) => {
     if (menu !== null) {
-        var remove = menu.id==="m1"? ``:`<button type="button" class="btn btn-outline-danger btn-edit-men" onclick="deleteBranch(this)">Remove</button>`;
+        var remove = menu.id === "m1" ? `` : `<button type="button" class="btn btn-outline-danger btn-edit-men" onclick="deleteMenu(this)">Remove</button>`;
         var checkbox = menu.stop ? `<input type="checkbox" checked disabled>` : `<input type="checkbox" disabled>`;
-        var img = menu.image.substring(6);
-        var special = menu.special !== null? `${menu.special.type} (${menu.special.start_date} To ${menu.special.end_date})`:``
+        var img = menu.image;
+        var special = null
+        switch (menu.special.type) {
+            case "Special":
+            case "Temporary":
+                special = `${menu.special.type} (${menu.special.start_date} - ${menu.special.end_date})`;
+                break;
+            case "Season":
+                special = `${menu.special.type} (${menu.special.season})`;
+                break;
+            default:
+                special = `--None--`;
+
+        }
         info = `<tr class="tr-hover">
         <th scope="row">${menu.id}</th>
        <td>${menu.name}</td>

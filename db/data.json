@@ -107,9 +107,8 @@
                     "image": "./img/yummy_set.jpg",
                     "stop": false,
                     "special": {
-                        "type": "Temporary",
-                        "start_date": "01-10-2019",
-                        "end_date": "05-10-2019"
+                        "type": "Season",
+                        "season": "Spring"
                     }
                 },
                 "m2": {

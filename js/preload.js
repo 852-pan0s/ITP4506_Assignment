@@ -33,6 +33,24 @@ window.clear = () => {
   location.reload();
 }
 
+//Time picker
+window.timePicker = {
+  "sTime": null,
+  "eTime": null,
+  makePicker: (dayTime) => {
+    if(dayTime.picker !== null){
+      dayTime.picker.destroy();
+    }
+    return new Picker(dayTime.element, {
+      format: dayTime.format,
+      date: dayTime.time,
+      headers: dayTime.headers,
+      text: {
+        title: dayTime.title,
+      }
+    });
+  }
+}
 
 window.showToast = (message) => {
   $(".toast").toast('dispose');
@@ -168,6 +186,9 @@ $(() => {
 
   //Admin function 
   // Login.loadUser();
+
+
+
 });
 
 export {

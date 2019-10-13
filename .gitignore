@@ -1,3 +1,4 @@
 *.psd
 *.docx
-
+node_modules/**/*
+.gitignore

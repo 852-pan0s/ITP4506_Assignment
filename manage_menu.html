@@ -15,10 +15,35 @@
             }
 
             $("#menu-special-type").on("change", (e) => {
-              //  console.log("OK");
                 var selectedOption = $(e.delegateTarget).val();
-               //console.log($(e.delegateTarget).val());
-            })
+                special_option(selectedOption, {
+                    sDate: "",
+                    eDate: "",
+                    season: "Spring"
+                });
+            });
+
+            const special_option = (type, val) => {
+                switch (type) {
+                    case "Special":
+                    case "Temporary":
+                        $(".s-date,.e-date").removeClass("hide");
+                        $("#menu-special-start_date").val(val.sDate);
+                        $("#menu-special-end_date").val(val.eDate);
+                        $(".season").addClass("hide");
+                        $("#menu-season").val(null);
+                        break;
+                    case "Season":
+                        $(".s-date,.e-date").addClass("hide");
+                        $(".season").removeClass("hide");
+                        $("#menu-season").val(val.season);
+                        $(".s-date,.e-date").val(null);
+                        break;
+                    default:
+                        $(".s-date,.e-date,.season").addClass("hide");
+                        $(".s-date,.e-date,.season").val(null)
+                }
+            }
 
             $("#btn-menu-save").on("click", () => {
                 saveToMenusSession();
@@ -35,13 +60,54 @@
                 $("#menu-id").val(`m${Object.keys(menu.menus).length + 1}`);
                 $("#new-menu").text("New Menu");
                 $(".is-invalid").removeClass("is-invalid");
+                $("#menu-special-type").val("none");
+                $(".s-date,.e-date , .season").addClass("hide");
+                timePicker.sTime = timePicker.makePicker({
+                    "picker": timePicker.sTime,
+                    "element": $("#menu-special-start_date")[0],
+                    format: 'DD-MM-YYYY',
+                    title: "Start date",
+                    headers: true,
+                    time: today
+                });
+                timePicker.eTime = timePicker.makePicker({
+                    "picker": timePicker.eTime,
+                    "element": $("#menu-special-end_date")[0],
+                    format: 'DD-MM-YYYY',
+                    title: "End date",
+                    headers: true,
+                    time: today
+                });
             });
 
             var checkAllData = () => {
                 var input = $("#menuForm input");
+                var special = $("#menu-special-type").val();
                 var isValid = true;
                 $.each(input, (idx, val) => {
-                    isValid = checkData(val);
+                    switch (special) {
+                        case "Special":
+                        case "Temporary":
+                            if ($(val).attr("id") === "menu-special-season") {
+                                return;
+                            }
+                            break;
+                        case "Season":
+                            if ($(val).attr("id") === "menu-special-start_date" || $(val).attr(
+                                    "id") === "menu-special-end_date") {
+                                return;
+                            }
+                            break;
+                        default:
+                            if ($(val).attr("id") === "menu-special-start_date" || $(val).attr(
+                                    "id") === "menu-special-end_date" || $(val).attr("id") ===
+                                "menu-special-season") {
+                                return;
+                            }
+                    }
+                    if (!(isValid = checkData(val))) {
+                        return false;
+                    }
                 });
                 return isValid;
 
@@ -54,6 +120,7 @@
                 }
                 if ($(element).val() === "") {
                     $(element).addClass("is-invalid");
+                    // console.log(element)
                     isValid = false;
                 } else {
                     $(element).removeClass("is-invalid");
@@ -65,12 +132,62 @@
             window.editMenu = (element) => {
                 var i = 0;
                 var column = $(element).parent().siblings();
+                selectedRow = $(element).parent().parent();
                 var type = $(column[4]).text();
                 var special = type.substring(0, type.indexOf(" ("));
-                var start_date = type.substring(type.indexOf("(") + 1, type.indexOf(" T"));
-                var end_date = type.substring(type.indexOf("o ") + 2, type.indexOf(")"));
+                var special_opt = {};
+                switch (special) {
+                    case "Special":
+                    case "Temporary":
+                        $("#menu-season").val(null);
+                        special_opt = {
+                            sDate: type.substring(type.indexOf("(") + 1, type.indexOf(" -")),
+                            eDate: type.substring(type.indexOf("- ") + 2, type.indexOf(")")),
+                            season: null
+                        }
+                        break;
+                    case "Season":
+                        $("#menu-special-start_date").val(null);
+                        $("#menu-special-end_date").val(null);
+                        special_opt = {
+                            sDate: null,
+                            eDate: null,
+                            season: type.substring(type.indexOf("(") + 1, type.indexOf(")")),
+                        }
+                        break;
+                    default:
+                        $("#menu-season").val(null);
+                        $("#menu-special-start_date").val(null);
+                        $("#menu-special-end_date").val(null);
+                        special_opt = {
+                            sDate: null,
+                            eDate: null,
+                            season: null,
+                        }
+
+                }
+                special_option(special, special_opt);
+                var sDate = special_opt.sDate === null ? today : special_opt.sDate.replace(/-/g, ' ');
+                var eDate = special_opt.sDate === null ? today : special_opt.eDate.replace(/-/g, ' ');
+                timePicker.sTime = timePicker.makePicker({
+                    "picker": timePicker.sTime,
+                    "element": $("#menu-special-start_date")[0],
+                    format: 'DD-MM-YYYY',
+                    title: "Start date",
+                    headers: true,
+                    time: sDate
+                });
+                timePicker.eTime = timePicker.makePicker({
+                    "picker": timePicker.eTime,
+                    "element": $("#menu-special-end_date")[0],
+                    format: 'DD-MM-YYYY',
+                    title: "End date",
+                    headers: true,
+                    time: eDate
+                });
                 $.each($("#menu-special-type>option"), (key, values) => {
                     if ($(values).val() === special) {
+                        $("#menu-special-type").val(special)
                         $(values).attr("selected", "");
                     } else {
                         $(values).removeAttr("selected");
@@ -82,21 +199,33 @@
                 $("#menu-name").val($(column[1]).text());
                 $("#menu-price").val($(column[2]).text().substring(1));
                 $("#menu-image").val($(column[3]).text());
-
-                // console.log(special);
-                // console.log(start_date);
-                // console.log(end_date);
-                $("#menu-stop").prop("checked", $(column[5]).prop("checked"));
+                $("#menu-stop").prop("checked", $(column[5]).children().prop("checked"));
 
                 $("#btn-new").text("Save");
                 $("#new-menu").text("Edit Menu");
             }
 
-            window.updateRow = (address, telephone, stop) => {
+            window.updateRow = (name, price, img, special, stop) => {
                 var id = $($(selectedRow).children()[0]).text();
-                $($(selectedRow).children()[1]).text(address);
-                $($(selectedRow).children()[2]).text(telephone);
-                $($(selectedRow).children()[4]).children().prop("checked", stop);
+                $($(selectedRow).children()[1]).text(name);
+                $($(selectedRow).children()[2]).text(`$${price}`);
+                $($(selectedRow).children()[3]).text(img);
+                var special_period = "";
+                switch (special.type) {
+                    case "Special":
+                    case "Temporary":
+                        special_period =
+                            `${special.type} (${special.start_date} - ${special.end_date})`;
+                        break;
+                    case "Season":
+                        special_period = `${special.type} (${special.season})`;
+                        break;
+                    default:
+                        special_period = `--None--`;
+
+                }
+                $($(selectedRow).children()[4]).text(special_period);
+                $($(selectedRow).children()[5]).children().prop("checked", stop);
                 showToast(
                     `The information of menu ID <span class="text-danger">${id}</span> <span class="text-success">has been updated!</span>`
                 );
@@ -104,8 +233,8 @@
 
             window.deleteMenu = (element) => {
                 if (true) {
-                    var id = $($(selectedRow).children()[0]).text();
                     selectedRow = $(element).parent().parent();
+                    var id = $($(selectedRow).children()[0]).text();
                     var column = $(element).parent().siblings();
                     var id = $(column[0]).text();
                     menu.menus[id] = null;
@@ -120,34 +249,34 @@
             //add New Menu
             $("#btn-new").on("click", (e) => {
                 if (checkAllData()) {
-                    $("#menu-telephone").removeClass("is-invalid");
                     var id = $("#menu-id").val();
                     var name = $("#menu-name").val();
                     var price = $("#menu-price").val();
                     var image = $("#menu-image").val();
                     var stop = $("#menu-stop").val();
-                    var type = $("#menu-type").val();
-                    var start_date = $("#menu-start_date").val();
-                    var end_date = $("#menu-end_date").val();
+
+                    var special = {
+                        type: $("#menu-special-type").val(),
+                        season: $("#menu-season").val(),
+                        start_date: $("#menu-special-start_date").val(),
+                        end_date: $("#menu-special-end_date").val(),
+                    }
 
                     var stop = $("#menu-stop").prop("checked");
                     menu.menus[id] = {
-                        "id": id,
-                        "name": name,
-                        "price": price,
-                        "image": $("#menu-image").val(),
-                        "stop": stop,
-                        "type": type,
-                        "start_date": start_date,
-                        "end_date": end_date
+                        id,
+                        name,
+                        price,
+                        image,
+                        stop,
+                        special
                     };
                     saveToMenusSession();
                     $("#menuModal").modal("hide");
                     if ($(e.delegateTarget).text() === "Save" && selectedRow !== null) {
-                        var telephone = $("#menu-telephone").val();
-                        updateRow(address, telephone, stop);
+                        updateRow(name, price, image, special, stop);
                     } else {
-                        appendMenuTable(menu.menus[id]);
+                        appendToMenuTable(menu.menus[id]);
                     }
                 }
 
@@ -157,12 +286,7 @@
             $("#menu-name,#menu-telephone,#menu-name").on("keyup", (e) => {
                 checkData(e.delegateTarget);
             });
-            $("#menu-telephone").on("keyup", (e) => {
-                var phone = $(e.delegateTarget);
-                if (phone.val().length > 8) {
-                    phone.val(phone.val().substring(0, 8));
-                }
-            });
+
 
         });
     </script>
@@ -179,15 +303,10 @@
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
             /* display: none; <- Crashes Chrome on hover */
-            -webkit-appearance: none;
             margin: 0;
             /* <-- Apparently some margin are still there even though it's hidden */
         }
 
-        input[type=number] {
-            -moz-appearance: textfield;
-            /* Firefox */
-        }
 
         div.jumbotron.jumbotron-fluid {
             background-color: rgb(255, 255, 255);
@@ -279,7 +398,7 @@
                                 <input type="number" class="form-control col-sm-5" name="menu-price" id="menu-price"
                                     placeholder="Food price">
                                 <div class="invalid-feedback" id="invalid-price">
-                                    Price
+                                    Price must be entered.
                                 </div>
                             </div>
 
@@ -303,35 +422,42 @@
                                     <option value="none">--None--</option>
                                     <option value="Special">Special</option>
                                     <option value="Temporary">Temporary</option>
-                                    <option value="Seasonal">Seasonal</option>
+                                    <option value="Season">Season</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- image -->
+                        <div class="form-group row season ">
+                            <label for="menu-special-type" class="col-sm-4 col-form-label">Season:</label>
+                            <div class="col-sm-4">
+                                <select class="custom-select" name="menu-season" id="menu-season">
+                                    <option value="Spring">Spring</option>
+                                    <option value="Summer">Summer</option>
+                                    <option value="Autumn">Autumn</option>
+                                    <option value="Winter">Winter</option>
                                 </select>
                             </div>
                         </div>
 
                         <!-- Special start date -->
-                        <div class="form-group row">
+                        <div class="form-group row s-date hide">
                             <label for="menu-special-start_date" class="col-sm-4 col-form-label">Start date:</label>
                             <div class="col-sm-4">
                                 <div class="input-group flex-nowrap">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="addon-wrapping">@</span>
-                                    </div>
-                                    <input type="date" class="form-control" placeholder="Username" aria-label="Username"
-                                        aria-describedby="addon-wrapping">
+                                    <input type="text" id="menu-special-start_date" class="form-control"
+                                        placeholder="Start date" aria-describedby="addon-wrapping">
                                 </div>
                             </div>
                         </div>
 
                         <!-- Special end date -->
-                        <div class="form-group row">
-                            <label for="menu-special-eDate" class="col-sm-4 col-form-label">End date:</label>
+                        <div class="form-group row e-date hide">
+                            <label for="menu-special-end_date" class="col-sm-4 col-form-label">End date:</label>
                             <div class="col-sm-4">
                                 <div class="input-group flex-nowrap">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="addon-wrapping">@</span>
-                                    </div>
-                                    <input type="date" class="form-control" placeholder="Username" aria-label="Username"
-                                        aria-describedby="addon-wrapping">
+                                    <input type="text" id="menu-special-end_date" class="form-control"
+                                        placeholder="End date" aria-describedby="addon-wrapping">
                                 </div>
                             </div>
                         </div>

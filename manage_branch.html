@@ -14,39 +14,6 @@
                 loadBranch();
             }
 
-            var sPicker = null;
-            var ePicker = null;
-
-            makeSPicker = (time) => {
-                if (sPicker !== null) {
-                    sPicker.destroy();
-                }
-                return new Picker(document.getElementById("branch-business-sTime"), {
-                    format: 'HH:mm',
-                    date: time,
-                    headers: true,
-                    text: {
-                        title: 'Pick the start time',
-                    },
-
-                });
-            }
-
-            makeEPicker = (time) => {
-                if (ePicker !== null) {
-                    ePicker.destroy();
-                }
-                return new Picker(document.getElementById("branch-business-eTime"), {
-                    format: 'HH:mm',
-                    date: time,
-                    headers: true,
-                    text: {
-                        title: 'Pick the start time',
-                    },
-
-                });
-            }
-
             $("#btn-new-branch").on("click", () => {
                 $("#BranchForm input").val("");
                 $("#branch-stop").prop("checked", false);
@@ -55,8 +22,22 @@
                 $("#branch-join-date").val(today);
                 $("#new-branch").text("New Branch");
                 $(".is-invalid").removeClass("is-invalid");
-                sPicker = makeSPicker("00:00");
-                ePicker = makeEPicker("00:00");
+                timePicker.sTime = timePicker.makePicker({
+                    "picker": timePicker.sTime,
+                    "element": $("#branch-business-sTime")[0],
+                    format: "HH:mm",
+                    title: "End Time",
+                    headers: true,
+                    time: "00:00"
+                });
+                timePicker.eTime = timePicker.makePicker({
+                    "picker": timePicker.eTime,
+                    "element": $("#branch-business-eTime")[0],
+                    format: "HH:mm",
+                    title: "End Time",
+                    headers: true,
+                    time: "00:00"
+                });
 
             });
 
@@ -104,8 +85,22 @@
                 $("#branch-stop").prop("checked", $(column[5]).children().prop("checked"));
                 $("#btn-new").text("Save");
                 $("#new-branch").text("Edit Restaurant");
-                sPicker = makeSPicker(sTime);
-                ePicker = makeEPicker(eTime);
+                timePicker.sTime = timePicker.makePicker({
+                    "picker": timePicker.sTime,
+                    "element": $("#branch-business-sTime")[0],
+                    format: "HH:mm",
+                    title: "Start Time",
+                    headers: true,
+                    time: sTime
+                });
+                timePicker.eTime = timePicker.makePicker({
+                    "picker": timePicker.eTime,
+                    "element": $("#branch-business-eTime")[0],
+                    format: "HH:mm",
+                    title: "End Time",
+                    headers: true,
+                    time: eTime
+                });
             }
 
             window.updateRow = (address, telephone, stop, sTime, eTime) => {
@@ -184,7 +179,7 @@
             });
 
             //on change event
-            $("#branch-business-sTime,#branch-business-eTime").on("change",(e)=>{
+            $("#branch-business-sTime,#branch-business-eTime").on("change", (e) => {
                 $(e.delegateTarget).removeClass("is-invalid");
             })
 
