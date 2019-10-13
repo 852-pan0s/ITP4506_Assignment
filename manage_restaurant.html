@@ -13,10 +13,14 @@
             setTimeout(() => {
                 $("#res-name").val(restaurant.name);
                 $("#res-introduction").val(restaurant.introduction);
+                $("#res-img-src").attr("src", `./img/icon/${restaurant.icon}`);
             }, 500);
             $("#btn-res-save").on("click", () => {
                 restaurant.name = $("#res-name").val();
                 restaurant.introduction = $("#res-introduction").val();
+                if ($("#res-icon").val() !== "") {
+                    restaurant.icon = $("#res-icon").val().substring(12);
+                }
                 saveToRestaurantsSession();
                 // console.log(restaurant.name);
                 showToast(
@@ -29,12 +33,34 @@
                 $("#res-introduction").val(restaurant.introduction);
                 // console.log(restaurant.name);
                 showToast(
-                    `The information of <span class="text-danger">${restaurant.name}</span> has beed <span class="text-success">reset</reset>.`);
+                    `The information of <span class="text-danger">${restaurant.name}</span> has beed <span class="text-success">reset</reset>.`
+                );
+            });
+
+
+            $("#res-img-src").on("click", () => {
+                $("#res-icon").click();
+            });
+
+            $("#res-icon").on("change", (e) => {
+                $("#res-img-src").attr("src", `./img/icon/${$(e.delegateTarget).val().substring(12)}`);
             });
 
         });
     </script>
     <style>
+        #res-img-src:hover {
+            cursor: pointer;
+        }
+
+        input:hover,
+        select:hover,
+        img:hover,
+        textarea:hover {
+            box-shadow: 0px 0px 10px 5px rgb(216, 216, 216);
+            transition: box-shadow 0.5s;
+        }
+
         div.jumbotron.jumbotron-fluid {
             background-color: rgb(255, 255, 255);
             box-shadow: none;
@@ -54,6 +80,16 @@
             <p class="lead">You can manage the information of your restaurant and branch here.</p>
             <hr class="my-4">
             <form>
+                <!-- image preview -->
+                <div class="form-group row">
+                    <div class="col-sm-12 text-center">
+                        <img src="" id="res-img-src" title="Restaurant Icon"
+                            style="max-height: 200px;max-width: 200px;">
+                    </div>
+                </div>
+
+                <input type="file" name="" id="res-icon" class="hide">
+
                 <div class="form-group row">
                     <label for="res-name" class="col-sm-3 col-form-label">Restaurant Name:</label>
                     <div class="col-sm-6">
@@ -80,7 +116,7 @@
         // animation
         ScrollReveal().reveal('.jumbotron-fluid', {
             duration: 1000,
-            origin: 'bottom',
+            origin: 'right',
             distance: '100px',
             viewFactor: 0.4,
         });

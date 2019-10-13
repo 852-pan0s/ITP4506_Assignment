@@ -1,4 +1,3 @@
-
 window.allMenu = {};
 window.menu = {};
 window.getMenu = () => {
@@ -42,7 +41,7 @@ window.loadMenu = () => {
 window.appendToMenuTable = (menu) => {
     if (menu !== null) {
         var remove = menu.id === "m1" ? `` : `<button type="button" class="btn btn-outline-danger btn-edit-men" onclick="deleteMenu(this)">Remove</button>`;
-        var checkbox = menu.stop ? `<input type="checkbox" checked disabled>` : `<input type="checkbox" disabled>`;
+        var checkbox = menu.show ? `<input type="checkbox" checked disabled>` : `<input type="checkbox" disabled>`;
         var img = menu.image;
         var special = null
         switch (menu.special.type) {

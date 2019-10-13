@@ -39,6 +39,7 @@
             "id": "r1",
             "name": "KFC",
             "owner": "3",
+            "icon": "kfc_icon.png",
             "introduction": "KFC is a restaurant that the main menu is fired chickens.",
             "branches": {
                 "b1": {
@@ -69,6 +70,7 @@
             "id": "r2",
             "name": "McDonald's",
             "owner": "4",
+            "icon": "mcd_icon.png",
             "introduction": "McDonald is a restaurant that the main menu is fired chickens.",
             "branches": {
                 "b1": {
@@ -104,8 +106,8 @@
                     "id": "m1",
                     "name": "Yummy Set",
                     "price": "100.00",
-                    "image": "./img/yummy_set.jpg",
-                    "stop": false,
+                    "image": "yummy_set.jpg",
+                    "show": true,
                     "special": {
                         "type": "Season",
                         "season": "Spring"
@@ -115,8 +117,8 @@
                     "id": "m2",
                     "name": "Burger",
                     "price": "20.00",
-                    "image": "./img/burger.jpg",
-                    "stop": false,
+                    "image": "burger.jpg",
+                    "show": true,
                     "special": {
                         "type": "Special",
                         "start_date": "01-10-2019",
@@ -124,7 +126,34 @@
                     }
                 }
             }
-
+        },
+        "mcd": {
+            "owner": "4",
+            "menus": {
+                "m1": {
+                    "id": "m1",
+                    "name": "Yummy Set2",
+                    "price": "100.00",
+                    "image": "yummy_set.jpg",
+                    "show": true,
+                    "special": {
+                        "type": "Season",
+                        "season": "Spring"
+                    }
+                },
+                "m2": {
+                    "id": "m2",
+                    "name": "Burger2",
+                    "price": "20.00",
+                    "image": "burger.jpg",
+                    "show": true,
+                    "special": {
+                        "type": "Special",
+                        "start_date": "01-10-2019",
+                        "end_date": "05-10-2019"
+                    }
+                }
+            }
         }
     }
 }

@@ -13,6 +13,7 @@
             if (typeof loadMenu !== "undefined") {
                 loadMenu();
             }
+            var img_src = "./img/food_drink/";
 
             $("#menu-special-type").on("change", (e) => {
                 var selectedOption = $(e.delegateTarget).val();
@@ -21,6 +22,15 @@
                     eDate: "",
                     season: "Spring"
                 });
+            });
+
+            $("#menu-img-src").on("click", () => {
+                $("#menu-image").click();
+            });
+
+            $("#menu-image").on("change", (e) => {
+                $("#menu-img-src").attr("src", `${img_src}${$(e.delegateTarget).val().substring(12)}`);
+                $("#menu-image").removeClass("is-invalid");
             });
 
             const special_option = (type, val) => {
@@ -40,6 +50,7 @@
                         $(".s-date,.e-date").val(null);
                         break;
                     default:
+                        $("#menu-special-type").val("none");
                         $(".s-date,.e-date,.season").addClass("hide");
                         $(".s-date,.e-date,.season").val(null)
                 }
@@ -55,13 +66,14 @@
             $("#btn-new-menu").on("click", () => {
                 $("#menuForm input").val("");
                 $("#menu-special-type>option").removeAttr("selected");
-                $("#menu-stop").prop("checked", false);
+                $("#menu-show").prop("checked", true);
                 $("#btn-new").text("New");
                 $("#menu-id").val(`m${Object.keys(menu.menus).length + 1}`);
                 $("#new-menu").text("New Menu");
                 $(".is-invalid").removeClass("is-invalid");
                 $("#menu-special-type").val("none");
                 $(".s-date,.e-date , .season").addClass("hide");
+                $("#menu-img-src").attr('src', './img/upload.png');
                 timePicker.sTime = timePicker.makePicker({
                     "picker": timePicker.sTime,
                     "element": $("#menu-special-start_date")[0],
@@ -104,6 +116,9 @@
                                 "menu-special-season") {
                                 return;
                             }
+                    }
+                    if (($(val).attr("id") === "menu-image") && $("#btn-new").text() === "Save") {
+                        return
                     }
                     if (!(isValid = checkData(val))) {
                         return false;
@@ -170,16 +185,16 @@
                 var sDate = special_opt.sDate === null ? today : special_opt.sDate.replace(/-/g, ' ');
                 var eDate = special_opt.sDate === null ? today : special_opt.eDate.replace(/-/g, ' ');
                 timePicker.sTime = timePicker.makePicker({
-                    "picker": timePicker.sTime,
-                    "element": $("#menu-special-start_date")[0],
+                    picker: timePicker.sTime,
+                    element: $("#menu-special-start_date")[0],
                     format: 'DD-MM-YYYY',
                     title: "Start date",
                     headers: true,
                     time: sDate
                 });
                 timePicker.eTime = timePicker.makePicker({
-                    "picker": timePicker.eTime,
-                    "element": $("#menu-special-end_date")[0],
+                    picker: timePicker.eTime,
+                    element: $("#menu-special-end_date")[0],
                     format: 'DD-MM-YYYY',
                     title: "End date",
                     headers: true,
@@ -198,14 +213,14 @@
                 $("#menu-id").val($(column[0]).text());
                 $("#menu-name").val($(column[1]).text());
                 $("#menu-price").val($(column[2]).text().substring(1));
-                $("#menu-image").val($(column[3]).text());
-                $("#menu-stop").prop("checked", $(column[5]).children().prop("checked"));
-
+                $("#menu-img-src").attr("src", `${img_src}${$(column[3]).text()}`);
+                $("#menu-show").prop("checked", $(column[5]).children().prop("checked"));
                 $("#btn-new").text("Save");
                 $("#new-menu").text("Edit Menu");
+                $("#menu-image").removeClass("is-invalid");
             }
 
-            window.updateRow = (name, price, img, special, stop) => {
+            window.updateRow = (name, price, img, special, show) => {
                 var id = $($(selectedRow).children()[0]).text();
                 $($(selectedRow).children()[1]).text(name);
                 $($(selectedRow).children()[2]).text(`$${price}`);
@@ -225,10 +240,11 @@
 
                 }
                 $($(selectedRow).children()[4]).text(special_period);
-                $($(selectedRow).children()[5]).children().prop("checked", stop);
+                $($(selectedRow).children()[5]).children().prop("checked", show);
                 showToast(
                     `The information of menu ID <span class="text-danger">${id}</span> <span class="text-success">has been updated!</span>`
                 );
+                $("#menu-image").val("");
             }
 
             window.deleteMenu = (element) => {
@@ -248,12 +264,15 @@
 
             //add New Menu
             $("#btn-new").on("click", (e) => {
+                var image = $("#menu-image").val().substring(12);
+                if ($("#menu-image").val() === "" && $(e.delegateTarget).text() === "Save") {
+                    image = $($(selectedRow).children()[3]).text();
+                }
                 if (checkAllData()) {
                     var id = $("#menu-id").val();
                     var name = $("#menu-name").val();
                     var price = $("#menu-price").val();
-                    var image = $("#menu-image").val();
-                    var stop = $("#menu-stop").val();
+                    var show = $("#menu-show").val();
 
                     var special = {
                         type: $("#menu-special-type").val(),
@@ -262,28 +281,35 @@
                         end_date: $("#menu-special-end_date").val(),
                     }
 
-                    var stop = $("#menu-stop").prop("checked");
+                    var show = $("#menu-show").prop("checked");
                     menu.menus[id] = {
                         id,
                         name,
                         price,
                         image,
-                        stop,
+                        show,
                         special
                     };
                     saveToMenusSession();
                     $("#menuModal").modal("hide");
                     if ($(e.delegateTarget).text() === "Save" && selectedRow !== null) {
-                        updateRow(name, price, image, special, stop);
+                        updateRow(name, price, image, special, show);
                     } else {
                         appendToMenuTable(menu.menus[id]);
+                        showToast(
+                            `The menu ID <span class="text-danger">${id}</span> <span class="text-success">has been added!</span>`
+                        );
                     }
                 }
 
             });
 
             //on key down event
-            $("#menu-name,#menu-telephone,#menu-name").on("keyup", (e) => {
+            $("#menu-name,#menu-price").on("keyup", (e) => {
+                checkData(e.delegateTarget);
+            });
+
+            $("#menu-special-start_date,#menu-special-end_date").on("change", (e) => {
                 checkData(e.delegateTarget);
             });
 
@@ -303,8 +329,14 @@
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
             /* display: none; <- Crashes Chrome on hover */
+            -webkit-appearance: none;
             margin: 0;
             /* <-- Apparently some margin are still there even though it's hidden */
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+            /* Firefox */
         }
 
 
@@ -317,6 +349,21 @@
         div.jumbotron.jumbotron-fluid:hover {
             box-shadow: 0px 0px 10px 5px rgb(216, 216, 216);
         }
+
+        #menu-img-src:hover,
+        #menu-special-start_date:hover,
+        #menu-special-end_date:hover,
+        select {
+            cursor: pointer;
+
+        }
+
+        #menu-img-src:hover,
+        #menu-special-start_date:hover,
+        #menu-special-end_date:hover {
+            box-shadow: 0px 0px 10px 5px rgb(216, 216, 216);
+            transition: box-shadow 0.5s;
+        }
     </style>
 </head>
 
@@ -324,9 +371,9 @@
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
             <h1 class="display-4">Menu Management</h1>
-            <p class="lead">You can the menu of the menu here.</p>
+            <p class="lead">You can edit the menu of the restaurant here.</p>
             <hr class="my-4">
-            <form>
+            <!-- <form>
                 <div class="form-group row">
                     <label for="res-name" class="col-sm-2 col-form-label">Restaurant Name:</label>
                     <div class="col-sm-6">
@@ -336,8 +383,8 @@
                     <button type="button" id="btn-menu-cancel" class="btn btn-outline-danger ">Cancel</button>
 
                 </div>
-            </form>
-            <hr class="my-4">
+            </form> -->
+            <!-- <hr class="my-4"> -->
             <a class="btn btn-primary btn-lg" id="btn-new-menu" href="#" role="button" data-toggle="modal"
                 data-target="#menuModal">New Menu</a>
             <hr class="my-4">
@@ -349,7 +396,7 @@
                         <th scope="col">Price</th>
                         <th scope="col">Image</th>
                         <th scope="col">Special Period</th>
-                        <th scope="col">Stop?</th>
+                        <th scope="col">Show?</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -371,14 +418,35 @@
                 </div>
                 <div class="modal-body">
                     <form action="#" method="get" id="menuForm">
+
+                        <!-- image preview -->
+                        <div class="form-group row">
+                            <div class="col-sm-12 text-center">
+                                <img src="" id="menu-img-src" title="Food/Drink Icon"
+                                    style="max-height: 200px;max-width: 200px;">
+                            </div>
+                        </div>
+
+                        <!-- image -->
+                        <div class="form-group row ">
+                            <div class="col-sm-12 text-center">
+                                <input type="file" class="form-control hide" name="menu-image" id="menu-image"
+                                    placeholder="Name of image(example.jpg)">
+                                <div class="invalid-feedback " id="invalid-image" style="font-size: 16px;">
+                                    You need to upload an image for the food/drink.
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label for="menu-id" class="col-sm-4 col-form-label">ID#:</label>
                             <div class="col-sm-2">
                                 <input type="text" class="form-control-plaintext" name="menu-id" id="menu-id"
                                     placeholder="Enter your username" readonly>
                             </div>
-
                         </div>
+
+
                         <!-- Name -->
                         <div class="form-group row">
                             <label for="menu-name" class="col-sm-4 col-form-label">Name:</label>
@@ -396,21 +464,12 @@
                             <label for="menu-price" class="col-sm-4 col-form-label">Price:</label>
                             <div class="col-sm-8">
                                 <input type="number" class="form-control col-sm-5" name="menu-price" id="menu-price"
-                                    placeholder="Food price">
+                                    placeholder="Food price" min="0">
                                 <div class="invalid-feedback" id="invalid-price">
                                     Price must be entered.
                                 </div>
                             </div>
 
-                        </div>
-
-                        <!-- image -->
-                        <div class="form-group row">
-                            <label for="menu-image" class="col-sm-4 col-form-label">Image:</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" name="menu-image" id="menu-image"
-                                    placeholder="Name of image(example.jpg)">
-                            </div>
                         </div>
 
 
@@ -427,7 +486,7 @@
                             </div>
                         </div>
 
-                        <!-- image -->
+                        <!-- Season -->
                         <div class="form-group row season ">
                             <label for="menu-special-type" class="col-sm-4 col-form-label">Season:</label>
                             <div class="col-sm-4">
@@ -447,6 +506,7 @@
                                 <div class="input-group flex-nowrap">
                                     <input type="text" id="menu-special-start_date" class="form-control"
                                         placeholder="Start date" aria-describedby="addon-wrapping">
+
                                 </div>
                             </div>
                         </div>
@@ -462,12 +522,12 @@
                             </div>
                         </div>
 
-                        <!-- Stop -->
+                        <!-- Show -->
                         <div class="form-group row">
                             <div class="hide" id="editMenuError" style="color: red"></div>
-                            <label for="menu-stop" class="col-sm-4 col-form-label">Stop?</label>
+                            <label for="menu-show" class="col-sm-4 col-form-label">Show?</label>
                             <div class="col-sm-1">
-                                <input type="checkbox" class="form-control" name="menu-stop" id="menu-stop">
+                                <input type="checkbox" class="form-control" name="menu-show" id="menu-show">
                             </div>
                         </div>
                         <!-- <button type="button" class="btn btn-outline-primary" id="btn-login">Login</button> -->
@@ -493,7 +553,7 @@
         // animation
         ScrollReveal().reveal('.jumbotron-fluid', {
             duration: 1000,
-            origin: 'bottom',
+            origin: 'left',
             distance: '100px',
             viewFactor: 0.4,
         });
