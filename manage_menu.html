@@ -18,11 +18,11 @@
                 $("#menu-img-src").popover('hide');
             });
 
-            showImgPreview = (element) =>{
+            showImgPreview = (element) => {
                 $(element).popover('show');
             }
 
-            hideImgPreview = (element) =>{
+            hideImgPreview = (element) => {
                 $(element).popover('hide');
             }
 
@@ -265,18 +265,21 @@
             }
 
             window.deleteMenu = (element) => {
-                if (true) {
-                    selectedRow = $(element).parent().parent();
-                    var id = $($(selectedRow).children()[0]).text();
-                    var column = $(element).parent().siblings();
-                    var id = $(column[0]).text();
-                    menu.menus[id] = null;
-                    saveToMenusSession();
-                    $(selectedRow).remove();
-                    showToast(
-                        `The information of menu ID <span class="text-danger">${id}</span> <span class="text-success">has been deleted!</span>`
-                    );
-                }
+                selectedRow = $(element).parent().parent();
+                var id = $($(selectedRow).children()[0]).text();
+                var column = $(element).parent().siblings();
+                var id = $(column[0]).text();
+                var text = `Are you sure to delete the <span class="text-danger">#${id}</span> menu?`
+                yesNoModal(text, (confirm) => {
+                    if (confirm) {
+                        menu.menus[id] = null;
+                        saveToMenusSession();
+                        $(selectedRow).remove();
+                        showToast(
+                            `The information of menu ID <span class="text-danger">${id}</span> <span class="text-success">has been deleted!</span>`
+                        );
+                    }
+                });
             }
 
             //add New Menu
@@ -382,7 +385,7 @@
             transition: box-shadow 0.5s;
         }
 
-        .preview{
+        .preview {
             max-height: 200px;
             max-width: 200px;
         }

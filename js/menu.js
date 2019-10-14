@@ -60,7 +60,7 @@ window.appendToMenuTable = (menu) => {
         <th scope="row">${menu.id}</th>
        <td>${menu.name}</td>
        <td>$${menu.price}</td>
-       <td onmouseenter="showImgPreview(this)" onmouseleave="hideImgPreview(this)" data-placement="top" data-content="<h6>Preview:</h6> <img src='./img/food_drink/${img}' class='preview' >" data-html="true">${img}</td>
+       <td onmouseenter="showImgPreview(this)" onmouseleave="hideImgPreview(this)" data-placement="top" data-content="<h6>Preview:</h6><hr> <img src='./img/food_drink/${img}' class='preview' >" data-html="true">${img}</td>
        <td>${special}</td>
        <td>${checkbox}</td>
        <td>

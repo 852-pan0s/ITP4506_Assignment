@@ -69,6 +69,21 @@ window.isLoad = {
 
 window._db = {};
 
+//Yes no modal callback function
+window.yesNoModal = (text, callback) => {
+  $("#yesNo-modal").modal('show'); //show the yes no modal
+  $("#yesNo-modal #text").html(text);
+  $("#btn-yes").on("click", () => {
+    callback(true);
+    $("#yesNo-modal").modal('hide'); //hide the yes no modal
+  });
+  $("#btn-no").on("click", () => {
+    callback(false);
+    $("#yesNo-modal").modal('hide'); //hide the yes no modal
+  });
+
+}
+
 const db_load = () => {
   return $.getJSON("../db/data.json").then((data) => {
     return data;
@@ -112,9 +127,9 @@ $(() => {
     marginFix();
     lightStyle();
     setSecondDirectory(name);
-    if(typeof thirdDir !== "undefined"){
+    if (typeof thirdDir !== "undefined") {
       $("#third").show();
-    }else{
+    } else {
       $("#third").hide();
     }
 
@@ -192,6 +207,7 @@ $(() => {
   // Login.loadUser();
 
   $('[data-toggle="popover"]').popover();
+  $('[data-toggle="tooltip"]').tooltip();
 
 });
 
