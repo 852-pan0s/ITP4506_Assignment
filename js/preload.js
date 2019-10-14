@@ -1,4 +1,3 @@
-import * as Login from './login.js';
 import './profile.js';
 import {
   darkStyle,
@@ -6,6 +5,8 @@ import {
 } from "./scrolling.js";
 
 /**Global variables */
+
+//Get today value return dd-mm-yyy
 window.today = () => {
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
@@ -16,18 +17,22 @@ window.today = () => {
   return today;
 }
 
+//set object to the session
 window.setSessionObj = (session, obj) => {
   sessionStorage.setItem(session, JSON.stringify(obj));
 }
 
+//get object from the session
 window.getSessionObj = (session) => {
   return JSON.parse(sessionStorage.getItem(session));
 }
 
+//clear the session item
 window.clearSessionObj = (session) => {
   sessionStorage.removeItem(session);
 }
 
+//clear all the session items
 window.clear = () => {
   sessionStorage.clear();
   location.reload();
@@ -52,6 +57,7 @@ window.timePicker = {
   }
 }
 
+//Show the toast 
 window.showToast = (message) => {
   $(".toast").toast('dispose');
   $("#toast-message").html(message);
@@ -99,8 +105,6 @@ db_load().then((data) => {
   }
 });
 
-// animation
-window.sr = ScrollReveal(); // declare animation object
 var homePage;
 $(() => {
   //***************** Declare Functions *****************/ 
@@ -178,9 +182,7 @@ $(() => {
   $("#btn-menu").on("click", () => {
     menuPage();
   });
-  // $(".btn-manage").on("click",()=> {
-  //   managePage();
-  // });
+
   $(".btn-manage-restaurant").on("click", () => {
     managePage(`${$(".btn-manage").text()} / ${$(".btn-manage-restaurant").text()}`, "manage_restaurant.html");
   });
@@ -201,10 +203,6 @@ $(() => {
   });
 
   /**On click event */
-
-
-  //Admin function 
-  // Login.loadUser();
 
   $('[data-toggle="popover"]').popover();
   $('[data-toggle="tooltip"]').tooltip();

@@ -40,7 +40,7 @@
             "name": "KFC",
             "owner": "3",
             "icon": "kfc_icon.png",
-            "introduction": "KFC is a restaurant that the main menu is fired chickens.",
+            "introduction": "KFC is a restaurant that the main menus are fried chickens.",
             "categories": ["c1", "c4", "c7"],
             "branches": {
                 "b1": {
@@ -72,21 +72,8 @@
             "name": "McDonald's",
             "owner": "4",
             "icon": "mcd_icon.png",
-            "introduction": "McDonald is a restaurant that the main menu is fired chickens.",
-            "categories": {
-                "c3": {
-                    "id": "c3",
-                    "name": "Beverages"
-                },
-                "c4": {
-                    "id": "c4",
-                    "name": "Burger"
-                },
-                "c5": {
-                    "id": "c5",
-                    "name": "Chinese"
-                }
-            },
+            "introduction": "McDonald is a restaurant that the main menus are burgers.",
+            "categories": ["c3", "c4", "c5"],
             "branches": {
                 "b1": {
                     "bid": "b1",

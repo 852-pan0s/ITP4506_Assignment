@@ -1,4 +1,4 @@
-window.allMenu = {};
+window.allMenus = {};
 window.menu = {};
 window.getMenu = () => {
     var operator = getSessionObj("user");
@@ -6,7 +6,7 @@ window.getMenu = () => {
     var loadFromSession = getSessionObj("menus");
     if (loadFromSession === null) { //load from db or load from session
         setSessionObj("menus", loadFromDb); //set add the menu to the session
-        allMenu = loadFromDb;
+        allMenus = loadFromDb;
         $.each(loadFromDb, (res, data) => {
             if (data.owner === operator.uid) {
                 menu = data;
@@ -14,6 +14,7 @@ window.getMenu = () => {
             }
         });
     } else {
+        allMenus = loadFromSession;
         $.each(loadFromSession, (res, data) => {
             // console.log(data.owner+","+operator.uid)
             if (data.owner === operator.uid) {
@@ -25,8 +26,8 @@ window.getMenu = () => {
 }
 
 window.saveToMenusSession = () => {
-    allMenu[menu.id] = menu;
-    setSessionObj("menus", allMenu);
+    allMenus[menu.id] = menu;
+    setSessionObj("menus", allMenus);
 }
 
 var info = "";
