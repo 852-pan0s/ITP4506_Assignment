@@ -38,7 +38,7 @@ window.timePicker = {
   "sTime": null,
   "eTime": null,
   makePicker: (dayTime) => {
-    if(dayTime.picker !== null){
+    if (dayTime.picker !== null) {
       dayTime.picker.destroy();
     }
     return new Picker(dayTime.element, {
@@ -56,7 +56,7 @@ window.showToast = (message) => {
   $(".toast").toast('dispose');
   $("#toast-message").html(message);
   $('.toast').toast({
-    delay: 3000,
+    delay: 5000,
     animation: true,
     autohide: true
   })
@@ -187,7 +187,7 @@ $(() => {
   //Admin function 
   // Login.loadUser();
 
-
+  $('[data-toggle="popover"]').popover();
 
 });
 

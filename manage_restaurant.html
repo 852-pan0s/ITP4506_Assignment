@@ -10,6 +10,13 @@
     <title>Document</title>
     <script>
         $(() => {
+            $("#res-img-src").on("mouseenter", () => {
+                $("#res-img-src").popover('show');
+            });
+            $("#res-img-src").on("mouseleave", () => {
+                $("#res-img-src").popover('hide');
+            });
+
             setTimeout(() => {
                 $("#res-name").val(restaurant.name);
                 $("#res-introduction").val(restaurant.introduction);
@@ -49,6 +56,8 @@
         });
     </script>
     <style>
+
+        
         #res-img-src:hover {
             cursor: pointer;
         }
@@ -84,7 +93,7 @@
                 <div class="form-group row">
                     <div class="col-sm-12 text-center">
                         <img src="" id="res-img-src" title="Restaurant Icon"
-                            style="max-height: 200px;max-width: 200px;">
+                            style="max-height: 200px;max-width: 200px;" data-placement="left" data-content="Click for upload the restaurant icon.">
                     </div>
                 </div>
 

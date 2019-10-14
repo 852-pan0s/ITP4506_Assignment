@@ -10,6 +10,23 @@
     <title>Document</title>
     <script>
         $(() => {
+            //Popovers
+            $("#menu-img-src").on("mouseenter", () => {
+                $("#menu-img-src").popover('show');
+            });
+            $("#menu-img-src").on("mouseleave", () => {
+                $("#menu-img-src").popover('hide');
+            });
+
+            showImgPreview = (element) =>{
+                $(element).popover('show');
+            }
+
+            hideImgPreview = (element) =>{
+                $(element).popover('hide');
+            }
+
+
             if (typeof loadMenu !== "undefined") {
                 loadMenu();
             }
@@ -364,6 +381,11 @@
             box-shadow: 0px 0px 10px 5px rgb(216, 216, 216);
             transition: box-shadow 0.5s;
         }
+
+        .preview{
+            max-height: 200px;
+            max-width: 200px;
+        }
     </style>
 </head>
 
@@ -423,7 +445,8 @@
                         <div class="form-group row">
                             <div class="col-sm-12 text-center">
                                 <img src="" id="menu-img-src" title="Food/Drink Icon"
-                                    style="max-height: 200px;max-width: 200px;">
+                                    style="max-height: 200px;max-width: 200px;" data-placement="bottom"
+                                    data-content="Click for upload the food image.">
                             </div>
                         </div>
 

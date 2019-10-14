@@ -159,6 +159,9 @@
                             updateRow(address, telephone, stop, start, end);
                         } else {
                             appendToBranchTable(restaurant.branches[id]);
+                            showToast(
+                                `The branch ID <span class="text-danger">${id}</span> <span class="text-success">has been added!</span>`
+                            );
                         }
                     } else {
                         $("#branch-telephone").addClass("is-invalid");
@@ -186,6 +189,14 @@
         });
     </script>
     <style>
+        #branch-business-sTime:hover,
+        #branch-business-eTime:hover {
+            cursor: pointer;
+            box-shadow: 0px 0px 10px 5px rgb(216, 216, 216);
+            transition: box-shadow 0.5s;
+
+        }
+
         .tr-hover {
             background-color: #ffffff;
             transition: background-color 0.5s;
