@@ -106,12 +106,17 @@ $(() => {
     setSecondDirectory("Menu");
   };
 
-  const managePage = (name, url) => {
+  window.managePage = (name, url, thirdDir) => {
     $(".main-content").load(`./${url}`);
     window.home = false;
     marginFix();
     lightStyle();
     setSecondDirectory(name);
+    if(typeof thirdDir !== "undefined"){
+      $("#third").show();
+    }else{
+      $("#third").hide();
+    }
 
   }
 
@@ -125,7 +130,7 @@ $(() => {
   }
 
   const setSecondDirectory = (name) => {
-    $("#directory>ol>li:nth-child(2)").text(name);
+    $("#directory>ol>li:nth-child(3)").text(name);
   };
 
   //fix home footer 
@@ -176,10 +181,9 @@ $(() => {
     managePage(`${$(".btn-manage").text()} / ${$(".btn-manage-branch").text()}`, "manage_branch.html");
   });
 
-  $("#btn-restaurant").on("click", () => {
-    managePage(`${$("#btn-restaurant").text()}`, "customer_menu.html");
+  $(".btn-restaurant").on("click", () => {
+    managePage(`${$($(".btn-restaurant")[0]).text()}`, "customer_menu.html");
   });
-
 
   /**On click event */
 

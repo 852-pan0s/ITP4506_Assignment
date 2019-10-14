@@ -7,29 +7,29 @@
   <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
   <title>Document</title>
   <script>
+    $(()=>{
+      changePage = (e, name) =>{
+      managePage(`${name}`, "customer_menu2.html","Resturant");
+      }
+    });
     window.appendToCard = (value) => {
       if (value !== null) {
-//        content = `<div class="card mb-3">
-//          <div class="row">
-//            <div class="col-md-8">
-//              <div class="card-body">
-//                <h2>${value.name}</h2>
-//                <p>${value.introduction}</p>
-//              </div>
-//            </div>
-//            <div class="col-md-4">
-//              <img src="https://picsum.photos/800" class="img-fluid" style="width: 18rem">
-//            </div>
-//          </div>
-//        </div>`;
-
-        console.log(content);
+        content = `<div class="card mb-2" style="width: 18rem;">
+          <a href="#" onclick="changePage(this,\`${value.name}\`)">
+            <img src="https://picsum.photos/800" class="card-img-top" alt="..." style="18rem">
+            <div class="card-body">
+              <h5 class="card-title">${value.name}</h5>
+              <p class="card-text">${value.introduction}</p>
+            </div>
+          </a>
+        </div>`;
+//        console.log(content);
         $("#restaurant-card").append(content);
       }
     }
 
     $.each(loadAllRestaurants, (key, value) => {
-      console.log(value.name);
+//      console.log(value.name);
       appendToCard(value);
     });
 
@@ -74,16 +74,15 @@
         <a class="list-group-item list-group-item-action" href="#list-item-4">Most Reviewed</a>
       </div>
     </div>
+
     <!--restaurant card-->
 
-    <div class="col-9" id="restaurant-card">
-      <div class="card" style="width: 18rem;">
-        <img src="https://picsum.photos/800" class="card-img-top" alt="..." style="18rem">
-        <div class="card-body">
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
+    <div class="col-9">
+      <div class="card-deck" id="restaurant-card">
       </div>
     </div>
+
+
 
 
   </div>

@@ -8,20 +8,7 @@ window.getAllRestaurants = () => {
     if (loadFromSession === null) { //load from db or load from session
         setSessionObj("restaurants", loadFromDb); //set add the restaurant to the session
         loadAllRestaurants = loadFromDb;
-//        $.each(loadFromDb, (res, data) => {
-//            if (data.owner === operator.uid) {
-//                restaurant = data;
-//                return false;
-////            }
-//        });
     } else {
-//        $.each(loadFromSession, (res, data) => {
-//            console.log(data.owner+","+operator.uid)
-//            if (data.owner === operator.uid) {
-//                restaurant = data;
-//                return false;
-//            }
-//        });
       loadAllRestaurants = loadFromSession;
     }
 }
