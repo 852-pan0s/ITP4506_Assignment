@@ -117,7 +117,7 @@ $(() => {
     darkStyle();
   };
 
-  const menuPage = () => {
+  window.menuPage = () => {
     $(".main-content").load("./menu.html");
     window.home = false;
     marginFix();
@@ -130,6 +130,18 @@ $(() => {
     window.home = false;
     marginFix();
     lightStyle();
+    if ($("#main").height() > $(window).height() - 200) {
+      $("#sticky-footer").removeClass("footer");
+    } else {
+      $("#sticky-footer").addClass("footer");
+    }
+    setTimeout(() => {
+      if ($("#main").height() > $(window).height() - 200) {
+        $("#sticky-footer").removeClass("footer");
+      } else {
+        $("#sticky-footer").addClass("footer");
+      }
+    }, 600);
     setSecondDirectory(name);
     if (typeof thirdDir !== "undefined") {
       $("#third").show();
@@ -167,7 +179,7 @@ $(() => {
   }
 
   $(window).resize(footerMarginFix);
-  $(window).scroll(footerMarginFix)
+  $(window).scroll(footerMarginFix);
   homePage();
 
 
