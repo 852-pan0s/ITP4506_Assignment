@@ -8,14 +8,16 @@
   <title>Document</title>
   <script>
     $(()=>{
-      changePage = (e, name) =>{
+      window.selectedResId = "";
+      changePage = (e, name, id) =>{
+        selectedResId = id;
       managePage(`${name}`, "customer_menu2.html","Resturant");
       }
     });
     window.appendToCard = (value) => {
       if (value !== null) {
         content = `<div class="card mb-2" style="width: 18rem;">
-          <a href="#" onclick="changePage(this,\`${value.name}\`)">
+          <a href="#" onclick="changePage(this,\`${value.name}\`,'${value.id}')">
             <img src="https://picsum.photos/800" class="card-img-top" alt="..." style="18rem">
             <div class="card-body">
               <h5 class="card-title">${value.name}</h5>

@@ -6,9 +6,16 @@
   <title>Document</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">-->
-  <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
-  <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
+  <script>
+    $(()=>{
+//      console.log(selectedResId);
+      var restaurant = loadAllRestaurants[selectedResId];
+      $("#res-name").text(restaurant.name);
+      $("#res-info").text(restaurant.introduction);
+    });
+    
+    
+  </script>
 </head>
 
 <body>
@@ -16,8 +23,8 @@
   <div class="container">
 
     <div data-toggle="modal" data-target="#myModal">
-      <h2>Restaurant Name</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit quam sit amet, cum eos ipsum ipsa sapiente veniam consectetur facilis, minus officia blanditiis. Illum adipisci minima dolorem nulla esse doloremque.</p>
+      <h2 id="res-name">Restaurant Name</h2>
+      <p id="res-info">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit quam sit amet, cum eos ipsum ipsa sapiente veniam consectetur facilis, minus officia blanditiis. Illum adipisci minima dolorem nulla esse doloremque.</p>
     </div>
 
 
@@ -46,6 +53,7 @@
     </div>
 -->
 
+   
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item">
         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
