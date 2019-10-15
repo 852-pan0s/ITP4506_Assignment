@@ -247,6 +247,7 @@
                 var id = $($(selectedRow).children()[0]).text();
                 $($(selectedRow).children()[1]).text(name);
                 $($(selectedRow).children()[2]).text(`$${price}`);
+                $($(selectedRow).children()[3]).attr("data-content",`<h6>Preview:</h6><hr> <img src='./img/food_drink/${img}' class='preview' >"`)
                 $($(selectedRow).children()[3]).text(img);
                 var special_period = "";
                 switch (special.type) {

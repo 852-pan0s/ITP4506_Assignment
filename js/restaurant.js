@@ -1,12 +1,11 @@
-window.allRestaurants = {};
 window.restaurant = {};
 window.getRestaurant = () => {
-    var operator = getSessionObj("user");
-    var loadFromDb = getSessionObj("db").restaurant;
+    var operator = getSessionObj("currentUser");
+    var loadFromDb = getSessionObj("db").restaurants;
     var loadFromSession = getSessionObj("restaurants");
     if (loadFromSession === null) { //load from db or load from session
         setSessionObj("restaurants", loadFromDb); //set add the restaurant to the session
-        allRestaurants = loadFromDb;
+        loadAllRestaurants = loadFromDb;
         $.each(loadFromDb, (res, data) => {
             if (data.owner === operator.uid) {
                 restaurant = data;
@@ -14,7 +13,7 @@ window.getRestaurant = () => {
             }
         });
     } else {
-        allRestaurants = loadFromSession;
+        loadAllRestaurants = loadFromSession;
         $.each(loadFromSession, (res, data) => {
             // console.log(data.owner+","+operator.uid)
             if (data.owner === operator.uid) {
@@ -26,10 +25,9 @@ window.getRestaurant = () => {
 }
 
 window.saveToRestaurantsSession = () => {
-    // console.log(allRestaurants[restaurant.id])
-    allRestaurants[restaurant.id] = restaurant;
+    // console.log(loadAllRestaurants[restaurant.id])
     loadAllRestaurants[restaurant.id] = restaurant;
-    setSessionObj("restaurants", allRestaurants);
+    setSessionObj("restaurants", loadAllRestaurants);
 }
 
 var info = "";
