@@ -89,6 +89,18 @@
                         "start_date": "01-10-2019",
                         "end_date": "05-10-2019"
                     }
+                },
+                "m3": {
+                    "id": "m3",
+                    "name": "Pineapple Burger",
+                    "price": "27.00",
+                    "image": "pineapple_mcspicy.png",
+                    "show": true,
+                    "special": {
+                        "type": "Temporary",
+                        "start_date": "14:00",
+                        "end_date": "18:00"
+                    }
                 }
             }
         },
@@ -269,5 +281,5 @@
             "name": "Western"
         }
     }
-    
+
 }

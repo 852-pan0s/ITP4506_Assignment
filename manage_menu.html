@@ -26,9 +26,12 @@
                 $("#btn-new-menu").tooltip('hide');
             });
 
-            $(".tooltip").on("mouseenter",()=>{
-                $("div.jumbotron.jumbotron-fluid").trigger('mouseenter');
-            });
+            const changeStartEndText = (sText, eText) => {
+                $("#start").text(sText);
+                $("#end").text(eText);
+                $("#menu-special-start_date").attr("placeholder", sText);
+                $("#menu-special-end_date").attr("placeholder", eText);
+            }
 
             showImgPreview = (element) => {
                 $(element).popover('show');
@@ -51,6 +54,58 @@
                     eDate: "",
                     season: "Spring"
                 });
+                switch ($("#menu-special-type").val()) {
+                    case "Special":
+                        $("#menu-season").val(null);
+                        changeStartEndText("Start Date", "End Date");
+                        timePicker.sTime = timePicker.makePicker({
+                            picker: timePicker.sTime,
+                            element: $("#menu-special-start_date")[0],
+                            format: 'DD-MM-YYYY',
+                            title: "Start date",
+                            headers: true,
+                            time: today
+                        });
+                        timePicker.eTime = timePicker.makePicker({
+                            picker: timePicker.eTime,
+                            element: $("#menu-special-end_date")[0],
+                            format: 'DD-MM-YYYY',
+                            title: "End date",
+                            headers: true,
+                            time: today
+                        });
+                        break;
+                    case "Temporary":
+                        $("#menu-season").val(null);
+                        changeStartEndText("Start Time", "End Time");
+                        timePicker.sTime = timePicker.makePicker({
+                            picker: timePicker.sTime,
+                            element: $("#menu-special-start_date")[0],
+                            format: 'HH:mm',
+                            title: "Start Time",
+                            headers: true,
+                            time: "00:00"
+                        });
+                        timePicker.eTime = timePicker.makePicker({
+                            picker: timePicker.eTime,
+                            element: $("#menu-special-end_date")[0],
+                            format: 'HH:mm',
+                            title: "End Time",
+                            headers: true,
+                            time: "00:00"
+                        });
+                        break;
+                    case "Season":
+                        $("#menu-special-start_date").val(null);
+                        $("#menu-special-end_date").val(null);
+                        break;
+                    default:
+                        $("#menu-season").val(null);
+                        $("#menu-special-start_date").val(null);
+                        $("#menu-special-end_date").val(null);
+
+                }
+
             });
 
             $("#menu-img-src").on("click", () => {
@@ -97,22 +152,6 @@
                 $("#menu-special-type").val("none");
                 $(".s-date,.e-date , .season").addClass("hide");
                 $("#menu-img-src").attr('src', './img/upload.png');
-                timePicker.sTime = timePicker.makePicker({
-                    "picker": timePicker.sTime,
-                    "element": $("#menu-special-start_date")[0],
-                    format: 'DD-MM-YYYY',
-                    title: "Start date",
-                    headers: true,
-                    time: today
-                });
-                timePicker.eTime = timePicker.makePicker({
-                    "picker": timePicker.eTime,
-                    "element": $("#menu-special-end_date")[0],
-                    format: 'DD-MM-YYYY',
-                    title: "End date",
-                    headers: true,
-                    time: today
-                });
             });
 
             var checkAllData = () => {
@@ -176,13 +215,62 @@
                 var special_opt = {};
                 switch (special) {
                     case "Special":
+                        $("#menu-season").val(null);
+                        changeStartEndText("Start Date", "End Date");
+                        special_opt = {
+                            sDate: type.substring(type.indexOf("(") + 1, type.indexOf(" -")),
+                            eDate: type.substring(type.indexOf("- ") + 2, type.indexOf(")")),
+                            season: null
+                        }
+                        var sDate = special_opt.sDate === null ? today : special_opt.sDate.replace(/-/g,
+                            ' ');
+                        var eDate = special_opt.sDate === null ? today : special_opt.eDate.replace(/-/g,
+                            ' ');
+                        timePicker.sTime = timePicker.makePicker({
+                            picker: timePicker.sTime,
+                            element: $("#menu-special-start_date")[0],
+                            format: 'DD-MM-YYYY',
+                            title: "Start date",
+                            headers: true,
+                            time: sDate
+                        });
+                        timePicker.eTime = timePicker.makePicker({
+                            picker: timePicker.eTime,
+                            element: $("#menu-special-end_date")[0],
+                            format: 'DD-MM-YYYY',
+                            title: "End date",
+                            headers: true,
+                            time: eDate
+                        });
+                        break;
                     case "Temporary":
+                        changeStartEndText("Start Time", "End Time");
                         $("#menu-season").val(null);
                         special_opt = {
                             sDate: type.substring(type.indexOf("(") + 1, type.indexOf(" -")),
                             eDate: type.substring(type.indexOf("- ") + 2, type.indexOf(")")),
                             season: null
                         }
+                        var sDate = special_opt.sDate === null ? today : special_opt.sDate.replace(/-/g,
+                            ' ');
+                        var eDate = special_opt.sDate === null ? today : special_opt.eDate.replace(/-/g,
+                            ' ');
+                        timePicker.sTime = timePicker.makePicker({
+                            picker: timePicker.sTime,
+                            element: $("#menu-special-start_date")[0],
+                            format: 'HH:mm',
+                            title: "Start Time",
+                            headers: true,
+                            time: sDate
+                        });
+                        timePicker.eTime = timePicker.makePicker({
+                            picker: timePicker.eTime,
+                            element: $("#menu-special-end_date")[0],
+                            format: 'HH:mm',
+                            title: "End Time",
+                            headers: true,
+                            time: eDate
+                        });
                         break;
                     case "Season":
                         $("#menu-special-start_date").val(null);
@@ -205,24 +293,7 @@
 
                 }
                 special_option(special, special_opt);
-                var sDate = special_opt.sDate === null ? today : special_opt.sDate.replace(/-/g, ' ');
-                var eDate = special_opt.sDate === null ? today : special_opt.eDate.replace(/-/g, ' ');
-                timePicker.sTime = timePicker.makePicker({
-                    picker: timePicker.sTime,
-                    element: $("#menu-special-start_date")[0],
-                    format: 'DD-MM-YYYY',
-                    title: "Start date",
-                    headers: true,
-                    time: sDate
-                });
-                timePicker.eTime = timePicker.makePicker({
-                    picker: timePicker.eTime,
-                    element: $("#menu-special-end_date")[0],
-                    format: 'DD-MM-YYYY',
-                    title: "End date",
-                    headers: true,
-                    time: eDate
-                });
+
                 $.each($("#menu-special-type>option"), (key, values) => {
                     if ($(values).val() === special) {
                         $("#menu-special-type").val(special)
@@ -247,7 +318,8 @@
                 var id = $($(selectedRow).children()[0]).text();
                 $($(selectedRow).children()[1]).text(name);
                 $($(selectedRow).children()[2]).text(`$${price}`);
-                $($(selectedRow).children()[3]).attr("data-content",`<h6>Preview:</h6><hr> <img src='./img/food_drink/${img}' class='preview' >"`)
+                $($(selectedRow).children()[3]).attr("data-content",
+                    `<h6>Preview:</h6><hr> <img src='./img/food_drink/${img}' class='preview' >"`)
                 $($(selectedRow).children()[3]).text(img);
                 var special_period = "";
                 switch (special.type) {
@@ -418,7 +490,8 @@
             </form> -->
             <!-- <hr class="my-4"> -->
             <a class="btn btn-primary btn-lg" id="btn-new-menu" href="#" role="button" data-toggle="modal"
-                data-target="#menuModal"  data-toggle="tooltip" data-placement="right" title="Click to add a new menu.">New Menu</a>
+                data-target="#menuModal" data-toggle="tooltip" data-placement="right"
+                title="Click to add a new menu.">New Menu</a>
             <hr class="my-4">
             <table class="table table-hover" id="menu-list">
                 <thead class="thead-dark">
@@ -534,7 +607,8 @@
 
                         <!-- Special start date -->
                         <div class="form-group row s-date hide">
-                            <label for="menu-special-start_date" class="col-sm-4 col-form-label">Start date:</label>
+                            <label for="menu-special-start_date" class="col-sm-4 col-form-label" id="start">Start
+                                date:</label>
                             <div class="col-sm-4">
                                 <div class="input-group flex-nowrap">
                                     <input type="text" id="menu-special-start_date" class="form-control"
@@ -546,7 +620,8 @@
 
                         <!-- Special end date -->
                         <div class="form-group row e-date hide">
-                            <label for="menu-special-end_date" class="col-sm-4 col-form-label">End date:</label>
+                            <label for="menu-special-end_date" class="col-sm-4 col-form-label" id="end">End
+                                date:</label>
                             <div class="col-sm-4">
                                 <div class="input-group flex-nowrap">
                                     <input type="text" id="menu-special-end_date" class="form-control"
