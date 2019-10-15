@@ -25,8 +25,19 @@ window.getMenu = () => {
     }
 }
 
+const getMenuObjName = (id) => {
+    var name = "";
+    $.each(allMenus, (key, value) => {
+        if (value.owner === id) {
+            // console.log(key)
+            return name = key;
+        }
+    });
+    return name;
+}
+
 window.saveToMenusSession = () => {
-    allMenus[menu.id] = menu;
+    allMenus[getMenuObjName(menu.owner)] = menu;
     setSessionObj("menus", allMenus);
 }
 

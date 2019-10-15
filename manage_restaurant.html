@@ -21,10 +21,9 @@
                 $("#res-name").val(restaurant.name);
                 $("#res-introduction").val(restaurant.introduction);
                 $("#res-img-src").attr("src", `./img/icon/${restaurant.icon}`);
-
-                for (var i = 0; i < restaurant.categories.length; i++) {
-                    $($(".category-list")[i]).val(restaurant.categories[i]);
-                }
+                $.each(restaurant.categories,(key,value)=>{
+                    $($(".category-list")[key]).val(value);
+                });
             }
 
             $("#res-img-src").on("mouseenter", () => {
@@ -40,9 +39,9 @@
             $("#btn-res-save").on("click", () => {
                 restaurant.name = $("#res-name").val();
                 restaurant.introduction = $("#res-introduction").val();
-                for (var i = 0; i < $(".category-list").length; i++) {
-                    restaurant.categories[i] = $($(".category-list")[i]).val();
-                }
+                $.each($(".category-list"),(key,value)=>{
+                    restaurant.categories[key] = $(value).val();
+                });
                 if ($("#res-icon").val() !== "") {
                     restaurant.icon = $("#res-icon").val().substring(12);
                 }
