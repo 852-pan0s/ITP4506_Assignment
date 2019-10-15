@@ -27,7 +27,7 @@ const showErrorMsg = (msg) => {
 }
 
 $(() => {
-    var user = getSessionObj("user");
+    var user = getSessionObj("currentUser");
     if (user !== null) {
         activateFunc(user);
     }
@@ -49,9 +49,9 @@ $("#btn-login").on("click", (e) => {
         /* Login function*/
         var isValid = false;
         // console.log(Login.login(ac.username, ac.password));
-        $.each(getSessionObj("db").user, (key, user) => {
+        $.each(getSessionObj("db").users, (key, user) => {
             if (ac.username === user.username && ac.password === user.password) {
-                setSessionObj("user", user);
+                setSessionObj("currentUser", user);
                 isValid = true;
                 return false;
             }
@@ -60,7 +60,7 @@ $("#btn-login").on("click", (e) => {
         setTimeout(() => {
             $("#username, #password, #remember").removeAttr("disabled");
             if (isValid) {
-                var user = getSessionObj("user");
+                var user = getSessionObj("currentUser");
                 activateFunc(user);
                 $("#loginModal").modal('hide');
                 $("#btn-ac").attr("data-target", "#profileModal");

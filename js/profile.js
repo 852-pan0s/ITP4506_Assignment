@@ -2,7 +2,7 @@
 import { activateFunc } from "./login.js";
 import { homePage } from "./myjs.js";
 $("#btn-logout").on("click", (e) => {
-    clearSessionObj("user");
+    clearSessionObj("currentUser");
     $("#profileModal").modal("hide");
     $("#btn-ac").attr("data-target", "#loginModal");
     activateFunc(null);

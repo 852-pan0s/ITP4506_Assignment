@@ -1,5 +1,5 @@
 {
-    "user": {
+    "users": {
         "u1": {
             "uid": "1",
             "type": "administrator",
@@ -34,7 +34,7 @@
 
         }
     },
-    "restaurant": {
+    "restaurants": {
         "r1": {
             "id": "r1",
             "name": "KFC",
@@ -219,7 +219,7 @@
             "name": "Western"
         }
     },
-    "menu": {
+    "menus": {
         "kfc": {
             "owner": "3",
             "menus": {

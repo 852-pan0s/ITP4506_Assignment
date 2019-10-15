@@ -166,7 +166,7 @@ $(() => {
 
   //fix home footer 
   const footerMarginFix = () => {
-    $(".margin").css("marginBottom", $(".content:first").height());
+    $(".margin").css("height", $(".content:first").height());
   }
   //***************** Declare Functions *****************/ 
 
