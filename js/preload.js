@@ -125,23 +125,21 @@ $(() => {
     setSecondDirectory("Menu");
   };
 
-  window.managePage = (name, url, thirdDir) => {
-    $(".main-content").load(`./${url}`);
-    window.home = false;
-    marginFix();
-    lightStyle();
+  const footerFix = () => {
     if ($("#main").height() > $(window).height() - 200) {
       $("#sticky-footer").removeClass("footer");
     } else {
       $("#sticky-footer").addClass("footer");
     }
-    setTimeout(() => {
-      if ($("#main").height() > $(window).height() - 200) {
-        $("#sticky-footer").removeClass("footer");
-      } else {
-        $("#sticky-footer").addClass("footer");
-      }
-    }, 600);
+  };
+
+  window.managePage = (name, url, thirdDir) => {
+    $(".main-content").load(`./${url}`);
+    window.home = false;
+    marginFix();
+    lightStyle();
+    footerFix();
+    setTimeout(footerFix, 600);
     setSecondDirectory(name);
     if (typeof thirdDir !== "undefined") {
       $("#third").show();
@@ -166,13 +164,14 @@ $(() => {
 
   //fix home footer 
   const footerMarginFix = () => {
-    $(".margin").css("height", $(".content:first").height());
+    $(".margin").css("height", $(".content:first").height()+50);
+    footerFix();
   }
   //***************** Declare Functions *****************/ 
 
 
 
-  if (sessionStorage.getItem("user") !== null) {
+  if (sessionStorage.getItem("currentUser") !== null) {
     $("#btn-ac").attr("data-target", "#profileModal");
   } else {
     $("#btn-ac").attr("data-target", "#loginModal");
