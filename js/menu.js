@@ -1,4 +1,4 @@
-window.allMenu = {};
+window.allMenus = {};
 window.menu = {};
 window.getMenu = () => {
     var operator = getSessionObj("user");
@@ -6,7 +6,7 @@ window.getMenu = () => {
     var loadFromSession = getSessionObj("menus");
     if (loadFromSession === null) { //load from db or load from session
         setSessionObj("menus", loadFromDb); //set add the menu to the session
-        allMenu = loadFromDb;
+        allMenus = loadFromDb;
         $.each(loadFromDb, (res, data) => {
             if (data.owner === operator.uid) {
                 menu = data;
@@ -14,6 +14,7 @@ window.getMenu = () => {
             }
         });
     } else {
+        allMenus = loadFromSession;
         $.each(loadFromSession, (res, data) => {
             // console.log(data.owner+","+operator.uid)
             if (data.owner === operator.uid) {
@@ -24,9 +25,20 @@ window.getMenu = () => {
     }
 }
 
+const getMenuObjName = (id) => {
+    var name = "";
+    $.each(allMenus, (key, value) => {
+        if (value.owner === id) {
+            // console.log(key)
+            return name = key;
+        }
+    });
+    return name;
+}
+
 window.saveToMenusSession = () => {
-    allMenu[menu.id] = menu;
-    setSessionObj("menus", allMenu);
+    allMenus[getMenuObjName(menu.owner)] = menu;
+    setSessionObj("menus", allMenus);
 }
 
 var info = "";
@@ -60,7 +72,7 @@ window.appendToMenuTable = (menu) => {
         <th scope="row">${menu.id}</th>
        <td>${menu.name}</td>
        <td>$${menu.price}</td>
-       <td onmouseenter="showImgPreview(this)" onmouseleave="hideImgPreview(this)" data-placement="top" data-content="<h6>Preview:</h6> <img src='./img/food_drink/${img}' class='preview' >" data-html="true">${img}</td>
+       <td onmouseenter="showImgPreview(this)" onmouseleave="hideImgPreview(this)" data-placement="top" data-content="<h6>Preview:</h6><hr> <img src='./img/food_drink/${img}' class='preview' >" data-html="true">${img}</td>
        <td>${special}</td>
        <td>${checkbox}</td>
        <td>

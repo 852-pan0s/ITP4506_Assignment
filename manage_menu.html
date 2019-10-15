@@ -18,11 +18,23 @@
                 $("#menu-img-src").popover('hide');
             });
 
-            showImgPreview = (element) =>{
+            $("#btn-new-menu").on("mouseenter", () => {
+                $("#btn-new-menu").tooltip('show');
+            });
+
+            $("#btn-new-menu").on("mouseleave", () => {
+                $("#btn-new-menu").tooltip('hide');
+            });
+
+            $(".tooltip").on("mouseenter",()=>{
+                $("div.jumbotron.jumbotron-fluid").trigger('mouseenter');
+            });
+
+            showImgPreview = (element) => {
                 $(element).popover('show');
             }
 
-            hideImgPreview = (element) =>{
+            hideImgPreview = (element) => {
                 $(element).popover('hide');
             }
 
@@ -72,12 +84,6 @@
                         $(".s-date,.e-date,.season").val(null)
                 }
             }
-
-            $("#btn-menu-save").on("click", () => {
-                saveToMenusSession();
-                showToast(
-                    `The menu name has changed to <span class="text-success">${menu.name}</span>`);
-            });
 
 
             $("#btn-new-menu").on("click", () => {
@@ -259,24 +265,27 @@
                 $($(selectedRow).children()[4]).text(special_period);
                 $($(selectedRow).children()[5]).children().prop("checked", show);
                 showToast(
-                    `The information of menu ID <span class="text-danger">${id}</span> <span class="text-success">has been updated!</span>`
+                    `The information of <span class="text-danger">#${id}</span> menu <span class="text-success">has been updated</span>!`
                 );
                 $("#menu-image").val("");
             }
 
             window.deleteMenu = (element) => {
-                if (true) {
-                    selectedRow = $(element).parent().parent();
-                    var id = $($(selectedRow).children()[0]).text();
-                    var column = $(element).parent().siblings();
-                    var id = $(column[0]).text();
-                    menu.menus[id] = null;
-                    saveToMenusSession();
-                    $(selectedRow).remove();
-                    showToast(
-                        `The information of menu ID <span class="text-danger">${id}</span> <span class="text-success">has been deleted!</span>`
-                    );
-                }
+                selectedRow = $(element).parent().parent();
+                var id = $($(selectedRow).children()[0]).text();
+                var column = $(element).parent().siblings();
+                var id = $(column[0]).text();
+                var text = `Are you sure to delete the <span class="text-danger">#${id}</span> menu?`
+                yesNoModal(text, (confirm) => {
+                    if (confirm) {
+                        menu.menus[id] = null;
+                        saveToMenusSession();
+                        $(selectedRow).remove();
+                        showToast(
+                            `The <span class="text-danger">#${id}</span> menu <span class="text-success">has been deleted</span>!`
+                        );
+                    }
+                });
             }
 
             //add New Menu
@@ -314,7 +323,7 @@
                     } else {
                         appendToMenuTable(menu.menus[id]);
                         showToast(
-                            `The menu ID <span class="text-danger">${id}</span> <span class="text-success">has been added!</span>`
+                            `The <span class="text-danger">$${id}</span> menu <span class="text-success">has been added</span>!`
                         );
                     }
                 }
@@ -382,7 +391,7 @@
             transition: box-shadow 0.5s;
         }
 
-        .preview{
+        .preview {
             max-height: 200px;
             max-width: 200px;
         }
@@ -408,7 +417,7 @@
             </form> -->
             <!-- <hr class="my-4"> -->
             <a class="btn btn-primary btn-lg" id="btn-new-menu" href="#" role="button" data-toggle="modal"
-                data-target="#menuModal">New Menu</a>
+                data-target="#menuModal"  data-toggle="tooltip" data-placement="right" title="Click to add a new menu.">New Menu</a>
             <hr class="my-4">
             <table class="table table-hover" id="menu-list">
                 <thead class="thead-dark">

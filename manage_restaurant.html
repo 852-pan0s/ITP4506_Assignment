@@ -10,6 +10,22 @@
     <title>Document</title>
     <script>
         $(() => {
+            $(".category-list").on("mouseenter",(e)=>{
+                // console.log($(e.delegateTarget))
+                $(e.delegateTarget).tooltip('show');
+            });
+            $(".category-list").on("mouseleave",(e)=>{
+                $(e.delegateTarget).tooltip('hide');
+            });
+            const loadResInfo = () => {
+                $("#res-name").val(restaurant.name);
+                $("#res-introduction").val(restaurant.introduction);
+                $("#res-img-src").attr("src", `./img/icon/${restaurant.icon}`);
+                $.each(restaurant.categories,(key,value)=>{
+                    $($(".category-list")[key]).val(value);
+                });
+            }
+
             $("#res-img-src").on("mouseenter", () => {
                 $("#res-img-src").popover('show');
             });
@@ -18,29 +34,29 @@
             });
 
             setTimeout(() => {
-                $("#res-name").val(restaurant.name);
-                $("#res-introduction").val(restaurant.introduction);
-                $("#res-img-src").attr("src", `./img/icon/${restaurant.icon}`);
+                loadResInfo();
             }, 500);
             $("#btn-res-save").on("click", () => {
                 restaurant.name = $("#res-name").val();
                 restaurant.introduction = $("#res-introduction").val();
+                $.each($(".category-list"),(key,value)=>{
+                    restaurant.categories[key] = $(value).val();
+                });
                 if ($("#res-icon").val() !== "") {
                     restaurant.icon = $("#res-icon").val().substring(12);
                 }
                 saveToRestaurantsSession();
                 // console.log(restaurant.name);
                 showToast(
-                    `The information of <span class="text-danger">${restaurant.name}</span> has beed <span class="text-success">updated</span>.`
+                    `The information of <span class="text-danger">${restaurant.name}</span> <span class="text-success">has beed updated</span>!`
                 );
             });
 
             $("#btn-res-cancel").on("click", () => {
-                $("#res-name").val(restaurant.name);
-                $("#res-introduction").val(restaurant.introduction);
+                loadResInfo();
                 // console.log(restaurant.name);
                 showToast(
-                    `The information of <span class="text-danger">${restaurant.name}</span> has beed <span class="text-success">reset</reset>.`
+                    `The information of <span class="text-danger">${restaurant.name}</span> has beed <span class="text-success">reset</span>!`
                 );
             });
 
@@ -53,19 +69,27 @@
                 $("#res-img-src").attr("src", `./img/icon/${$(e.delegateTarget).val().substring(12)}`);
             });
 
+            $.each(getSessionObj("db").categories, (key, value) => {
+                var cat = `<option value="${key}">${value.name}</option>`;
+                $(".category-list").append(cat);
+            });
+
+
+
         });
     </script>
     <style>
+        .category-list:hover {
+            transition: all 0.5s;
+            cursor: pointer;
+            box-shadow: 0 0 5px 5px rgb(212, 212, 212);
+        }
 
-        
         #res-img-src:hover {
             cursor: pointer;
         }
 
-        input:hover,
-        select:hover,
-        img:hover,
-        textarea:hover {
+        img:hover {
             box-shadow: 0px 0px 10px 5px rgb(216, 216, 216);
             transition: box-shadow 0.5s;
         }
@@ -92,8 +116,8 @@
                 <!-- image preview -->
                 <div class="form-group row">
                     <div class="col-sm-12 text-center">
-                        <img src="" id="res-img-src" title="Restaurant Icon"
-                            style="max-height: 200px;max-width: 200px;" data-placement="left" data-content="Click for upload the restaurant icon.">
+                        <img src="" id="res-img-src" title="Restaurant Icon" style="max-height: 200px;max-width: 200px;"
+                            data-placement="left" data-content="Click for upload the restaurant icon.">
                     </div>
                 </div>
 
@@ -111,10 +135,24 @@
                         <textarea style="width:100%;padding-left:15px;" id="res-introduction" row="3"></textarea>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label for="res-introduction" class="col-sm-3 col-form-label">Restaurant Category:</label>
+                    <div class="col-sm-9">
+                        1: <select name="" class="category-list" data-toggle="tooltip" data-placement="bottom" title="Select the first category.">
+                            <option value="none" >--None--</optionv>
+                        </select>
+                        2: <select name="" class="category-list" data-toggle="tooltip" data-placement="bottom" title="Select the second category.">
+                            <option value="none">--None--</option>
+                        </select>
+                        3: <select name="" class="category-list" data-toggle="tooltip" data-placement="bottom" title="Select the third category.">
+                            <option value="none">--None--</option>
+                        </select>
+                    </div>
+                </div>
                 <br>
                 <button type="button" id="btn-res-save" class="btn btn-outline-success ">Save</button>
                 <button type="button" id="btn-res-cancel" class="btn btn-outline-danger"
-                    style="margin-left: 5px;">Reset</button>
+                    style="margin-left: 5px;">Reset to last save</button>
             </form>
         </div>
     </div>

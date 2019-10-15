@@ -20,6 +20,9 @@
     </style>
     <script>
         $(document).ready(() => {
+            $(".btn-restaurant").on("click", () => {
+                managePage(`${$($(".btn-restaurant")[0]).text()}`, "customer_menu.html");
+            });
             const resizeCarousel = () => {
                 $(".carousel-item>img").css("maxHeight", window.innerHeight);
             }
@@ -32,7 +35,7 @@
                 origin: 'left',
                 distance: '100px',
                 viewFactor: 0.4,
-                
+
             });
             ScrollReveal().reveal('.info-right>img,.info-right>.info', {
                 duration: 3000,
@@ -112,9 +115,10 @@
                         <div class="col-md-6 col-sm-6">
                             <div class="info-left">
                                 <div class="info">
-                                    <h4>Make Order</h4>
-                                    Yummy Everywhere provides an easy and quick way to let you place order!<br>
-                                    <button type="button" class="btn btn-primary">Place Order Now</button>
+                                    <h4>Get Start</h4>
+                                    Yummy Everywhere provides an easy and quick way to let you view the restaurant
+                                    menu.!<br>
+                                    <button type="button" class="btn btn-primary btn-restaurant">View Now</button>
                                 </div>
                             </div>
                         </div>

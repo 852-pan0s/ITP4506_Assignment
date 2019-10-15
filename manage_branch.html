@@ -14,6 +14,15 @@
                 loadBranch();
             }
 
+            $("#btn-new-branch").on("mouseenter",()=>{
+                $("#btn-new-branch").tooltip('show');
+            });
+
+            $("#btn-new-branch").on("mouseleave",()=>{
+                $("#btn-new-branch").tooltip('hide');
+            });
+
+
             $("#btn-new-branch").on("click", () => {
                 $("#BranchForm input").val("");
                 $("#branch-stop").prop("checked", false);
@@ -111,23 +120,27 @@
                 $($(selectedRow).children()[3]).text(`${sTime} - ${eTime}`);
                 $($(selectedRow).children()[5]).children().prop("checked", stop);
                 showToast(
-                    `The information of branch ID <span class="text-danger">${id}</span> <span class="text-success">has been updated!</span>`
+                    `The information of <span class="text-danger">#${id}</span> branch <span class="text-success">has been updated</span>!`
                 );
             }
 
             window.deleteBranch = (element) => {
-                if (true) {
-                    var id = $($(selectedRow).children()[0]).text();
-                    selectedRow = $(element).parent().parent();
-                    var column = $(element).parent().siblings();
-                    var id = $(column[0]).text();
-                    restaurant.branches[id] = null;
-                    saveToRestaurantsSession();
-                    $(selectedRow).remove();
-                    showToast(
-                        `The information of branch ID <span class="text-danger">${id}</span> <span class="text-success">has been deleted!</span>`
-                    );
-                }
+                selectedRow = $(element).parent().parent();
+                var id = $($(selectedRow).children()[0]).text();
+                var column = $(element).parent().siblings();
+                var id = $(column[0]).text();
+                var text = `Are you sure to delete the <span class="text-danger">#${id}</span> branch?`
+                yesNoModal(text, (confirm) => {
+                    if (confirm) {
+                        restaurant.branches[id] = null;
+                        saveToRestaurantsSession();
+                        $(selectedRow).remove();
+                        showToast(
+                            `The information of <span class="text-danger">#${id}</span> branch <span class="text-success">has been deleted</span>!`
+                        );
+                    }
+                });
+
             }
 
             //add New Branch
@@ -160,7 +173,7 @@
                         } else {
                             appendToBranchTable(restaurant.branches[id]);
                             showToast(
-                                `The branch ID <span class="text-danger">${id}</span> <span class="text-success">has been added!</span>`
+                                `The <span class="text-danger">#${id}</span> branch <span class="text-success">has been added</span>!`
                             );
                         }
                     } else {
@@ -238,7 +251,7 @@
             <p class="lead">You can manage the information of your restaurant and branch here.</p>
             <hr class="my-4">
             <a class="btn btn-primary btn-lg" id="btn-new-branch" href="#" role="button" data-toggle="modal"
-                data-target="#branchModal">New Branch</a>
+                data-target="#branchModal" data-toggle="tooltip" data-placement="right" title="Click to add a new branch.">New Branch</a>
             <hr class="my-4">
             <table class="table table-hover" id="restaurant-list">
                 <thead class="thead-dark">
@@ -306,7 +319,8 @@
 
                         <!-- Business Hours -->
                         <div class="form-group row">
-                            <label for="branch-business-hour" class="col-sm-3 col-form-label">Business Hours:</label>
+                            <label for="branch-business-hour" class="col-sm-3 col-form-label">Business
+                                Hours:</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control" name="branch-business-hour"
                                     id="branch-business-sTime" placeholder="Start time">
