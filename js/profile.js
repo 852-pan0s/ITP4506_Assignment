@@ -8,5 +8,5 @@ $("#btn-logout").on("click", (e) => {
     activateFunc(null);
     // clearSessionObj("restaurant");
     // loadUser();
-    homePage();
+    location.reload();
 });

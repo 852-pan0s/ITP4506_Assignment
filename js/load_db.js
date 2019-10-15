@@ -1,6 +1,6 @@
 window.loadAllRestaurants = {};
-window.loadAllMenus = {};
-window.loadAllUsers = {};
+// window.loadAllMenus = {};
+// window.loadAllUsers = {};
 window.loadAllCategories = {};
 window.loadData = () => {
 //    var operator = getSessionObj("user");
@@ -13,23 +13,23 @@ window.loadData = () => {
       loadAllRestaurants = loadFromSession;
     }
 
-    loadFromDb = getSessionObj("db").menus;
-    loadFromSession = getSessionObj("menus");
-    if (loadFromSession === null) { //load from db or load from session
-        setSessionObj("menus", loadFromDb); //set add the restaurant to the session
-        loadAllMenus = loadFromDb;
-    } else {
-        loadAllMenus = loadFromSession;
-    }
+    // loadFromDb = getSessionObj("db").menus;
+    // loadFromSession = getSessionObj("menus");
+    // if (loadFromSession === null) { //load from db or load from session
+    //     setSessionObj("menus", loadFromDb); //set add the restaurant to the session
+    //     loadAllMenus = loadFromDb;
+    // } else {
+    //     loadAllMenus = loadFromSession;
+    // }
 
-    loadFromDb = getSessionObj("db").users;
-    loadFromSession = getSessionObj("users");
-    if (loadFromSession === null) { //load from db or load from session
-        setSessionObj("users", loadFromDb); //set add the restaurant to the session
-        loadAllUsers = loadFromDb;
-    } else {
-        loadAllUsers = loadFromSession;
-    }
+    // loadFromDb = getSessionObj("db").users;
+    // loadFromSession = getSessionObj("users");
+    // if (loadFromSession === null) { //load from db or load from session
+    //     setSessionObj("users", loadFromDb); //set add the restaurant to the session
+    //     loadAllUsers = loadFromDb;
+    // } else {
+    //     loadAllUsers = loadFromSession;
+    // }
 
     loadFromDb = getSessionObj("db").categories;
     loadFromSession = getSessionObj("categories");

@@ -1,51 +1,50 @@
+import "./restaurant.js";
+window.menu = restaurant.menus;
+// window.getMenu = () => {
+//     var operator = getSessionObj("currentUser");
+//     var loadFromDb = getSessionObj("db").menus;
+//     var loadFromSession = getSessionObj("menus");
+//     if (loadFromSession === null) { //load from db or load from session
+//         setSessionObj("menus", loadFromDb); //set add the menu to the session
+//         loadAllMenus = loadFromDb;
+//         $.each(loadFromDb, (res, data) => {
+//             if (data.owner === operator.uid) {
+//                 menu = data;
+//                 return false;
+//             }
+//         });
+//     } else {
+//         loadAllMenus = loadFromSession;
+//         $.each(loadFromSession, (res, data) => {
+//             // console.log(data.owner+","+operator.uid)
+//             if (data.owner === operator.uid) {
+//                 menu = data;
+//                 return false;
+//             }
+//         });
+//     }
+// }
 
-window.menu = {};
-window.getMenu = () => {
-    var operator = getSessionObj("currentUser");
-    var loadFromDb = getSessionObj("db").menus;
-    var loadFromSession = getSessionObj("menus");
-    if (loadFromSession === null) { //load from db or load from session
-        setSessionObj("menus", loadFromDb); //set add the menu to the session
-        loadAllMenus = loadFromDb;
-        $.each(loadFromDb, (res, data) => {
-            if (data.owner === operator.uid) {
-                menu = data;
-                return false;
-            }
-        });
-    } else {
-        loadAllMenus = loadFromSession;
-        $.each(loadFromSession, (res, data) => {
-            // console.log(data.owner+","+operator.uid)
-            if (data.owner === operator.uid) {
-                menu = data;
-                return false;
-            }
-        });
-    }
-}
-
-const getMenuObjName = (id) => {
-    var name = "";
-    $.each(loadAllMenus, (key, value) => {
-        if (value.owner === id) {
-            // console.log(key)
-            return name = key;
-        }
-    });
-    return name;
-}
+// const getMenuObjName = (id) => {
+//     var name = "";
+//     $.each(loadAllMenus, (key, value) => {
+//         if (value.owner === id) {
+//             // console.log(key)
+//             return name = key;
+//         }
+//     });
+//     return name;
+// }
 
 window.saveToMenusSession = () => {
-    loadAllMenus[getMenuObjName(menu.owner)] = menu;
-    setSessionObj("menus", loadAllMenus);
+    loadAllRestaurants[restaurant.id].menus = menu;
+    saveToRestaurantsSession();
 }
 
 var info = "";
 window.loadMenu = () => {
-    getMenu();
     $("#res-name").val(menu.name);
-    $.each(menu.menus, (id, menu) => {
+    $.each(menu, (id, menu) => {
         appendToMenuTable(menu);
     });
 }

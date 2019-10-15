@@ -91,7 +91,7 @@
                 $("#menu-special-type>option").removeAttr("selected");
                 $("#menu-show").prop("checked", true);
                 $("#btn-new").text("New");
-                $("#menu-id").val(`m${Object.keys(menu.menus).length + 1}`);
+                $("#menu-id").val(`m${Object.keys(menu).length + 1}`);
                 $("#new-menu").text("New Menu");
                 $(".is-invalid").removeClass("is-invalid");
                 $("#menu-special-type").val("none");
@@ -279,7 +279,7 @@
                 var text = `Are you sure to delete the <span class="text-danger">#${id}</span> menu?`
                 yesNoModal(text, (confirm) => {
                     if (confirm) {
-                        menu.menus[id] = null;
+                        menu[id] = null;
                         saveToMenusSession();
                         $(selectedRow).remove();
                         showToast(
@@ -309,7 +309,7 @@
                     }
 
                     var show = $("#menu-show").prop("checked");
-                    menu.menus[id] = {
+                    menu[id] = {
                         id,
                         name,
                         price,
@@ -322,7 +322,7 @@
                     if ($(e.delegateTarget).text() === "Save" && selectedRow !== null) {
                         updateRow(name, price, image, special, show);
                     } else {
-                        appendToMenuTable(menu.menus[id]);
+                        appendToMenuTable(menu[id]);
                         showToast(
                             `The <span class="text-danger">$${id}</span> menu <span class="text-success">has been added</span>!`
                         );
