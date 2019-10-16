@@ -6,15 +6,35 @@
   <title>Document</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="rating2.css">
+  <script src="rating2.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
   <script>
-    $(()=>{
-//      console.log(selectedResId);
+    $(() => {
+      //      console.log(selectedResId);
       var restaurant = loadAllRestaurants[selectedResId];
       $("#res-name").text(restaurant.name);
       $("#res-info").text(restaurant.introduction);
     });
-    
-    
+
+    function add(ths, sno) {
+      for (var i = 1; i <= 5; i++) {
+        var cur = document.getElementById("star" + i)
+//        cur.className = "fa fa-star";
+        cur.removeClass("checked");
+      }
+      
+      for (var i = 1; i <= sno; i++) {
+        var cur = document.getElementById("star" + i)
+        if (cur.className == "fa fa-star") {
+//          cur.className = "fa fa-star checked";
+          cur.addClass("checked");
+        }
+      }
+
+    }
+
   </script>
 </head>
 
@@ -29,13 +49,13 @@
 
 
     <!-- Modal -->
-<!--
+    <!--
     <div class="modal fade" id="myModal" role="dialog">
       <div class="modal-dialog">
 -->
 
-        <!-- Modal content-->
-<!--
+    <!-- Modal content-->
+    <!--
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -53,7 +73,7 @@
     </div>
 -->
 
-   
+
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item">
         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
@@ -62,13 +82,55 @@
         <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+        <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">Review</a>
       </li>
     </ul>
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
       <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-      <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+      <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+        <div class="container">
+          <div class="row" style="margin-top:40px;">
+            <div class="col-md-6">
+              <!--              <div class="card card-sm bg-light">-->
+              <div class="card bg-light">
+                <div class="card-body">
+
+                  <div class="text-right">
+                    <a class="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Leave a Review</a>
+                  </div>
+
+                  <!--                 reviewbox-->
+                  <div class="row" id="post-review-box" style="display:none;">
+                    <div class="col-md-12">
+                      <form accept-charset="UTF-8" action="" method="post">
+                        <input id="ratings-hidden" name="rating" type="hidden">
+                        <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
+
+                        <div class="text-right">
+                          <div class="stars starrr" data-rating="0">
+                            <span class="fa fa-star" id="star1" onclick="add(this,1)"></span>
+                            <span class="fa fa-star" id="star2" onclick="add(this,2)"></span>
+                            <span class="fa fa-star" id="star3" onclick="add(this,3)"></span>
+                            <span class="fa fa-star" id="star4" onclick="add(this,4)"></span>
+                            <span class="fa fa-star" id="star5" onclick="add(this,5)"></span>
+                          </div>
+                          <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
+                            <span class="glyphicon glyphicon-remove"></span>Cancel</a>
+                          <button class="btn btn-success btn-lg" type="submit">Save</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <!--                  /reviewbox-->
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
