@@ -13,7 +13,16 @@
         selectedResId = id;
       managePage(`${name}`, "customer_menu2.html","Resturant");
       }
+      
+        $("#searchbox").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#restaurant-card *").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
+  });
+      
+    });
+    
     window.appendToCard = (value) => {
       if (value !== null) {
         content = `<div class="card mb-2" style="width: 18rem;">
@@ -34,7 +43,7 @@
 //      console.log(value.name);
       appendToCard(value);
     });
-
+    
   </script>
 </head>
 
@@ -51,6 +60,15 @@
   <div class="row">
     <!--sidebar-->
     <div class="col-3">
+      <!--     searchbox-->
+      <div class="input-group" style="margin-bottom: 10px;">
+        <input class="form-control" type="search" placeholder="Search" id="searchbox">
+        <div class="input-group-append">
+          <div class="input-group-text"><i class="fa fa-search"></i></div>
+        </div>
+      </div>
+      <!--      /searchbox-->
+
       <div id="list-example" class="list-group">
         <div class="list-group-item">Restaurant choices</div>
         <div class="list-group-item">
