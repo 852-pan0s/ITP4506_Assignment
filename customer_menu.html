@@ -50,6 +50,7 @@
         } else {
           var input = $(this).val().toLowerCase();
           $("#restaurant-card").html("");
+          
           $.each(loadAllRestaurants, (key, value) => {
             var val = "";
             $.each(value.categories, (key, cid) => {
@@ -73,9 +74,10 @@
 
     window.appendToCard = (value) => {
       if (value !== null) {
-        content = `<div class="card mb-2" style="width: 18rem;">
+//        https://picsum.photos/800
+        content = `<div class="card mb-2" style="width: 15rem;">
           <a href="#" onclick="changePage(this,\`${value.name}\`,'${value.id}')">
-            <img src="https://picsum.photos/800" class="card-img-top" alt="..." style="18rem">
+            <img src="img/icon/${value.icon}" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
             <div class="card-body">
               <h5 class="card-title">${value.name}</h5>
               <p class="card-text">${value.introduction}</p>
