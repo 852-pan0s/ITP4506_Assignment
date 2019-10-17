@@ -7,22 +7,70 @@
   <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
   <title>Document</title>
   <script>
-    $(()=>{
+    var old = "";
+    $(() => {
+      var categories = {};
+
+      $.each(
+        loadAllCategories, (key, value) => {
+          //          console.log(categories);
+          categories[value.id] = value.name;
+        }
+      );
+
       window.selectedResId = "";
-      changePage = (e, name, id) =>{
+      changePage = (e, name, id) => {
         selectedResId = id;
-      managePage(`${name}`, "customer_menu2.html","Resturant");
+        managePage(`${name}`, "customer_menu2.html", "Resturant");
       }
-      
-        $("#searchbox").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#restaurant-card *").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+
+      //      $("#searchbox-input").on("keyup", function() {
+      //        var value = $(this).val().toLowerCase();
+      //        $("#restaurant-card *").filter(function() {
+      //          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      //          $(this)
+      //        });
+      //      });
+
+      //      $('#searchbox-input').change(function() {
+      //        $('#restaurant-card').show();
+      //        var filter = $(this).val(); // get the value of the input, which we filter on
+      //        $('#restaurant-card *').find(".card-title:not(:contains(" + filter + "))").parent().css('display', 'none');
+      //      });
+
+      //      $("#menu-img-src").on("click", () => {
+      //                $("#menu-image").click();
+      //            });
+
+      $("#searchbox-input").on("keyup", function() {
+        //        console.log($(this).val());
+        if ($(this).val() === "") {
+//          console.log(old);
+          $("#restaurant-card").html(old);
+        } else {
+          var input = $(this).val().toLowerCase();
+          $("#restaurant-card").html("");
+          $.each(loadAllRestaurants, (key, value) => {
+            var val = "";
+            $.each(value.categories, (key, cid) => {
+              val += categories[cid];
+            })
+
+            val += value.name + value.intoduction;
+            var string = val.toLowerCase();
+
+            if (string.indexOf(input)!==-1) {
+              appendToCard(value);
+            }
+
+          });
+        }
+
+      });
+
+
     });
-  });
-      
-    });
-    
+
     window.appendToCard = (value) => {
       if (value !== null) {
         content = `<div class="card mb-2" style="width: 18rem;">
@@ -34,16 +82,18 @@
             </div>
           </a>
         </div>`;
-//        console.log(content);
+        //        console.log(content);
+        old += content;
         $("#restaurant-card").append(content);
       }
     }
 
     $.each(loadAllRestaurants, (key, value) => {
-//      console.log(value.name);
+      //      console.log(value.name);
       appendToCard(value);
+
     });
-    
+
   </script>
 </head>
 
@@ -62,9 +112,9 @@
     <div class="col-3">
       <!--     searchbox-->
       <div class="input-group" style="margin-bottom: 10px;">
-        <input class="form-control" type="search" placeholder="Search" id="searchbox">
+        <input class="form-control" type="search" placeholder="Search" id="searchbox-input">
         <div class="input-group-append">
-          <div class="input-group-text"><i class="fa fa-search"></i></div>
+          <div class="input-group-text" id="search-icon"><i class="fa fa-search"></i></div>
         </div>
       </div>
       <!--      /searchbox-->
