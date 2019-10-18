@@ -109,7 +109,7 @@
           "user": "abc",
           "date": "01-10-2019",
           "rating": "4",
-          content: "abc"
+          "content": "abc"
         }
       }
     },
@@ -175,7 +175,7 @@
           "user": "abc",
           "date": "01-10-2019",
           "rating": "4",
-          content: "abc"
+          "content": "abc"
         }
       }
     },
@@ -219,7 +219,7 @@
           "user": "abc",
           "date": "01-10-2019",
           "rating": "4",
-          content: "abc"
+          "content": "abc"
         }
       }
     }

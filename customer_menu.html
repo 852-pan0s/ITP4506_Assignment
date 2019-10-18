@@ -8,9 +8,27 @@
   <title>Document</title>
   <script>
     var old = "";
-    var firstLoad = true;
     $(() => {
       var categories = {};
+      window.search = (keyword) => {
+
+        $("#restaurant-card").html("");
+
+        $.each(loadAllRestaurants, (key, value) => {
+          var val = "";
+          $.each(value.categories, (key, cid) => {
+            val += categories[cid];
+          })
+
+          val += value.name + value.intoduction;
+          var string = val.toLowerCase();
+
+          if (string.indexOf(keyword) !== -1) {
+            appendToCard(value);
+          }
+
+        });
+      }
 
       $.each(
         loadAllCategories, (key, value) => {
@@ -43,7 +61,7 @@
       //                $("#menu-image").click();
       //            });
 
-      $("#searchbox-input").on("keyup", function() {
+      $("#searchbox-input").on("keyup", function () {
         //        console.log($(this).val());
         if ($(this).val() === "") {
           //          console.log(old);
@@ -71,7 +89,7 @@
       });
 
       function search(keyword) {
-        
+
         $("#restaurant-card").html("");
 
         $.each(loadAllRestaurants, (key, value) => {
@@ -106,19 +124,17 @@
           </a>
         </div>`;
         //        console.log(content);
-        if (firstLoad) old += content;
+        // if (firstLoad) old += content;
         $("#restaurant-card").append(content);
       }
+      return content;
     }
 
     $.each(loadAllRestaurants, (key, value) => {
       //      console.log(value.name);
-      appendToCard(value);
+      old += appendToCard(value);
 
     });
-
-    firstLoad = false
-
   </script>
 </head>
 
@@ -149,12 +165,13 @@
         <div class="list-group-item">
           <!-- Default dropright button -->
           <div class="btn-group dropright">
-            <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
               Burger
             </button>
             <div class="dropdown-menu">
               <!-- Dropdown menu links -->
-              <button type="button" class="dropdown-item" onclick="search(burger)">Burger</button>
+              <button type="button" class="dropdown-item" onclick="search('burger')">Burger</button>
               <button type="button" class="dropdown-item">Chinese</button>
               <button type="button" class="dropdown-item">Italian</button>
               <button type="button" class="dropdown-item">Japanese</button>
