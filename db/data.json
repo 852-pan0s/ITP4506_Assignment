@@ -42,7 +42,7 @@
       "icon": "kfc_icon.png",
       "introduction": "KFC is a restaurant that the main menus are fried chickens.",
       "categories": ["c1", "c4", "c7"],
-      "tag": ""
+      "tag": "",
       "branches": {
         "b1": {
           "bid": "b1",
