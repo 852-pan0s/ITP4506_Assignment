@@ -16,23 +16,16 @@
       var restaurant = loadAllRestaurants[selectedResId];
       $("#res-name").text(restaurant.name);
       $("#res-info").text(restaurant.introduction);
-//      $("#star1").attr("class", "fa fa-star checked");
+
+      $.each(restaurant.menus, (key, value) => {
+//        console.log(value.name);  //restaurant.menus.m1
+//        console.log(value);
+        appendToTab(value); 
+      });
+      //      $("#star1").attr("class", "fa fa-star checked");
     });
 
     function add(ths, sno) {
-      //       for (var i = 1; i <= 5; i++) {
-      //         var cur = document.getElementById("star" + i)
-      //         cur.className = "fa fa-star";
-      // //        cur.removeClass("checked");
-      //       }
-      // for (var i = 1; i <= sno; i++) {
-      //   var cur = document.getElementById("star" + i)
-      //   if (cur.className == "fa fa-star") {
-      //     cur.className = "fa fa-star checked";
-      //     //          cur.addClass("checked");
-      //   }
-      // }
-
       $.each($(".stars.starrr>svg"), (key, value) => {
         $(value).attr("class", "fa fa-star");
       });
@@ -44,6 +37,31 @@
       });
 
     }
+
+    window.appendToTab = (value) => {
+      if (value !== null) {
+        //        console.log(value);
+        //        https://picsum.photos/800
+        content = `<div class="tab-pane fade show active" id="menu" role="tabpanel" aria-labelledby="menu-tab">
+        <div class="card w-75">
+          <div class="row no-gutters">
+            <div class="col-auto">
+              <img class="card-img" src="img/food_drink/${value.image}" alt="Card image cap" style="width: 150px">
+            </div>
+            <div class="col">
+              <div class="card-body px-3">
+                <h4 class="card-title">${value.name}</h4>
+                <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis quaerat doloribus rerum. Suscipit ea pariatur neque voluptate voluptatem quo adipisci quod aperiam, in beatae minus maiores laborum molestiae voluptatum blanditiis? </p>
+              </div>
+            </div>
+          </div>
+        </div>`;
+        
+        $("#menu").append(content);
+      }
+      return content;
+    }
+
   </script>
 </head>
 
@@ -53,9 +71,8 @@
 
     <div data-toggle="modal" data-target="#myModal">
       <h2 id="res-name">Restaurant Name</h2>
-      <p id="res-info">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit quam sit amet, cum eos ipsum ipsa
-        sapiente veniam consectetur facilis, minus officia blanditiis. Illum adipisci minima dolorem nulla esse
-        doloremque.</p>
+      <p id="res-info">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit quam sit amet, cum eos ipsum ipsa sapiente veniam consectetur facilis, minus officia blanditiis. Illum adipisci minima dolorem nulla esse doloremque.
+      </p>
     </div>
 
 
@@ -87,21 +104,16 @@
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item">
-        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-          aria-selected="true">Home</a>
+        <a class="nav-link active" id="menu-tab" data-toggle="tab" href="#menu" role="tab" aria-controls="home" aria-selected="true">Menu</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-          aria-selected="false">Profile</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
-          aria-selected="false">Review</a>
+        <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">Review</a>
       </li>
     </ul>
+    <!--    MENU TAB-->
     <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+      <div class="tab-pane fade show active" id="menu" role="tabpanel" aria-labelledby="menu-tab">
+      </div>
 
       <!--      REVIEW TAB-->
       <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
@@ -122,8 +134,7 @@
                     <div class="col-md-12">
                       <form accept-charset="UTF-8" action="" method="post">
                         <input id="ratings-hidden" name="rating" type="hidden">
-                        <textarea class="form-control animated" cols="50" id="new-review" name="comment"
-                          placeholder="Enter your review here..." rows="5"></textarea>
+                        <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
 
                         <!--                       star rating-->
                         <div class="text-right">
@@ -134,8 +145,7 @@
                             <span class="fa fa-star" id="star4" onclick="add(this,4)"></span>
                             <span class="fa fa-star" id="star5" onclick="add(this,5)"></span>
                           </div>
-                          <a class="btn btn-danger btn-sm" href="#" id="close-review-box"
-                            style="display:none; margin-right: 10px;">
+                          <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
                             <span class="glyphicon glyphicon-remove"></span>Cancel</a>
                           <button class="btn btn-success btn-lg" type="submit">Save</button>
                         </div>
@@ -162,8 +172,7 @@
                   </div>
                   <div class="col-md-10">
                     <p>
-                      <a class="float-left"
-                        href="https://maxniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman
+                      <a class="float-left" href="https://maxniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman
                           Akash</strong></a>
                       <span class="float-right"><i class="text-warning fa fa-star"></i></span>
                       <span class="float-right"><i class="text-warning fa fa-star"></i></span>
@@ -172,10 +181,7 @@
 
                     </p>
                     <div class="clearfix"></div>
-                    <p>Lorem Ipsum is simply dummy text of the pr make but also the leap into electronic typesetting,
-                      remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                      sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
-                      Aldus PageMaker including versions of Lorem Ipsum.</p>
+                    <p>Lorem Ipsum is simply dummy text of the pr make but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                   </div>
                 </div>
               </div>
@@ -183,7 +189,7 @@
           </div>
 
           <!--          /comment-->
-          
+
         </div>
       </div>
     </div>
