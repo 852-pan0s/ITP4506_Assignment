@@ -30,6 +30,7 @@
                 $("#branch-id").val(`b${Object.keys(restaurant.branches).length + 1}`);
                 $("#branch-join-date").val(today);
                 $("#new-branch").text("New Branch");
+                $("#btn-new").attr("class", "btn btn-outline-warning");
                 $(".is-invalid").removeClass("is-invalid");
                 timePicker.sTime = timePicker.makePicker({
                     "picker": timePicker.sTime,
@@ -93,6 +94,7 @@
                 $("#branch-join-date").val($(column[4]).text());
                 $("#branch-stop").prop("checked", $(column[5]).children().prop("checked"));
                 $("#btn-new").text("Save");
+                $("#btn-new").attr("class", "btn btn-outline-success");
                 $("#new-branch").text("Edit Restaurant");
                 timePicker.sTime = timePicker.makePicker({
                     "picker": timePicker.sTime,

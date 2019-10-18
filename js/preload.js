@@ -139,7 +139,7 @@ $(() => {
     marginFix();
     lightStyle();
     footerFix();
-    setTimeout(footerFix, 600);
+    setTimeout(footerFix, 0);
     setSecondDirectory(name);
     if (typeof thirdDir !== "undefined") {
       $("#third").show();

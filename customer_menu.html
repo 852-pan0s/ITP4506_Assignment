@@ -8,6 +8,7 @@
   <title>Document</title>
   <script>
     var old = "";
+    var firstLoad = true;
     $(() => {
       var categories = {};
 
@@ -89,7 +90,7 @@
           </a>
         </div>`;
         //        console.log(content);
-        old += content;
+        if(firstLoad) old += content;
         $("#restaurant-card").append(content);
       }
     }
@@ -99,6 +100,8 @@
       appendToCard(value);
 
     });
+
+    firstLoad = false
 
   </script>
 </head>
