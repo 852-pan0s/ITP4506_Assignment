@@ -10,18 +10,18 @@
     <title>Document</title>
     <script>
         $(() => {
-            $(".category-list").on("mouseenter",(e)=>{
+            $(".category-list").on("mouseenter", (e) => {
                 // console.log($(e.delegateTarget))
                 $(e.delegateTarget).tooltip('show');
             });
-            $(".category-list").on("mouseleave",(e)=>{
+            $(".category-list").on("mouseleave", (e) => {
                 $(e.delegateTarget).tooltip('hide');
             });
             const loadResInfo = () => {
                 $("#res-name").val(restaurant.name);
                 $("#res-introduction").val(restaurant.introduction);
                 $("#res-img-src").attr("src", `./img/icon/${restaurant.icon}`);
-                $.each(restaurant.categories,(key,value)=>{
+                $.each(restaurant.categories, (key, value) => {
                     $($(".category-list")[key]).val(value);
                 });
             }
@@ -39,7 +39,7 @@
             $("#btn-res-save").on("click", () => {
                 restaurant.name = $("#res-name").val();
                 restaurant.introduction = $("#res-introduction").val();
-                $.each($(".category-list"),(key,value)=>{
+                $.each($(".category-list"), (key, value) => {
                     restaurant.categories[key] = $(value).val();
                 });
                 if ($("#res-icon").val() !== "") {
@@ -53,11 +53,15 @@
             });
 
             $("#btn-res-cancel").on("click", () => {
-                loadResInfo();
-                // console.log(restaurant.name);
-                showToast(
-                    `The information of <span class="text-danger">${restaurant.name}</span> has beed <span class="text-success">reset</span>!`
-                );
+                yesNoModal(`Are you sure reset the information to last save?`,(confirm) => {
+                    if (confirm) {
+                        loadResInfo();
+                        // console.log(restaurant.name);
+                        showToast(
+                            `The information of <span class="text-danger">${restaurant.name}</span> has beed <span class="text-success">reset</span>!`
+                        );
+                    }
+                });
             });
 
 
@@ -138,21 +142,24 @@
                 <div class="form-group row">
                     <label for="res-introduction" class="col-sm-3 col-form-label">Restaurant Category:</label>
                     <div class="col-sm-9">
-                        1: <select name="" class="category-list" data-toggle="tooltip" data-placement="bottom" title="Select the first category.">
-                            <option value="none" >--None--</optionv>
+                        1: <select name="" class="category-list" data-toggle="tooltip" data-placement="bottom"
+                            title="Select the first category.">
+                            <option value="none">--None--</optionv>
                         </select>
-                        2: <select name="" class="category-list" data-toggle="tooltip" data-placement="bottom" title="Select the second category.">
+                        2: <select name="" class="category-list" data-toggle="tooltip" data-placement="bottom"
+                            title="Select the second category.">
                             <option value="none">--None--</option>
                         </select>
-                        3: <select name="" class="category-list" data-toggle="tooltip" data-placement="bottom" title="Select the third category.">
+                        3: <select name="" class="category-list" data-toggle="tooltip" data-placement="bottom"
+                            title="Select the third category.">
                             <option value="none">--None--</option>
                         </select>
                     </div>
                 </div>
                 <br>
                 <button type="button" id="btn-res-save" class="btn btn-outline-success ">Save</button>
-                <button type="button" id="btn-res-cancel" class="btn btn-outline-danger"
-                    style="margin-left: 5px;">Reset to last save</button>
+                <button type="button" id="btn-res-cancel" class="btn btn-outline-danger" style="margin-left: 5px;">Reset
+                    to last save</button>
             </form>
         </div>
     </div>

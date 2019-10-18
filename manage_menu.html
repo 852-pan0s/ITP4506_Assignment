@@ -148,6 +148,7 @@
                 $("#btn-new").text("New");
                 $("#menu-id").val(`m${Object.keys(menu).length + 1}`);
                 $("#new-menu").text("New Menu");
+                $("#btn-new").attr("class", "btn btn-outline-warning");
                 $(".is-invalid").removeClass("is-invalid");
                 $("#menu-special-type").val("none");
                 $(".s-date,.e-date , .season").addClass("hide");
@@ -310,6 +311,7 @@
                 $("#menu-img-src").attr("src", `${img_src}${$(column[3]).text()}`);
                 $("#menu-show").prop("checked", $(column[5]).children().prop("checked"));
                 $("#btn-new").text("Save");
+                $("#btn-new").attr("class", "btn btn-outline-success");
                 $("#new-menu").text("Edit Menu");
                 $("#menu-image").removeClass("is-invalid");
             }
