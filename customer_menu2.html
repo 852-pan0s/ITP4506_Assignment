@@ -16,24 +16,25 @@
       var restaurant = loadAllRestaurants[selectedResId];
       $("#res-name").text(restaurant.name);
       $("#res-info").text(restaurant.introduction);
-    });
 
-    function add(ths, sno) {
-      for (var i = 1; i <= 5; i++) {
-        var cur = document.getElementById("star" + i)
-        cur.className = "fa fa-star";
-//        cur.removeClass("checked");
-      }
-      
-      for (var i = 1; i <= sno; i++) {
-        var cur = document.getElementById("star" + i)
-        if (cur.className == "fa fa-star") {
-          cur.className = "fa fa-star checked";
-//          cur.addClass("checked");
+
+      function add(ths, sno) {
+        for (var i = 1; i <= 5; i++) {
+          var cur = document.getElementById("star" + i)
+          cur.className = "fa fa-star";
+          //        cur.removeClass("checked");
         }
-      }
 
-    }
+        for (var i = 1; i <= sno; i++) {
+          var cur = document.getElementById("star" + i)
+          if (cur.className == "fa fa-star") {
+            cur.className = "fa fa-star checked";
+            //          cur.addClass("checked");
+          }
+        }
+
+      }
+    });
 
   </script>
 </head>
@@ -88,8 +89,8 @@
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
       <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-      
-<!--      REVIEW TAB-->
+
+      <!--      REVIEW TAB-->
       <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
         <!--       container of comment and rating-->
         <div class="container">
