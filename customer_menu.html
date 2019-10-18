@@ -45,12 +45,12 @@
       $("#searchbox-input").on("keyup", function() {
         //        console.log($(this).val());
         if ($(this).val() === "") {
-//          console.log(old);
+          //          console.log(old);
           $("#restaurant-card").html(old);
         } else {
           var input = $(this).val().toLowerCase();
           $("#restaurant-card").html("");
-          
+
           $.each(loadAllRestaurants, (key, value) => {
             var val = "";
             $.each(value.categories, (key, cid) => {
@@ -60,7 +60,7 @@
             val += value.name + value.intoduction;
             var string = val.toLowerCase();
 
-            if (string.indexOf(input)!==-1) {
+            if (string.indexOf(input) !== -1) {
               appendToCard(value);
             }
 
@@ -69,12 +69,16 @@
 
       });
 
+//      function search(value) {
+//        
+//      }
+
 
     });
 
     window.appendToCard = (value) => {
       if (value !== null) {
-//        https://picsum.photos/800
+        //        https://picsum.photos/800
         content = `<div class="card mb-2" style="width: 15rem;">
           <a href="#" onclick="changePage(this,\`${value.name}\`,'${value.id}')">
             <img src="img/icon/${value.icon}" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
@@ -100,8 +104,7 @@
 </head>
 
 <body>
-<span class="float-right"></span>
- <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+
   <!--
 <div class="search-box">
     <input type="text" name="" class="search-txt" placeholder="Type to search"/>
