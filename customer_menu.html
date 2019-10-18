@@ -70,9 +70,25 @@
 
       });
 
-//      function search(value) {
-//        
-//      }
+      function search(keyword) {
+        
+        $("#restaurant-card").html("");
+
+        $.each(loadAllRestaurants, (key, value) => {
+          var val = "";
+          $.each(value.categories, (key, cid) => {
+            val += categories[cid];
+          })
+
+          val += value.name + value.intoduction;
+          var string = val.toLowerCase();
+
+          if (string.indexOf(keyword) !== -1) {
+            appendToCard(value);
+          }
+
+        });
+      }
 
 
     });
@@ -90,7 +106,7 @@
           </a>
         </div>`;
         //        console.log(content);
-        if(firstLoad) old += content;
+        if (firstLoad) old += content;
         $("#restaurant-card").append(content);
       }
     }

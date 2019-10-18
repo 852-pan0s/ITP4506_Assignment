@@ -103,6 +103,14 @@
             "end_date": "18:00"
           }
         }
+      },
+      "comment" :{
+        "a1":{
+          "user": "abc",
+          "date": "01-10-2019",
+          "rating": "4",
+          content: "abc"
+        }
       }
     },
     "r2": {
@@ -161,6 +169,14 @@
             "end_date": "05-10-2019"
           }
         }
+      },
+      "comment" :{
+        "a1":{
+          "user": "abc",
+          "date": "01-10-2019",
+          "rating": "4",
+          content: "abc"
+        }
       }
     },
     "r3": {
@@ -169,7 +185,7 @@
       "owner": "4",
       "icon": "tamchai.jpg",
       "introduction": "Tam Chai is a restaurant that the main menus are noodles.",
-      "categories": ["c3", "c4", "c5"],
+      "categories": ["c3", "c5"],
       "tag": "popular",
       "branches": {
       },
@@ -196,6 +212,14 @@
             "start_date": "01-10-2019",
             "end_date": "05-10-2019"
           }
+        }
+      },
+      "comment" :{
+        "a1":{
+          "user": "abc",
+          "date": "01-10-2019",
+          "rating": "4",
+          content: "abc"
         }
       }
     }
