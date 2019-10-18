@@ -16,6 +16,7 @@
       var restaurant = loadAllRestaurants[selectedResId];
       $("#res-name").text(restaurant.name);
       $("#res-info").text(restaurant.introduction);
+      $("#star1").attr("class", "fa fa-star checked");
     });
 
     function add(ths, sno) {
@@ -38,12 +39,8 @@
 
       var i = 1;
       $.each($(".stars.starrr>svg"), (key, value) => {
-        if ($(value).attr("class") === "fa fa-star") {
-          $(value).attr("class", "fa fa-star checked");
-        }
-        if (i++ >= sno) {
-          return false;
-        }
+        $(value).attr("class", "fa fa-star checked");
+        if (i++ >= sno) return false;
       });
 
     }
