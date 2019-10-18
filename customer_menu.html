@@ -70,8 +70,8 @@
 
       });
 
-      function search(keyword) {
-        
+      var search = function search(keyword) {
+        console.log(keyword);
         $("#restaurant-card").html("");
 
         $.each(loadAllRestaurants, (key, value) => {
@@ -88,7 +88,7 @@
           }
 
         });
-      }
+      };
 
 
     });
@@ -154,12 +154,12 @@
             </button>
             <div class="dropdown-menu">
               <!-- Dropdown menu links -->
-              <button type="button" class="dropdown-item" onclick="search(burger)">Burger</button>
-              <button type="button" class="dropdown-item">Chinese</button>
-              <button type="button" class="dropdown-item">Italian</button>
-              <button type="button" class="dropdown-item">Japanese</button>
-              <button type="button" class="dropdown-item">Mexican</button>
-              <button type="button" class="dropdown-item">Thai</button>
+              <button type="button" class="dropdown-item" onclick="search('burger')">Burger</button>
+              <button type="button" class="dropdown-item" onclick="search('chinese')">Chinese</button>
+              <button type="button" class="dropdown-item" onclick="search('italian')">Italian</button>
+              <button type="button" class="dropdown-item" onclick="search('japanese')">Japanese</button>
+              <button type="button" class="dropdown-item" onclick="search('mexican')">Mexican</button>
+              <button type="button" class="dropdown-item" onclick="search('thai')">Thai</button>
             </div>
           </div>
         </div>
