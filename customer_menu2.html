@@ -16,7 +16,7 @@
       if (checkExistedComment()) {
         $("#comment-card").hide();
         $("#find-comment").show();
-        $("#btn-find-comment").attr('href',`#${getSessionObj('currentUser').uid}`);
+        $("#btn-find-comment").attr('href', `#${getSessionObj('currentUser').uid}`);
         return true;
       } else {
         $("#find-comment").hide();
@@ -40,6 +40,7 @@
     saveToComments = (comment) => {
       var id = `c${Object.keys(loadAllComments).length+1}`;
       loadAllComments[id] = comment;
+      setSessionObj("comments", loadAllComments);
     }
 
     $(() => {
@@ -78,7 +79,7 @@
     $("#btn-comment").on("click", () => {
       var comment = {
         uid: getSessionObj("currentUser").uid,
-        rid: `r${selectedResId}`,
+        rid: selectedResId,
         date: today(),
         rating: $(".stars.starrr>svg.checked").length,
         content: $("textarea").val(),
@@ -91,6 +92,7 @@
         appendToComments(comment);
         saveToComments(comment);
         showToast("Your comment is posted!");
+        isExistedComment();
       } else {
         showToast("Sorry,You have posted your comment before!", 1);
       }
@@ -236,7 +238,8 @@
                 <div class="card-body">
 
                   <div class="text-right">
-                    <a class="btn btn-success btn-green" href="#reviews-anchor" id="btn-find-comment">Find your comment</a>
+                    <a class="btn btn-success btn-green" href="#reviews-anchor" id="btn-find-comment">Find your
+                      comment</a>
                   </div>
                 </div>
               </div>
