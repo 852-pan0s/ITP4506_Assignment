@@ -6,12 +6,24 @@
   <link rel="stylesheet" href="customer_menu.css">
   <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
   <title>Document</title>
+  <style>
+    a {
+      color: black;
+      font-family: helvetica;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+  </style>
   <script>
     var old = "";
     $(() => {
       var categories = {};
       window.search = (keyword) => {
-
         $("#restaurant-card").html("");
 
         $.each(loadAllRestaurants, (key, value) => {
@@ -37,13 +49,14 @@
         }
       );
 
+      //pass the restaurant id to next page
       window.selectedResId = "";
       changePage = (e, name, id) => {
         selectedResId = id;
         managePage(`${name}`, "customer_menu2.html", "Resturant");
       }
 
-      $("#searchbox-input").on("keyup", function () {
+      $("#searchbox-input").on("keyup", function() {
         //        console.log($(this).val());
         if ($(this).val() === "") {
           //          console.log(old);
@@ -94,6 +107,7 @@
       old += appendToCard(value);
 
     });
+
   </script>
 </head>
 
@@ -124,12 +138,12 @@
         <div class="list-group-item">
           <!-- Default dropright button -->
           <div class="btn-group dropright">
-            <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false" id="dropdown-category">
+            <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdown-category">
               Category
             </button>
             <div class="dropdown-menu">
               <!-- Dropdown menu links -->
+              <button type="button" class="dropdown-item" onclick="search('all')">All</button>
               <button type="button" class="dropdown-item" onclick="search('burger')">Burger</button>
               <button type="button" class="dropdown-item" onclick="search('chinese')">Chinese</button>
               <button type="button" class="dropdown-item" onclick="search('italian')">Italian</button>
