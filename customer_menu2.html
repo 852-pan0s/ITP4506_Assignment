@@ -11,6 +11,37 @@
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
   <script>
+    var comments = {};
+    isExistedComment = () => {
+      if (checkExistedComment()) {
+        $("#comment-card").hide();
+        $("#btn-find-comment").show();
+        $("#btn-find-comment").attr('href',`#${getSessionObj('currentUser').value}`);
+        return true;
+      } else {
+        $("#btn-find-comment").hide();
+        $("#comment-card").show();
+        return false;
+      }
+    }
+
+    checkExistedComment = () => {
+      var isExisted = false;
+      $.each(loadAllComments, (key, value) => {
+        if (value.uid === getSessionObj("currentUser").uid) {
+          isExisted = true;
+          return false;
+          // console.log(comments);
+        }
+      });
+      return isExisted;
+    }
+
+    saveToComments = (comment) => {
+      var id = `c${Object.keys(loadAllComments).length+1}`;
+      loadAllComments[id] = comment;
+    }
+
     $(() => {
       //      console.log(selectedResId);
       var restaurant = loadAllRestaurants[selectedResId];
@@ -18,17 +49,53 @@
       $("#res-info").text(restaurant.introduction);
 
       $.each(restaurant.menus, (key, value) => {
-//        console.log(value.name);  //restaurant.menus.m1
-//        console.log(value);
-        appendToTab(value); 
+        //        console.log(value.name);  //restaurant.menus.m1
+        //        console.log(value);
+        appendToTab(value);
       });
 
-      $.each()
+      // load comments
+      $.each(loadAllComments, (key, value) => {
+        if (value.rid === selectedResId) {
+          comments[key] = value;
+          isExistedComment();
+          // console.log(comments);
+        }
+      });
+
+      //show the comments
+      $.each(comments, (key, value) => {
+        comments[key].icon = loadAllUsers[`u${value.uid}`].icon;
+        comments[key].name = loadAllUsers[`u${value.uid}`].username;
+        comments[key].type = loadAllUsers[`u${value.uid}`].type;
+        // console.log(comments[key].icon);
+        appendToComments(value);
+      });
+
       //      $("#star1").attr("class", "fa fa-star checked");
     });
 
-    $("#btn-save").on("click",()=>{
-      
+    $("#btn-comment").on("click", () => {
+      var comment = {
+        uid: getSessionObj("currentUser").uid,
+        rid: `r${selectedResId}`,
+        date: today(),
+        rating: $(".stars.starrr>svg.checked").length,
+        content: $("textarea").val(),
+        icon: getSessionObj('currentUser').icon,
+        name: getSessionObj('currentUser').username,
+        type: getSessionObj('currentUser').type,
+      };
+      // console.log(comment)
+      if (!isExistedComment()) {
+        appendToComments(comment);
+        saveToComments(comment);
+        showToast("Your comment is posted!");
+      } else {
+        showToast("Sorry,You have posted your comment before!", 1);
+      }
+
+
     });
 
     function add(ths, sno) {
@@ -53,7 +120,8 @@
           <div class="row no-gutters">
             <div class="col-auto">
               <img class="card-img" src="img/food_drink/${value.image}" alt="Card image cap" style="width: 150px">
-            </div>
+              <p class="text-secondary text-center">${value.type}</p>
+              </div>
             <div class="col">
               <div class="card-body px-3">
                 <h4 class="card-title">${value.name}</h4>
@@ -62,13 +130,45 @@
             </div>
           </div>
         </div>`;
-        
+
         $("#menu").append(content);
       }
       return content;
     }
 
+    window.appendToComments = (value) => {
+      if (value !== null) {
+        var rating = ``;
+        for (var i = 0; i < value.rating; i++) {
+          rating += `<span class="float-right"><i class="text-warning fa fa-star"></i></span>`;
+        }
+        content = `
+         <div class="card" id="${value.uid}">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-2">
+                    <img src="./img/user_icon/${value.icon}"  class="img img-rounded img-fluid" style="width: 900px;"/>
+                    <p class="text-secondary text-center">${value.type}</p>
+                  </div>
+                  <div class="col-md-10">
+                    <p>
+                      <a class="float-left" href="https://maxniruzzaman-akash.blogspot.com/p/contact.html"><strong>${value.name}</strong></a>&nbsp; posted on ${value.date}
+                          ${rating};
+                    </p>
+                    <div class="clearfix"></div>
+                    <p>${value.content}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>`;
+
+        $("#comment").append(content);
+      }
+      return content;
+    }
   </script>
+
 </head>
 
 <body>
@@ -77,7 +177,9 @@
 
     <div data-toggle="modal" data-target="#myModal">
       <h2 id="res-name">Restaurant Name</h2>
-      <p id="res-info">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit quam sit amet, cum eos ipsum ipsa sapiente veniam consectetur facilis, minus officia blanditiis. Illum adipisci minima dolorem nulla esse doloremque.
+      <p id="res-info">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit quam sit amet, cum eos ipsum ipsa
+        sapiente veniam consectetur facilis, minus officia blanditiis. Illum adipisci minima dolorem nulla esse
+        doloremque.
       </p>
     </div>
 
@@ -110,10 +212,12 @@
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item">
-        <a class="nav-link active" id="menu-tab" data-toggle="tab" href="#menu" role="tab" aria-controls="home" aria-selected="true">Menu</a>
+        <a class="nav-link active" id="menu-tab" data-toggle="tab" href="#menu" role="tab" aria-controls="home"
+          aria-selected="true">Menu</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">Review</a>
+        <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
+          aria-selected="false">Review</a>
       </li>
     </ul>
     <!--    MENU TAB-->
@@ -128,11 +232,22 @@
           <div class="row" style="margin-top:40px;">
             <div class="col-md-6">
               <!--              comment card-->
-              <div class="card bg-light">
+              <div class="card bg-light" id="find-comment">
                 <div class="card-body">
 
                   <div class="text-right">
-                    <a class="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Leave a Review</a>
+                    <a class="btn btn-success btn-green" href="#reviews-anchor" id="btn-find-comment">Find your comment</a>
+                  </div>
+                </div>
+              </div>
+
+
+              <!--              comment card-->
+              <div class="card bg-light" id="comment-card">
+                <div class="card-body">
+
+                  <div class="text-right">
+                    <a class="btn btn-success btn-green" href="#" id="open-review-box">Leave a Review</a>
                   </div>
 
                   <!--                 reviewbox-->
@@ -140,7 +255,8 @@
                     <div class="col-md-12">
                       <form accept-charset="UTF-8" action="" method="post" onsubmit="return false;">
                         <input id="ratings-hidden" name="rating" type="hidden">
-                        <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
+                        <textarea class="form-control animated" cols="50" id="new-review" name="comment"
+                          placeholder="Enter your review here..." rows="5"></textarea>
 
                         <!--                       star rating-->
                         <div class="text-right">
@@ -151,9 +267,10 @@
                             <span class="fa fa-star" id="star4" onclick="add(this,4)"></span>
                             <span class="fa fa-star" id="star5" onclick="add(this,5)"></span>
                           </div>
-                          <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
+                          <a class="btn btn-danger btn-sm" href="#" id="close-review-box"
+                            style="display:none; margin-right: 10px;">
                             <span class="glyphicon glyphicon-remove"></span>Cancel</a>
-                          <button class="btn btn-success btn-lg" id="btn-save" type="submit">Save</button>
+                          <button class="btn btn-success btn-lg" id="btn-comment" type="submit">Save</button>
                         </div>
                         <!--                        /star rating-->
                       </form>
@@ -169,31 +286,6 @@
 
           <!--          comment-->
           <div class="row" style="margin-top:40px;" id="comment">
-            
-
-            <div class="card">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-2">
-                    <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
-                    <p class="text-secondary text-center">2019/5/24</p>
-                  </div>
-                  <div class="col-md-10">
-                    <p>
-                      <a class="float-left" href="https://maxniruzzaman-akash.blogspot.com/p/contact.html"><strong>Maniruzzaman
-                          Akash</strong></a>
-                      <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                      <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                      <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                      <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-
-                    </p>
-                    <div class="clearfix"></div>
-                    <p>Lorem Ipsum is simply dummy text of the pr make but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
 
           <!--          /comment-->

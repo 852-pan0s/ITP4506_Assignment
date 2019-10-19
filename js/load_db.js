@@ -1,6 +1,6 @@
 window.loadAllRestaurants = {};
 // window.loadAllMenus = {};
-// window.loadAllUsers = {};
+window.loadAllUsers = {};
 window.loadAllCategories = {};
 window.loadAllComments = {};
 window.loadData = () => {
@@ -23,14 +23,14 @@ window.loadData = () => {
     //     loadAllMenus = loadFromSession;
     // }
 
-    // loadFromDb = getSessionObj("db").users;
-    // loadFromSession = getSessionObj("users");
-    // if (loadFromSession === null) { //load from db or load from session
-    //     setSessionObj("users", loadFromDb); //set add the restaurant to the session
-    //     loadAllUsers = loadFromDb;
-    // } else {
-    //     loadAllUsers = loadFromSession;
-    // }
+    loadFromDb = getSessionObj("db").users;
+    loadFromSession = getSessionObj("users");
+    if (loadFromSession === null) { //load from db or load from session
+        setSessionObj("users", loadFromDb); //set add the restaurant to the session
+        loadAllUsers = loadFromDb;
+    } else {
+        loadAllUsers = loadFromSession;
+    }
 
     loadFromDb = getSessionObj("db").categories;
     loadFromSession = getSessionObj("categories");

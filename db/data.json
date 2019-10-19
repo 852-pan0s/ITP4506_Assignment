@@ -48,6 +48,21 @@
           "image": ""
         }
       }
+    },
+    "u6": {
+      "uid": "6",
+      "type": "normal_user",
+      "username": "ac1",
+      "password": "ac1",
+      "icon":"normal.jpg",
+      "favorites": {
+        "f1": {
+          "name": "",
+          "price": "",
+          "session": "",
+          "image": ""
+        }
+      }
     }
   },
   "restaurants": {

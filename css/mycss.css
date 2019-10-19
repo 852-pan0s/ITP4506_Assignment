@@ -1,10 +1,10 @@
 .absolute-top {
     position: absolute;
-    top:-10px;
+    top: -10px;
 }
 
 .animationTop {
-    transition: top 0.5s ;
+    transition: top 0.5s;
     /* transition: background-color 0.3s; */
 }
 
@@ -17,26 +17,42 @@
     display: none;
 }
 
-.navbar{
+.navbar {
     font-family: Poppins;
 }
 
 @media (min-width:768px) {
-    .card-deck > .card
-    {
+    .card-deck>.card {
         width: 29%;
         flex-wrap: wrap;
-        flex: initial; 
+        flex: initial;
     }
 }
 
-.footer{
+.footer {
     position: absolute;
     bottom: 0;
     width: 100%;
     margin-top: 0;
 }
 
-#sticky-footer{
+#sticky-footer {
     margin-top: 50px;
+}
+
+.toast-icon-0 {
+    margin-right: 12px;
+    height: 18px;
+    width: 18px;
+    background-color: rgb(0, 255, 13);
+    border-radius: 30%
+}
+
+
+.toast-icon-1 {
+    margin-right: 12px;
+    height: 18px;
+    width: 18px;
+    background-color: rgb(255, 0, 13);
+    border-radius: 30%
 }
