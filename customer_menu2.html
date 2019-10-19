@@ -13,6 +13,12 @@
   <script>
     var comments = {};
     isExistedComment = () => {
+      if (getSessionObj("currentUser").type !== "normal_user") {
+        $("#comment-card").hide();
+        $("#find-comment").hide();
+        return;
+      }
+
       if (checkExistedComment()) {
         $("#comment-card").hide();
         $("#find-comment").show();
@@ -77,16 +83,25 @@
     });
 
     $("#btn-comment").on("click", () => {
+      var rating = $(".stars.starrr>svg.checked").length;
+      if (!(rating > 0)) {
+        showToast("Sorry, you must select at least one star!", 1);
+        return;
+      }else if($("textarea").val().length <1){
+        showToast("Sorry, the review can't be empty!", 1);
+        return;
+      }
       var comment = {
         uid: getSessionObj("currentUser").uid,
         rid: selectedResId,
         date: today(),
-        rating: $(".stars.starrr>svg.checked").length,
+        rating,
         content: $("textarea").val(),
         icon: getSessionObj('currentUser').icon,
         name: getSessionObj('currentUser').username,
         type: getSessionObj('currentUser').type,
       };
+
       // console.log(comment)
       if (!isExistedComment()) {
         appendToComments(comment);
@@ -96,6 +111,7 @@
       } else {
         showToast("Sorry,You have posted your comment before!", 1);
       }
+
 
 
     });
@@ -236,11 +252,8 @@
               <!--              comment card-->
               <div class="card bg-light" id="find-comment">
                 <div class="card-body">
-
-                  <div class="text-right">
-                    <a class="btn btn-success btn-green" href="#reviews-anchor" id="btn-find-comment">Find your
-                      comment</a>
-                  </div>
+                  You posted your comment before. <a href="#reviews-anchor" id="btn-find-comment">Find your
+                    comment.</a>
                 </div>
               </div>
 
