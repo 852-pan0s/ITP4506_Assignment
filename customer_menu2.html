@@ -15,11 +15,11 @@
     isExistedComment = () => {
       if (checkExistedComment()) {
         $("#comment-card").hide();
-        $("#btn-find-comment").show();
-        $("#btn-find-comment").attr('href',`#${getSessionObj('currentUser').value}`);
+        $("#find-comment").show();
+        $("#btn-find-comment").attr('href',`#${getSessionObj('currentUser').uid}`);
         return true;
       } else {
-        $("#btn-find-comment").hide();
+        $("#find-comment").hide();
         $("#comment-card").show();
         return false;
       }
