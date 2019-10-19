@@ -11,8 +11,9 @@
       "type": "normal_user",
       "username": "user",
       "password": "user",
-      "favorite": {
-        "1": {
+      "icon":"u3.png",
+      "favorites": {
+        "f1": {
           "name": "",
           "price": "",
           "session": "",
@@ -32,6 +33,21 @@
       "username": "mcd",
       "password": "mcd"
 
+    },
+    "u5": {
+      "uid": "5",
+      "type": "normal_user",
+      "username": "testing",
+      "password": "testing",
+      "icon":"normal.jpg",
+      "favorites": {
+        "f1": {
+          "name": "",
+          "price": "",
+          "session": "",
+          "image": ""
+        }
+      }
     }
   },
   "restaurants": {
@@ -103,15 +119,8 @@
             "end_date": "18:00"
           }
         }
-      },
-      "comment" :{
-        "a1":{
-          "user": "abc",
-          "date": "01-10-2019",
-          "rating": "4",
-          "content": "abc"
-        }
       }
+      
     },
     "r2": {
       "id": "r2",
@@ -169,14 +178,6 @@
             "end_date": "05-10-2019"
           }
         }
-      },
-      "comment" :{
-        "a1":{
-          "user": "abc",
-          "date": "01-10-2019",
-          "rating": "4",
-          "content": "abc"
-        }
       }
     },
     "r3": {
@@ -213,15 +214,45 @@
             "end_date": "05-10-2019"
           }
         }
-      },
-      "comment" :{
-        "a1":{
-          "user": "abc",
-          "date": "01-10-2019",
-          "rating": "4",
-          "content": "abc"
-        }
       }
+    }
+  },
+
+  "comments" :{
+    "c1":{
+      "uid": "2",
+      "rid":"r1",
+      "date": "01-10-2019",
+      "rating": "4",
+      "content": "Good!"
+    },
+    "c2":{
+      "uid": "5",
+      "rid":"r1",
+      "date": "01-10-2019",
+      "rating": "5",
+      "content": "It is the best restaurant that I have been!"
+    },
+    "c3":{
+      "uid": "2",
+      "rid":"r2",
+      "date": "01-10-2019",
+      "rating": "4",
+      "content": "I like it!"
+    },
+    "c4":{
+      "uid": "5",
+      "rid":"r2",
+      "date": "01-10-2019",
+      "rating": "5",
+      "content": "It is the best restaurant that I have been!"
+    },
+    "c5":{
+      "uid": "2",
+      "rid":"r3",
+      "date": "01-10-2019",
+      "rating": "1",
+      "content": "Bad!"
     }
   },
 
