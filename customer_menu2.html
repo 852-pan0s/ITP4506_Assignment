@@ -34,7 +34,7 @@
     checkExistedComment = () => {
       var isExisted = false;
       $.each(loadAllComments, (key, value) => {
-        if (value.uid === getSessionObj("currentUser").uid) {
+        if (value.uid === getSessionObj("currentUser").uid && value.rid === selectedResId) {
           isExisted = true;
           return false;
           // console.log(comments);
