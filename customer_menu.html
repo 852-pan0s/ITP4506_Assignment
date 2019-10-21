@@ -83,11 +83,16 @@
 
     });
 
+//    var user = getSessionObj("currentUser");
+//    if (user !== null) {
+//      showToast("Please login first")
+//    }
+
     window.appendToCard = (value) => {
       if (value !== null) {
         //        https://picsum.photos/800
         content = `<div class="card mb-2" style="width: 15rem;">
-          <a href="#" onclick="changePage(this,\`${value.name}\`,'${value.id}')">
+          <a href="#" onclick="if(getSessionObj('currentUser')){changePage(this,\`${value.name}\`,'${value.id}')}else{$('#btn-ac').click()}">
             <img src="img/icon/${value.icon}" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
             <div class="card-body">
               <h5 class="card-title">${value.name}</h5>
