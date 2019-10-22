@@ -73,7 +73,7 @@
       "icon": "kfc_icon.png",
       "introduction": "KFC is a restaurant that the main menus are fried chickens.",
       "categories": ["c1", "c4", "c7"],
-      "tag": "",
+      "tag": "popular",
       "branches": {
         "b1": {
           "bid": "b1",
@@ -143,8 +143,8 @@
       "owner": "4",
       "icon": "mcd_icon.png",
       "introduction": "McDonald is a restaurant that the main menus are burgers.",
-      "categories": ["c3", "c4", "c5"],
-      "tag": "recommended",
+      "categories": ["c3", "c4"],
+      "tag": "popular",
       "branches": {
         "b1": {
           "bid": "b1",
@@ -202,7 +202,7 @@
       "icon": "tamchai.jpg",
       "introduction": "Tam Chai is a restaurant that the main menus are noodles.",
       "categories": ["c3", "c5"],
-      "tag": "popular",
+      "tag": "recommended",
       "branches": {
       },
       "menus": {

@@ -24,7 +24,8 @@
     $(() => {
       var categories = {};
       window.search = (keyword) => {
-        $("#restaurant-card").html("");
+        if(keyword !== "all"){
+          $("#restaurant-card").html("");
 
         $.each(loadAllRestaurants, (key, value) => {
           var val = "";
@@ -40,6 +41,30 @@
           }
 
         });
+        } else{
+          $("#restaurant-card").html(old);
+        }
+        
+      }
+      
+      window.filter = (ths, kw) =>{
+        console.log(ths);
+        $(ths).addClass("active");
+        
+        $.each(loadAllRestaurants, (key, value) => {
+          var val = "";
+          val += value.tag;
+          var string = val.toLowerCase();
+
+          if (string.indexOf(keyword) !== -1) {
+            appendToCard(value);
+          }
+
+        });
+        
+        if(kw == "popular"){
+          
+        }
       }
 
       $.each(
@@ -158,10 +183,10 @@
             </div>
           </div>
         </div>
-        <a class="list-group-item list-group-item-action active" href="#list-item-1">Popular</a>
-        <a class="list-group-item list-group-item-action" href="#list-item-2">Recommended</a>
-        <a class="list-group-item list-group-item-action" href="#list-item-3">Highest Rated</a>
-        <a class="list-group-item list-group-item-action" href="#list-item-4">Most Reviewed</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-1" onclick="filter(this, popular)">Popular</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-2" onclick="filter(this, recommend)">Recommended</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-3" onclick="filter(this, high-rate)">Highest Rated</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-4" onclick="filter(this, high-review)">Most Reviewed</a>
       </div>
     </div>
 
@@ -171,6 +196,7 @@
       <div class="card-deck" id="restaurant-card">
       </div>
     </div>
+
 
 
 
