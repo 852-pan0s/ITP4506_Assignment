@@ -12,60 +12,66 @@
       font-family: helvetica;
       text-decoration: none;
     }
-    
+
     a:hover {
       cursor: pointer;
       text-decoration: none;
     }
-
   </style>
   <script>
     var old = "";
     $(() => {
       var categories = {};
       window.search = (keyword) => {
-        if(keyword !== "all"){
+        if (keyword !== "all") {
           $("#restaurant-card").html("");
 
-        $.each(loadAllRestaurants, (key, value) => {
-          var val = "";
-          $.each(value.categories, (key, cid) => {
-            val += categories[cid];
-          })
+          $.each(loadAllRestaurants, (key, value) => {
+            var val = "";
+            $.each(value.categories, (key, cid) => {
+              val += categories[cid];
+            })
 
-          val += value.name + value.intoduction;
-          var string = val.toLowerCase();
+            val += value.name + value.intoduction;
+            var string = val.toLowerCase();
 
-          if (string.indexOf(keyword) !== -1) {
-            appendToCard(value);
-          }
+            if (string.indexOf(keyword) !== -1) {
+              appendToCard(value);
+            }
 
-        });
-        } else{
+          });
+        } else {
           $("#restaurant-card").html(old);
         }
-        
-      }
-      
-      window.filter = (ths, kw) =>{
-        console.log(ths);
-        $(ths).addClass("active");
-        
-        $.each(loadAllRestaurants, (key, value) => {
-          var val = "";
-          val += value.tag;
-          var string = val.toLowerCase();
 
-          if (string.indexOf(keyword) !== -1) {
-            appendToCard(value);
-          }
-
-        });
-        
-        if(kw == "popular"){
-          
-        }
       }
+      $("#list-example > a").on("click", (e) => {
+        $($(e.delegateTarget).siblings()).removeClass("active");
+        $(e.delegateTarget).addClass("active");
+        console.log($(e.delegateTarget).text());
+      });
+
+
+      // window.filter = (ths, kw) =>{
+      //   console.log(ths);
+      //   $(ths).addClass("active");
+
+      //   $.each(loadAllRestaurants, (key, value) => {
+      //     var val = "";
+      //     val += value.tag;
+      //     var string = val.toLowerCase();
+
+      //     if (string.indexOf(keyword) !== -1) {
+      //       appendToCard(value);
+      //     }
+
+      //   });
+
+      //   if(kw == "popular"){
+
+      //   }
+      // }
+
 
       $.each(
         loadAllCategories, (key, value) => {
@@ -81,7 +87,7 @@
         managePage(`${name}`, "customer_menu2.html", "Resturant");
       }
 
-      $("#searchbox-input").on("keyup", function() {
+      $("#searchbox-input").on("keyup", function () {
         //        console.log($(this).val());
         if ($(this).val() === "") {
           //          console.log(old);
@@ -108,10 +114,10 @@
 
     });
 
-//    var user = getSessionObj("currentUser");
-//    if (user !== null) {
-//      showToast("Please login first")
-//    }
+    //    var user = getSessionObj("currentUser");
+    //    if (user !== null) {
+    //      showToast("Please login first")
+    //    }
 
     window.appendToCard = (value) => {
       if (value !== null) {
@@ -137,7 +143,6 @@
       old += appendToCard(value);
 
     });
-
   </script>
 </head>
 
@@ -168,7 +173,8 @@
         <div class="list-group-item">
           <!-- Default dropright button -->
           <div class="btn-group dropright">
-            <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdown-category">
+            <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false" id="dropdown-category">
               Category
             </button>
             <div class="dropdown-menu">
@@ -183,10 +189,14 @@
             </div>
           </div>
         </div>
-        <a class="list-group-item list-group-item-action" href="#list-item-1" onclick="filter(this, popular)">Popular</a>
-        <a class="list-group-item list-group-item-action" href="#list-item-2" onclick="filter(this, recommend)">Recommended</a>
-        <a class="list-group-item list-group-item-action" href="#list-item-3" onclick="filter(this, high-rate)">Highest Rated</a>
-        <a class="list-group-item list-group-item-action" href="#list-item-4" onclick="filter(this, high-review)">Most Reviewed</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-1"
+          onclick="//filter(this, popular)">Popular</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-2"
+          onclick="//filter(this, recommend)">Recommended</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-3"
+          onclick="//filter(this, high-rate)">Highest Rated</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-4"
+          onclick="//filter(this, high-review)">Most Reviewed</a>
       </div>
     </div>
 
