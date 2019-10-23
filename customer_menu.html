@@ -43,8 +43,8 @@
         } else {
           $("#restaurant-card").html(old);
         }
-
       }
+      
       $("#list-example > a").on("click", (e) => {
         $($(e.delegateTarget).siblings()).removeClass("active");
         $(e.delegateTarget).addClass("active");
@@ -52,25 +52,33 @@
       });
 
 
-      // window.filter = (ths, kw) =>{
-      //   console.log(ths);
-      //   $(ths).addClass("active");
+       window.filter = (kw) =>{
+         $("#restaurant-card").html("");
+         $.each(loadAllRestaurants, (key, value) => {
+           var val = "";
+           val += value.tag;
+           var string = val.toLowerCase();
 
-      //   $.each(loadAllRestaurants, (key, value) => {
-      //     var val = "";
-      //     val += value.tag;
-      //     var string = val.toLowerCase();
+           if (string.indexOf(kw) !== -1) {
+             appendToCard(value);
+           }
 
-      //     if (string.indexOf(keyword) !== -1) {
-      //       appendToCard(value);
-      //     }
-
-      //   });
-
-      //   if(kw == "popular"){
-
-      //   }
-      // }
+         });
+       }
+       
+//       window.loadMyFav = () =>{
+//         $("#restaurant-card").html("");
+//         $.each(loadAllUsers, (key, value) => {
+//           var val = "";
+//           val += value.tag;
+//           var string = val.toLowerCase();
+//
+//           if (string.indexOf(kw) !== -1) {
+//             appendToCard(value);
+//           }
+//
+//         });
+//       }
 
 
       $.each(
@@ -173,8 +181,7 @@
         <div class="list-group-item">
           <!-- Default dropright button -->
           <div class="btn-group dropright">
-            <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false" id="dropdown-category">
+            <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdown-category">
               Category
             </button>
             <div class="dropdown-menu">
@@ -189,14 +196,11 @@
             </div>
           </div>
         </div>
-        <a class="list-group-item list-group-item-action" href="#list-item-1"
-          onclick="//filter(this, popular)">Popular</a>
-        <a class="list-group-item list-group-item-action" href="#list-item-2"
-          onclick="//filter(this, recommend)">Recommended</a>
-        <a class="list-group-item list-group-item-action" href="#list-item-3"
-          onclick="//filter(this, high-rate)">Highest Rated</a>
-        <a class="list-group-item list-group-item-action" href="#list-item-4"
-          onclick="//filter(this, high-review)">Most Reviewed</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-1" onclick="filter('popular')">Popular</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-2" onclick="filter('recommend')">Recommended</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-3" onclick="filter('high-rate')">Highest Rated</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-4" onclick="filter('high-review')">Most Reviewed</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-4" onclick="if(getSessionObj('currentUser')){loadMyFav()}else{$('#btn-ac').click()}">My Favourite</a>
       </div>
     </div>
 
@@ -206,10 +210,6 @@
       <div class="card-deck" id="restaurant-card">
       </div>
     </div>
-
-
-
-
 
   </div>
 

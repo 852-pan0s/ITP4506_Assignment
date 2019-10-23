@@ -9,7 +9,14 @@
   <link rel="stylesheet" href="rating2.css">
   <script src="rating2.js"></script>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-
+  <style>
+    .favourite{
+      opacity: 1.0;
+    }
+    .nfavourite{
+      opacity: 0.7;
+    }
+  </style>
   <script>
     var comments = {};
     isExistedComment = () => {
@@ -48,6 +55,10 @@
       loadAllComments[id] = comment;
       setSessionObj("comments", loadAllComments);
     }
+    
+    saveToFavourites = (fav) =>{
+      
+    }
 
     $(() => {
       //      console.log(selectedResId);
@@ -80,6 +91,27 @@
       });
 
       //      $("#star1").attr("class", "fa fa-star checked");
+      
+      $("#menu-content > button").on("click", (e) => {
+        if($(e.delegateTarget).hasClass("nfavourite")){
+          $(e.delegateTarget).removeClass("nfavourite");
+          $(e.delegateTarget).addClass("favourite");
+          $(e.delegateTarget).html(`<i class="material-icons" style="vertical-align: bottom;">favorite</i> Remove From My Favourite`);
+          
+//          var fav = {
+//            
+//          };
+//          saveToFavourites(fav);
+          showToast("Added to favourite sucessfully!");
+        }else{
+          $(e.delegateTarget).removeClass("favourite");
+          $(e.delegateTarget).addClass("nfavourite");
+          $(e.delegateTarget).html(`<i class="material-icons" style="vertical-align: bottom;">favorite_border</i> Add To My Favourite`);
+          
+          showToast("Removed from favourite sucessfully!");
+        }
+//      console.log($(e.delegateTarget).text());
+      });
     });
 
     $("#btn-comment").on("click", () => {
@@ -136,14 +168,15 @@
         content = `<div class="tab-pane fade show active" id="menu" role="tabpanel" aria-labelledby="menu-tab">
         <div class="card w-75">
           <div class="row no-gutters">
-            <div class="col-auto">
-              <img class="card-img" src="img/food_drink/${value.image}" alt="Card image cap" style="width: 150px">
-              <p class="text-secondary text-center">${value.type}</p>
+            <div class="col-auto" style="width: 200px">
+              <img class="card-img" src="img/food_drink/${value.image}" alt="Card image cap">
+              <p class="text-secondary text-center"></p>
               </div>
             <div class="col">
-              <div class="card-body px-3">
+              <div class="card-body px-3" id="menu-content">
                 <h4 class="card-title">${value.name}</h4>
-                <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis quaerat doloribus rerum. Suscipit ea pariatur neque voluptate voluptatem quo adipisci quod aperiam, in beatae minus maiores laborum molestiae voluptatum blanditiis? </p>
+                <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis quaerat doloribus rerum. </p>
+                <button type = "button" class="btn btn-danger nfavourite"><i class="material-icons" style="vertical-align: bottom;">favorite_border</i> Add To My Favourite</button>
               </div>
             </div>
           </div>
@@ -202,6 +235,7 @@
     </div>
 
 
+
     <!-- Modal -->
     <!--
     <div class="modal fade" id="myModal" role="dialog">
@@ -230,12 +264,10 @@
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item">
-        <a class="nav-link active" id="menu-tab" data-toggle="tab" href="#menu" role="tab" aria-controls="home"
-          aria-selected="true">Menu</a>
+        <a class="nav-link active" id="menu-tab" data-toggle="tab" href="#menu" role="tab" aria-controls="home" aria-selected="true">Menu</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
-          aria-selected="false">Review</a>
+        <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">Review</a>
       </li>
     </ul>
     <!--    MENU TAB-->
@@ -271,8 +303,7 @@
                     <div class="col-md-12">
                       <form accept-charset="UTF-8" action="" method="post" onsubmit="return false;">
                         <input id="ratings-hidden" name="rating" type="hidden">
-                        <textarea class="form-control animated" cols="50" id="new-review" name="comment"
-                          placeholder="Enter your review here..." rows="5"></textarea>
+                        <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
 
                         <!--                       star rating-->
                         <div class="text-right">
@@ -283,8 +314,7 @@
                             <span class="fa fa-star" id="star4" onclick="add(this,4)"></span>
                             <span class="fa fa-star" id="star5" onclick="add(this,5)"></span>
                           </div>
-                          <a class="btn btn-danger btn-sm" href="#" id="close-review-box"
-                            style="display:none; margin-right: 10px;">
+                          <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
                             <span class="glyphicon glyphicon-remove"></span>Cancel</a>
                           <button class="btn btn-success btn-lg" id="btn-comment" type="submit">Save</button>
                         </div>

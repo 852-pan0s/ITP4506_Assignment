@@ -14,10 +14,10 @@
       "icon":"u3.png",
       "favorites": {
         "f1": {
-          "name": "",
-          "price": "",
+          "name": "Yummy Set",
+          "price": "100.00",
           "session": "",
-          "image": ""
+          "image": "yummy_set.jpg"
         }
       }
     },
@@ -42,10 +42,10 @@
       "icon":"normal.jpg",
       "favorites": {
         "f1": {
-          "name": "",
-          "price": "",
+          "name": "Burger",
+          "price": "20.00",
           "session": "",
-          "image": ""
+          "image": "burger.jpg"
         }
       }
     },
