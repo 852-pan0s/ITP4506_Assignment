@@ -57,12 +57,32 @@
     }
     
     saveToFavourites = (fav) =>{
+      var uid = `u${getSessionObj("currentUser").uid}`;
+      var favorite = fav;
+      var currentUser =  getSessionObj("currentUser");
+      var fid = `f${Object.keys(currentUser.favorites).length + 1}`;
+      currentUser.favorites[fid] = favorite;
+      loadAllUsers[uid] = currentUser;
+      setSessionObj("users",loadAllUsers);
+      setSessionObj("currentUser",currentUser);
       
     }
-
+    
+    removeFromFav = (fid) =>{
+      var uid = `u${getSessionObj("currentUser").uid}`;
+//      var favorite = fav;
+      var currentUser =  getSessionObj("currentUser");
+//      var fid = `f${Object.keys(currentUser.favorites).length + 1}`;
+      currentUser.favorites[fid] = null;
+      loadAllUsers[uid] = currentUser;
+      setSessionObj("users",loadAllUsers);
+      setSessionObj("currentUser",currentUser);
+    }
+    
+var restaurant = loadAllRestaurants[selectedResId];
     $(() => {
       //      console.log(selectedResId);
-      var restaurant = loadAllRestaurants[selectedResId];
+      
       $("#res-name").text(restaurant.name);
       $("#res-info").text(restaurant.introduction);
 
@@ -93,21 +113,34 @@
       //      $("#star1").attr("class", "fa fa-star checked");
       
       $("#menu-content > button").on("click", (e) => {
+        var name = $($(e.delegateTarget).siblings()[0]).text();
+        var price = $($(e.delegateTarget).siblings()[1]).text();
+        var img = $($($($(e.delegateTarget).parents()[0]).parents()[0]).siblings()[0]).find("img").attr("src");
+        var fid = $($(e.delegateTarget).siblings()[3]).text();
+        console.log("fid");
+        img = img.substring(15);
+        console.log(price);
         if($(e.delegateTarget).hasClass("nfavourite")){
           $(e.delegateTarget).removeClass("nfavourite");
           $(e.delegateTarget).addClass("favourite");
           $(e.delegateTarget).html(`<i class="material-icons" style="vertical-align: bottom;">favorite</i> Remove From My Favourite`);
           
-//          var fav = {
-//            
-//          };
-//          saveToFavourites(fav);
+          var fav = {
+          "rid": restaurant.id,
+          "mid": "",
+          "name": name,
+          "price": price,
+          "session": "",
+          "image": img
+          };
+          saveToFavourites(fav);
           showToast("Added to favourite sucessfully!");
         }else{
           $(e.delegateTarget).removeClass("favourite");
           $(e.delegateTarget).addClass("nfavourite");
           $(e.delegateTarget).html(`<i class="material-icons" style="vertical-align: bottom;">favorite_border</i> Add To My Favourite`);
           
+          removeFromFav(fid);
           showToast("Removed from favourite sucessfully!");
         }
 //      console.log($(e.delegateTarget).text());
@@ -162,6 +195,37 @@
     }
 
     window.appendToTab = (value) => {
+      var user = getSessionObj("currentUser");
+//      var isFavourite = false;
+      var button = `<button type = "button" class="btn btn-danger nfavourite"><i class="material-icons" style="vertical-align: bottom;">favorite_border</i> Add To My Favourite</button>`;
+//      console.log(value);
+//      console.log(selectedResId);
+      var fid = "";
+      $.each(user.favorites,(key, fval)=>{
+        if(fval.rid === selectedResId && fval.mid === value.id){
+          button = `<button type = "button" class="btn btn-danger favourite"><i class="material-icons" style="vertical-align: bottom;">favorite</i> Remove From My Favourite</button>`;
+          fid = `<h4 class="card-title hide">${key}</h4>`;
+          return false;
+        }
+//        if(value.rid === restaurant.id){
+//          console.log("o1:"+value.rid);
+//          console.log("o2:"+restaurant.id);
+//          $.each(restaurant.menus,(key, info)=>{
+//            console.log("i1:"+value.mid);
+//              console.log(info.id);
+//            if(value.mid === info.id){
+//              console.log("i1:"+value.mid);
+//              console.log(info);
+//              isFavourite = true;
+//              return false;
+//            }
+//          });
+        
+//        if(isFavourite){
+//          button = `<button type = "button" class="btn btn-danger favourite"><i class="material-icons" style="vertical-align: bottom;">favorite</i> Remove From My Favourite</button>`;
+//          return false;
+//        }
+      });
       if (value !== null) {
         //        console.log(value);
         //        https://picsum.photos/800
@@ -175,8 +239,11 @@
             <div class="col">
               <div class="card-body px-3" id="menu-content">
                 <h4 class="card-title">${value.name}</h4>
-                <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis quaerat doloribus rerum. </p>
-                <button type = "button" class="btn btn-danger nfavourite"><i class="material-icons" style="vertical-align: bottom;">favorite_border</i> Add To My Favourite</button>
+                <h4 class="card-title">\$${value.price}</h4>
+                <h4 class="card-title hide">${value.id}</h4>
+                ${fid}
+                <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
+                ${button}
               </div>
             </div>
           </div>
@@ -233,6 +300,7 @@
         doloremque.
       </p>
     </div>
+
 
 
 

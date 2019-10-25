@@ -14,6 +14,8 @@
       "icon":"u3.png",
       "favorites": {
         "f1": {
+          "rid": "r1",
+          "mid": "m1",
           "name": "Yummy Set",
           "price": "100.00",
           "session": "",
@@ -42,6 +44,8 @@
       "icon":"normal.jpg",
       "favorites": {
         "f1": {
+          "rid": "r1",
+          "mid": "m2",
           "name": "Burger",
           "price": "20.00",
           "session": "",
@@ -57,10 +61,20 @@
       "icon":"normal.jpg",
       "favorites": {
         "f1": {
-          "name": "",
-          "price": "",
+          "rid": "r1",
+          "mid": "m2",
+          "name": "Burger",
+          "price": "20.00",
           "session": "",
-          "image": ""
+          "image": "burger.jpg"
+        }, 
+        "f2": {
+          "rid": "r1",
+          "mid": "m1",
+          "name": "Yummy Set",
+          "price": "100.00",
+          "session": "",
+          "image": "yummy_set.jpg"
         }
       }
     }

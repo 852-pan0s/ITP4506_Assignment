@@ -66,19 +66,14 @@
          });
        }
        
-//       window.loadMyFav = () =>{
-//         $("#restaurant-card").html("");
-//         $.each(loadAllUsers, (key, value) => {
-//           var val = "";
-//           val += value.tag;
-//           var string = val.toLowerCase();
-//
-//           if (string.indexOf(kw) !== -1) {
-//             appendToCard(value);
-//           }
-//
-//         });
-//       }
+       window.loadMyFav = () =>{
+         console.log("OK")
+         $("#restaurant-card").html("");
+         $.each(getSessionObj("currentUser").favorites, (key, value) => {
+            console.log(value);
+            appendToFav(value);
+         });
+       }
 
 
       $.each(
@@ -151,6 +146,28 @@
       old += appendToCard(value);
 
     });
+    
+    window.appendToFav = (value) => {
+      if (value !== null) {
+        //        https://picsum.photos/800
+        content = `<div class="card mb-3">
+            <img class="card-img-top img-fluid" src="img/food_drink/${value.image}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">${value.name}</h5>
+            </div>
+            <div class="card-footer text-muted btn-add">
+                <div class="text-monospace">
+                    ${value.price}
+                    <button type="button" class="btn btn-outline-info" style="float: right;">
+                        <i class="material-icons" style="vertical-align: bottom;">favorite</i>
+                    </button>
+                </div>
+            </div>
+        </div>`;
+        $("#restaurant-card").append(content);
+      }
+      return content;
+    }
   </script>
 </head>
 
@@ -164,6 +181,7 @@
     </a>
 </div>
 -->
+
   <div class="row">
     <!--sidebar-->
     <div class="col-3">
