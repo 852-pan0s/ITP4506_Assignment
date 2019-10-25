@@ -6,35 +6,168 @@
   <link rel="stylesheet" href="customer_menu.css">
   <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
   <title>Document</title>
+  <style>
+    a {
+      color: black;
+      font-family: helvetica;
+      text-decoration: none;
+    }
+
+    a:hover {
+      cursor: pointer;
+      text-decoration: none;
+    }
+  </style>
   <script>
-    $(()=>{
-      window.selectedResId = "";
-      changePage = (e, name, id) =>{
-        selectedResId = id;
-      managePage(`${name}`, "customer_menu2.html","Resturant");
+    var old = "";
+    $(() => {
+      var categories = {};
+      window.search = (keyword) => {
+        if (keyword !== "all") {
+          $("#restaurant-card").html("");
+
+          $.each(loadAllRestaurants, (key, value) => {
+            var val = "";
+            $.each(value.categories, (key, cid) => {
+              val += categories[cid];
+            })
+
+            val += value.name + value.intoduction;
+            var string = val.toLowerCase();
+
+            if (string.indexOf(keyword) !== -1) {
+              appendToCard(value);
+            }
+
+          });
+        } else {
+          $("#restaurant-card").html(old);
+        }
       }
+      
+      $("#list-example > a").on("click", (e) => {
+        $($(e.delegateTarget).siblings()).removeClass("active");
+        $(e.delegateTarget).addClass("active");
+        console.log($(e.delegateTarget).text());
+      });
+
+
+       window.filter = (kw) =>{
+         $("#restaurant-card").html("");
+         $.each(loadAllRestaurants, (key, value) => {
+           var val = "";
+           val += value.tag;
+           var string = val.toLowerCase();
+
+           if (string.indexOf(kw) !== -1) {
+             appendToCard(value);
+           }
+
+         });
+       }
+       
+       window.loadMyFav = () =>{
+         console.log("OK")
+         $("#restaurant-card").html("");
+         $.each(getSessionObj("currentUser").favorites, (key, value) => {
+            console.log(value);
+            appendToFav(value);
+         });
+       }
+
+
+      $.each(
+        loadAllCategories, (key, value) => {
+          //          console.log(categories);
+          categories[value.id] = value.name;
+        }
+      );
+
+      //pass the restaurant id to next page
+      window.selectedResId = "";
+      changePage = (e, name, id) => {
+        selectedResId = id;
+        managePage(`${name}`, "customer_menu2.html", "Resturant");
+      }
+
+      $("#searchbox-input").on("keyup", function () {
+        //        console.log($(this).val());
+        if ($(this).val() === "") {
+          //          console.log(old);
+          $("#restaurant-card").html(old);
+        } else {
+          var input = $(this).val().toLowerCase();
+          $("#restaurant-card").html("");
+
+          $.each(loadAllRestaurants, (key, value) => {
+            var val = "";
+            $.each(value.categories, (key, cid) => {
+              val += categories[cid];
+            })
+
+            val += value.name + value.intoduction;
+            var string = val.toLowerCase();
+
+            if (string.indexOf(input) !== -1) {
+              appendToCard(value);
+            }
+          });
+        }
+      });
+
     });
+
+    //    var user = getSessionObj("currentUser");
+    //    if (user !== null) {
+    //      showToast("Please login first")
+    //    }
+
     window.appendToCard = (value) => {
       if (value !== null) {
-        content = `<div class="card mb-2" style="width: 18rem;">
-          <a href="#" onclick="changePage(this,\`${value.name}\`,'${value.id}')">
-            <img src="https://picsum.photos/800" class="card-img-top" alt="..." style="18rem">
+        //        https://picsum.photos/800
+        content = `<div class="card mb-2" style="width: 15rem;">
+          <a href="#" onclick="if(getSessionObj('currentUser')){changePage(this,\`${value.name}\`,'${value.id}')}else{$('#btn-ac').click()}">
+            <img src="img/icon/${value.icon}" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
             <div class="card-body">
               <h5 class="card-title">${value.name}</h5>
               <p class="card-text">${value.introduction}</p>
             </div>
           </a>
         </div>`;
-//        console.log(content);
+        //        console.log(content);
+        // if (firstLoad) old += content;
         $("#restaurant-card").append(content);
       }
+      return content;
     }
 
     $.each(loadAllRestaurants, (key, value) => {
-//      console.log(value.name);
-      appendToCard(value);
-    });
+      //      console.log(value.name);
+      old += appendToCard(value);
 
+    });
+    
+    window.appendToFav = (value) => {
+      if (value !== null) {
+        //        https://picsum.photos/800
+        content = `<div class="card mb-3">
+            <img class="card-img-top img-fluid" src="img/food_drink/${value.image}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">${value.name}</h5>
+            </div>
+            <div class="card-footer text-muted btn-add">
+                <div class="text-monospace">
+                    ${value.price}
+                    <button type="button" class="btn btn-outline-info" style="float: right;">
+                        <i class="material-icons" style="vertical-align: bottom;">favorite</i>
+                    </button>
+                </div>
+            </div>
+        </div>`;
+        $("#restaurant-card").append(content);
+      }
+      return content;
+    }
   </script>
 </head>
 
@@ -48,32 +181,44 @@
     </a>
 </div>
 -->
+
   <div class="row">
     <!--sidebar-->
     <div class="col-3">
+      <!--     searchbox-->
+      <div class="input-group" style="margin-bottom: 10px;">
+        <input class="form-control" type="search" placeholder="Search" id="searchbox-input">
+        <div class="input-group-append">
+          <div class="input-group-text" id="search-icon"><i class="fa fa-search"></i></div>
+        </div>
+      </div>
+      <!--      /searchbox-->
+
       <div id="list-example" class="list-group">
         <div class="list-group-item">Restaurant choices</div>
         <div class="list-group-item">
           <!-- Default dropright button -->
           <div class="btn-group dropright">
-            <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Burger
+            <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdown-category">
+              Category
             </button>
             <div class="dropdown-menu">
               <!-- Dropdown menu links -->
-              <button type="button" class="dropdown-item">Burger</button>
-              <button type="button" class="dropdown-item">Chinese</button>
-              <button type="button" class="dropdown-item">Italian</button>
-              <button type="button" class="dropdown-item">Japanese</button>
-              <button type="button" class="dropdown-item">Mexican</button>
-              <button type="button" class="dropdown-item">Thai</button>
+              <button type="button" class="dropdown-item" onclick="search('all')">All</button>
+              <button type="button" class="dropdown-item" onclick="search('burger')">Burger</button>
+              <button type="button" class="dropdown-item" onclick="search('chinese')">Chinese</button>
+              <button type="button" class="dropdown-item" onclick="search('italian')">Italian</button>
+              <button type="button" class="dropdown-item" onclick="search('japanese')">Japanese</button>
+              <button type="button" class="dropdown-item" onclick="search('mexican')">Mexican</button>
+              <button type="button" class="dropdown-item" onclick="search('thai')">Thai</button>
             </div>
           </div>
         </div>
-        <a class="list-group-item list-group-item-action active" href="#list-item-1">Popular</a>
-        <a class="list-group-item list-group-item-action" href="#list-item-2">Recommended</a>
-        <a class="list-group-item list-group-item-action" href="#list-item-3">Highest Rated</a>
-        <a class="list-group-item list-group-item-action" href="#list-item-4">Most Reviewed</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-1" onclick="filter('popular')">Popular</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-2" onclick="filter('recommend')">Recommended</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-3" onclick="filter('high-rate')">Highest Rated</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-4" onclick="filter('high-review')">Most Reviewed</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-4" onclick="if(getSessionObj('currentUser')){loadMyFav()}else{$('#btn-ac').click()}">My Favourite</a>
       </div>
     </div>
 
@@ -83,9 +228,6 @@
       <div class="card-deck" id="restaurant-card">
       </div>
     </div>
-
-
-
 
   </div>
 

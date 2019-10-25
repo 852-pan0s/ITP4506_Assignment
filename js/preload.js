@@ -58,7 +58,14 @@ window.timePicker = {
 }
 
 //Show the toast 
-window.showToast = (message) => {
+window.showToast = (message, type) => {
+  var color = "";
+  switch (type) {
+    case 1:
+    case "error": color = "toast-icon-1"; break;
+    default:
+    color = "toast-icon-0"; 
+  }
   $(".toast").toast('dispose');
   $("#toast-message").html(message);
   $('.toast').toast({
@@ -67,6 +74,7 @@ window.showToast = (message) => {
     autohide: true
   })
   $(".toast").toast('show');
+  $("#toast-icon").attr("class", color);
 }
 
 window.isLoad = {
@@ -138,8 +146,7 @@ $(() => {
     window.home = false;
     marginFix();
     lightStyle();
-    footerFix();
-    setTimeout(footerFix, 600);
+    setTimeout(footerFix, 50);
     setSecondDirectory(name);
     if (typeof thirdDir !== "undefined") {
       $("#third").show();
@@ -164,7 +171,7 @@ $(() => {
 
   //fix home footer 
   const footerMarginFix = () => {
-    $(".margin").css("height", $(".content:first").height()+50);
+    $(".margin").css("height", $(".content:first").height() + 50);
     footerFix();
   }
   //***************** Declare Functions *****************/ 

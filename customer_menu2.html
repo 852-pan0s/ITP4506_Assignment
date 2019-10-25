@@ -6,16 +6,287 @@
   <title>Document</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="rating2.css">
+  <script src="rating2.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <style>
+    .favourite{
+      opacity: 1.0;
+    }
+    .nfavourite{
+      opacity: 0.7;
+    }
+  </style>
   <script>
-    $(()=>{
-//      console.log(selectedResId);
-      var restaurant = loadAllRestaurants[selectedResId];
+    var comments = {};
+    isExistedComment = () => {
+      if (getSessionObj("currentUser").type !== "normal_user") {
+        $("#comment-card").hide();
+        $("#find-comment").hide();
+        return;
+      }
+
+      if (checkExistedComment()) {
+        $("#comment-card").hide();
+        $("#find-comment").show();
+        $("#btn-find-comment").attr('href', `#${getSessionObj('currentUser').uid}`);
+        return true;
+      } else {
+        $("#find-comment").hide();
+        $("#comment-card").show();
+        return false;
+      }
+    }
+
+    checkExistedComment = () => {
+      var isExisted = false;
+      $.each(loadAllComments, (key, value) => {
+        if (value.uid === getSessionObj("currentUser").uid && value.rid === selectedResId) {
+          isExisted = true;
+          return false;
+          // console.log(comments);
+        }
+      });
+      return isExisted;
+    }
+
+    saveToComments = (comment) => {
+      var id = `c${Object.keys(loadAllComments).length+1}`;
+      loadAllComments[id] = comment;
+      setSessionObj("comments", loadAllComments);
+    }
+    
+    saveToFavourites = (fav) =>{
+      var uid = `u${getSessionObj("currentUser").uid}`;
+      var favorite = fav;
+      var currentUser =  getSessionObj("currentUser");
+      var fid = `f${Object.keys(currentUser.favorites).length + 1}`;
+      currentUser.favorites[fid] = favorite;
+      loadAllUsers[uid] = currentUser;
+      setSessionObj("users",loadAllUsers);
+      setSessionObj("currentUser",currentUser);
+      
+    }
+    
+    removeFromFav = (fid) =>{
+      var uid = `u${getSessionObj("currentUser").uid}`;
+//      var favorite = fav;
+      var currentUser =  getSessionObj("currentUser");
+//      var fid = `f${Object.keys(currentUser.favorites).length + 1}`;
+      currentUser.favorites[fid] = null;
+      loadAllUsers[uid] = currentUser;
+      setSessionObj("users",loadAllUsers);
+      setSessionObj("currentUser",currentUser);
+    }
+    
+var restaurant = loadAllRestaurants[selectedResId];
+    $(() => {
+      //      console.log(selectedResId);
+      
       $("#res-name").text(restaurant.name);
       $("#res-info").text(restaurant.introduction);
+
+      $.each(restaurant.menus, (key, value) => {
+        //        console.log(value.name);  //restaurant.menus.m1
+        //        console.log(value);
+        appendToTab(value);
+      });
+
+      // load comments
+      $.each(loadAllComments, (key, value) => {
+        if (value.rid === selectedResId) {
+          comments[key] = value;
+          isExistedComment();
+          // console.log(comments);
+        }
+      });
+
+      //show the comments
+      $.each(comments, (key, value) => {
+        comments[key].icon = loadAllUsers[`u${value.uid}`].icon;
+        comments[key].name = loadAllUsers[`u${value.uid}`].username;
+        comments[key].type = loadAllUsers[`u${value.uid}`].type;
+        // console.log(comments[key].icon);
+        appendToComments(value);
+      });
+
+      //      $("#star1").attr("class", "fa fa-star checked");
+      
+      $("#menu-content > button").on("click", (e) => {
+        var name = $($(e.delegateTarget).siblings()[0]).text();
+        var price = $($(e.delegateTarget).siblings()[1]).text();
+        var img = $($($($(e.delegateTarget).parents()[0]).parents()[0]).siblings()[0]).find("img").attr("src");
+        var fid = $($(e.delegateTarget).siblings()[3]).text();
+        console.log("fid");
+        img = img.substring(15);
+        console.log(price);
+        if($(e.delegateTarget).hasClass("nfavourite")){
+          $(e.delegateTarget).removeClass("nfavourite");
+          $(e.delegateTarget).addClass("favourite");
+          $(e.delegateTarget).html(`<i class="material-icons" style="vertical-align: bottom;">favorite</i> Remove From My Favourite`);
+          
+          var fav = {
+          "rid": restaurant.id,
+          "mid": "",
+          "name": name,
+          "price": price,
+          "session": "",
+          "image": img
+          };
+          saveToFavourites(fav);
+          showToast("Added to favourite sucessfully!");
+        }else{
+          $(e.delegateTarget).removeClass("favourite");
+          $(e.delegateTarget).addClass("nfavourite");
+          $(e.delegateTarget).html(`<i class="material-icons" style="vertical-align: bottom;">favorite_border</i> Add To My Favourite`);
+          
+          removeFromFav(fid);
+          showToast("Removed from favourite sucessfully!");
+        }
+//      console.log($(e.delegateTarget).text());
+      });
     });
-    
-    
+
+    $("#btn-comment").on("click", () => {
+      var rating = $(".stars.starrr>svg.checked").length;
+      if (!(rating > 0)) {
+        showToast("Sorry, you must select at least one star!", 1);
+        return;
+      }else if($("textarea").val().length <1){
+        showToast("Sorry, the review can't be empty!", 1);
+        return;
+      }
+      var comment = {
+        uid: getSessionObj("currentUser").uid,
+        rid: selectedResId,
+        date: today(),
+        rating,
+        content: $("textarea").val(),
+        icon: getSessionObj('currentUser').icon,
+        name: getSessionObj('currentUser').username,
+        type: getSessionObj('currentUser').type,
+      };
+
+      // console.log(comment)
+      if (!isExistedComment()) {
+        appendToComments(comment);
+        saveToComments(comment);
+        showToast("Your comment is posted!");
+        isExistedComment();
+      } else {
+        showToast("Sorry,You have posted your comment before!", 1);
+      }
+
+
+
+    });
+
+    function add(ths, sno) {
+      $.each($(".stars.starrr>svg"), (key, value) => {
+        $(value).attr("class", "fa fa-star");
+      });
+
+      var i = 1;
+      $.each($(".stars.starrr>svg"), (key, value) => {
+        $(value).attr("class", "fa fa-star checked");
+        if (i++ >= sno) return false;
+      });
+
+    }
+
+    window.appendToTab = (value) => {
+      var user = getSessionObj("currentUser");
+//      var isFavourite = false;
+      var button = `<button type = "button" class="btn btn-danger nfavourite"><i class="material-icons" style="vertical-align: bottom;">favorite_border</i> Add To My Favourite</button>`;
+//      console.log(value);
+//      console.log(selectedResId);
+      var fid = "";
+      $.each(user.favorites,(key, fval)=>{
+        if(fval.rid === selectedResId && fval.mid === value.id){
+          button = `<button type = "button" class="btn btn-danger favourite"><i class="material-icons" style="vertical-align: bottom;">favorite</i> Remove From My Favourite</button>`;
+          fid = `<h4 class="card-title hide">${key}</h4>`;
+          return false;
+        }
+//        if(value.rid === restaurant.id){
+//          console.log("o1:"+value.rid);
+//          console.log("o2:"+restaurant.id);
+//          $.each(restaurant.menus,(key, info)=>{
+//            console.log("i1:"+value.mid);
+//              console.log(info.id);
+//            if(value.mid === info.id){
+//              console.log("i1:"+value.mid);
+//              console.log(info);
+//              isFavourite = true;
+//              return false;
+//            }
+//          });
+        
+//        if(isFavourite){
+//          button = `<button type = "button" class="btn btn-danger favourite"><i class="material-icons" style="vertical-align: bottom;">favorite</i> Remove From My Favourite</button>`;
+//          return false;
+//        }
+      });
+      if (value !== null) {
+        //        console.log(value);
+        //        https://picsum.photos/800
+        content = `<div class="tab-pane fade show active" id="menu" role="tabpanel" aria-labelledby="menu-tab">
+        <div class="card w-75">
+          <div class="row no-gutters">
+            <div class="col-auto" style="width: 200px">
+              <img class="card-img" src="img/food_drink/${value.image}" alt="Card image cap">
+              <p class="text-secondary text-center"></p>
+              </div>
+            <div class="col">
+              <div class="card-body px-3" id="menu-content">
+                <h4 class="card-title">${value.name}</h4>
+                <h4 class="card-title">\$${value.price}</h4>
+                <h4 class="card-title hide">${value.id}</h4>
+                ${fid}
+                <p class="card-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
+                ${button}
+              </div>
+            </div>
+          </div>
+        </div>`;
+
+        $("#menu").append(content);
+      }
+      return content;
+    }
+
+    window.appendToComments = (value) => {
+      if (value !== null) {
+        var rating = ``;
+        for (var i = 0; i < value.rating; i++) {
+          rating += `<span class="float-right"><i class="text-warning fa fa-star"></i></span>`;
+        }
+        content = `
+         <div class="card" id="${value.uid}">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-2">
+                    <img src="./img/user_icon/${value.icon}"  class="img img-rounded img-fluid" style="width: 900px;"/>
+                    <p class="text-secondary text-center">${value.type}</p>
+                  </div>
+                  <div class="col-md-10">
+                    <p>
+                      <a class="float-left" href="https://maxniruzzaman-akash.blogspot.com/p/contact.html"><strong>${value.name}</strong></a>&nbsp; posted on ${value.date}
+                          ${rating};
+                    </p>
+                    <div class="clearfix"></div>
+                    <p>${value.content}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>`;
+
+        $("#comment").append(content);
+      }
+      return content;
+    }
   </script>
+
 </head>
 
 <body>
@@ -24,18 +295,23 @@
 
     <div data-toggle="modal" data-target="#myModal">
       <h2 id="res-name">Restaurant Name</h2>
-      <p id="res-info">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit quam sit amet, cum eos ipsum ipsa sapiente veniam consectetur facilis, minus officia blanditiis. Illum adipisci minima dolorem nulla esse doloremque.</p>
+      <p id="res-info">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit quam sit amet, cum eos ipsum ipsa
+        sapiente veniam consectetur facilis, minus officia blanditiis. Illum adipisci minima dolorem nulla esse
+        doloremque.
+      </p>
     </div>
 
 
+
+
     <!-- Modal -->
-<!--
+    <!--
     <div class="modal fade" id="myModal" role="dialog">
       <div class="modal-dialog">
 -->
 
-        <!-- Modal content-->
-<!--
+    <!-- Modal content-->
+    <!--
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -53,22 +329,83 @@
     </div>
 -->
 
-   
+
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item">
-        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+        <a class="nav-link active" id="menu-tab" data-toggle="tab" href="#menu" role="tab" aria-controls="home" aria-selected="true">Menu</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+        <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">Review</a>
       </li>
     </ul>
+    <!--    MENU TAB-->
     <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-      <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+      <div class="tab-pane fade show active" id="menu" role="tabpanel" aria-labelledby="menu-tab">
+      </div>
+
+      <!--      REVIEW TAB-->
+      <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+        <!--       container of comment and rating-->
+        <div class="container">
+          <div class="row" style="margin-top:40px;">
+            <div class="col-md-6">
+              <!--              comment card-->
+              <div class="card bg-light" id="find-comment">
+                <div class="card-body">
+                  You posted your comment before. <a href="#reviews-anchor" id="btn-find-comment">Find your
+                    comment.</a>
+                </div>
+              </div>
+
+
+              <!--              comment card-->
+              <div class="card bg-light" id="comment-card">
+                <div class="card-body">
+
+                  <div class="text-right">
+                    <a class="btn btn-success btn-green" href="#" id="open-review-box">Leave a Review</a>
+                  </div>
+
+                  <!--                 reviewbox-->
+                  <div class="row" id="post-review-box" style="display:none;">
+                    <div class="col-md-12">
+                      <form accept-charset="UTF-8" action="" method="post" onsubmit="return false;">
+                        <input id="ratings-hidden" name="rating" type="hidden">
+                        <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
+
+                        <!--                       star rating-->
+                        <div class="text-right">
+                          <div class="stars starrr" data-rating="0">
+                            <span class="fa fa-star" id="star1" onclick="add(this,1)"></span>
+                            <span class="fa fa-star" id="star2" onclick="add(this,2)"></span>
+                            <span class="fa fa-star" id="star3" onclick="add(this,3)"></span>
+                            <span class="fa fa-star" id="star4" onclick="add(this,4)"></span>
+                            <span class="fa fa-star" id="star5" onclick="add(this,5)"></span>
+                          </div>
+                          <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
+                            <span class="glyphicon glyphicon-remove"></span>Cancel</a>
+                          <button class="btn btn-success btn-lg" id="btn-comment" type="submit">Save</button>
+                        </div>
+                        <!--                        /star rating-->
+                      </form>
+                    </div>
+                  </div>
+                  <!--                  /reviewbox-->
+                </div>
+              </div>
+              <!--              /comment card-->
+
+            </div>
+          </div>
+
+          <!--          comment-->
+          <div class="row" style="margin-top:40px;" id="comment">
+          </div>
+
+          <!--          /comment-->
+
+        </div>
+      </div>
     </div>
   </div>
 

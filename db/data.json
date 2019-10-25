@@ -1,285 +1,407 @@
 {
-    "users": {
-        "u1": {
-            "uid": "1",
-            "type": "administrator",
-            "username": "admin",
-            "password": "admin"
-        },
-        "u2": {
-            "uid": "2",
-            "type": "normal_user",
-            "username": "user",
-            "password": "user",
-            "favorite": {
-                "1": {
-                    "name": "",
-                    "price": "",
-                    "session": "",
-                    "image": ""
-                }
-            }
-        },
-        "u3": {
-            "uid": "3",
-            "type": "operator",
-            "username": "kfc",
-            "password": "kfc"
-        },
-        "u4": {
-            "uid": "4",
-            "type": "operator",
-            "username": "mcd",
-            "password": "mcd"
-
-        }
+  "users": {
+    "u1": {
+      "uid": "1",
+      "type": "administrator",
+      "username": "admin",
+      "password": "admin"
     },
-    "restaurants": {
-        "r1": {
-            "id": "r1",
-            "name": "KFC",
-            "owner": "3",
-            "icon": "kfc_icon.png",
-            "introduction": "KFC is a restaurant that the main menus are fried chickens.",
-            "categories": ["c1", "c4", "c7"],
-            "branches": {
-                "b1": {
-                    "bid": "b1",
-                    "address": "KFCDelivery 2F",
-                    "tel": "21800000",
-                    "businessHours": {
-                        "start_time": "09:00",
-                        "end_time": "21:00"
-                    },
-                    "join_date": "01-10-2019",
-                    "stop": false
-                },
-                "b2": {
-                    "bid": "b2",
-                    "address": "KFCDelivery 1F",
-                    "tel": "21800001",
-                    "businessHours": {
-                        "start_time": "09:00",
-                        "end_time": "21:00"
-                    },
-                    "join_date": "01-10-2019",
-                    "stop": false
-                }
-            },
-            "menus": {
-                "m1": {
-                    "id": "m1",
-                    "name": "Yummy Set",
-                    "price": "100.00",
-                    "image": "yummy_set.jpg",
-                    "show": true,
-                    "special": {
-                        "type": "Season",
-                        "season": "Spring"
-                    }
-                },
-                "m2": {
-                    "id": "m2",
-                    "name": "Burger",
-                    "price": "20.00",
-                    "image": "burger.jpg",
-                    "show": true,
-                    "special": {
-                        "type": "Special",
-                        "start_date": "01-10-2019",
-                        "end_date": "05-10-2019"
-                    }
-                },
-                "m3": {
-                    "id": "m3",
-                    "name": "Pineapple Burger",
-                    "price": "27.00",
-                    "image": "pineapple_mcspicy.png",
-                    "show": true,
-                    "special": {
-                        "type": "Temporary",
-                        "start_date": "14:00",
-                        "end_date": "18:00"
-                    }
-                }
-            }
-        },
-        "r2": {
-            "id": "r2",
-            "name": "McDonald's",
-            "owner": "4",
-            "icon": "mcd_icon.png",
-            "introduction": "McDonald is a restaurant that the main menus are burgers.",
-            "categories": ["c3", "c4", "c5"],
-            "branches": {
-                "b1": {
-                    "bid": "b1",
-                    "address": "McDelivery 1F",
-                    "tel": "23382338",
-                    "businessHours": {
-                        "start_time": "09:00",
-                        "end_time": "21:00"
-                    },
-                    "join_date": "01-10-2019",
-                    "stop": false
-                },
-                "b2": {
-                    "bid": "b2",
-                    "address": "McDelivery 2F",
-                    "tel": "23382339",
-                    "businessHours": {
-                        "start_time": "09:00",
-                        "end_time": "21:00"
-                    },
-                    "join_date": "01-10-2019",
-                    "stop": false
-                }
-            },
-            "menus": {
-                "m1": {
-                    "id": "m1",
-                    "name": "Yummy Set2",
-                    "price": "100.00",
-                    "image": "yummy_set.jpg",
-                    "show": true,
-                    "special": {
-                        "type": "Season",
-                        "season": "Spring"
-                    }
-                },
-                "m2": {
-                    "id": "m2",
-                    "name": "Burger2",
-                    "price": "20.00",
-                    "image": "burger.jpg",
-                    "show": true,
-                    "special": {
-                        "type": "Special",
-                        "start_date": "01-10-2019",
-                        "end_date": "05-10-2019"
-                    }
-                }
-            }
+    "u2": {
+      "uid": "2",
+      "type": "normal_user",
+      "username": "user",
+      "password": "user",
+      "icon":"u3.png",
+      "favorites": {
+        "f1": {
+          "rid": "r1",
+          "mid": "m1",
+          "name": "Yummy Set",
+          "price": "100.00",
+          "session": "",
+          "image": "yummy_set.jpg"
         }
+      }
     },
+    "u3": {
+      "uid": "3",
+      "type": "operator",
+      "username": "kfc",
+      "password": "kfc"
+    },
+    "u4": {
+      "uid": "4",
+      "type": "operator",
+      "username": "mcd",
+      "password": "mcd"
 
-    "categories": {
-        "c1": {
-            "id": "c1",
-            "name": "American"
-        },
-        "c2": {
-            "id": "c2",
-            "name": "Bakery & Cake"
-        },
-        "c3": {
-            "id": "c3",
-            "name": "Beverages"
-        },
-        "c4": {
-            "id": "c4",
-            "name": "Burger"
-        },
-        "c5": {
-            "id": "c5",
-            "name": "Chinese"
-        },
-        "c6": {
-            "id": "c6",
-            "name": "Dessert"
-        },
-        "c7": {
-            "id": "c7",
-            "name": "Fast food"
-        },
-        "c8": {
-            "id": "c8",
-            "name": "French"
-        },
-        "c9": {
-            "id": "c9",
-            "name": "Halal"
-        },
-        "c10": {
-            "id": "c10",
-            "name": "Healthy food"
-        },
-        "c11": {
-            "id": "c11",
-            "name": "Indian"
-        },
-        "c12": {
-            "id": "c12",
-            "name": "Italian"
-        },
-        "c13": {
-            "id": "c13",
-            "name": "Japanese"
-        },
-        "c14": {
-            "id": "c14",
-            "name": "Korean"
-        },
-        "c15": {
-            "id": "c15",
-            "name": "Mediterranean"
-        },
-        "c16": {
-            "id": "c16",
-            "name": "Mexican"
-        },
-        "c17": {
-            "id": "c17",
-            "name": "Middle Eastern"
-        },
-        "c18": {
-            "id": "c18",
-            "name": "Noodles & Ramen"
-        },
-        "c19": {
-            "id": "c19",
-            "name": "Pizza"
-        },
-        "c20": {
-            "id": "c20",
-            "name": "Pasta"
-        },
-        "c21": {
-            "id": "c21",
-            "name": "Sandwich"
-        },
-        "c22": {
-            "id": "c22",
-            "name": "Seafood"
-        },
-        "c23": {
-            "id": "c23",
-            "name": "Singaporean"
-        },
-        "c24": {
-            "id": "c24",
-            "name": "Sushi"
-        },
-        "c25": {
-            "id": "c25",
-            "name": "Thai"
-        },
-        "c26": {
-            "id": "c26",
-            "name": "Taiwanese"
-        },
-        "c27": {
-            "id": "c27",
-            "name": "Vegetarian"
-        },
-        "c28": {
-            "id": "c28",
-            "name": "Vietnamese"
-        },
-        "c29": {
-            "id": "c29",
-            "name": "Western"
+    },
+    "u5": {
+      "uid": "5",
+      "type": "normal_user",
+      "username": "testing",
+      "password": "testing",
+      "icon":"normal.jpg",
+      "favorites": {
+        "f1": {
+          "rid": "r1",
+          "mid": "m2",
+          "name": "Burger",
+          "price": "20.00",
+          "session": "",
+          "image": "burger.jpg"
         }
+      }
+    },
+    "u6": {
+      "uid": "6",
+      "type": "normal_user",
+      "username": "ac1",
+      "password": "ac1",
+      "icon":"normal.jpg",
+      "favorites": {
+        "f1": {
+          "rid": "r1",
+          "mid": "m2",
+          "name": "Burger",
+          "price": "20.00",
+          "session": "",
+          "image": "burger.jpg"
+        }, 
+        "f2": {
+          "rid": "r1",
+          "mid": "m1",
+          "name": "Yummy Set",
+          "price": "100.00",
+          "session": "",
+          "image": "yummy_set.jpg"
+        }
+      }
     }
+  },
+  "restaurants": {
+    "r1": {
+      "id": "r1",
+      "name": "KFC",
+      "owner": "3",
+      "icon": "kfc_icon.png",
+      "introduction": "KFC is a restaurant that the main menus are fried chickens.",
+      "categories": ["c1", "c4", "c7"],
+      "tag": "popular",
+      "branches": {
+        "b1": {
+          "bid": "b1",
+          "address": "KFCDelivery 2F",
+          "tel": "21800000",
+          "businessHours": {
+            "start_time": "09:00",
+            "end_time": "21:00"
+          },
+          "join_date": "01-10-2019",
+          "stop": false
+        },
+        "b2": {
+          "bid": "b2",
+          "address": "KFCDelivery 1F",
+          "tel": "21800001",
+          "businessHours": {
+            "start_time": "09:00",
+            "end_time": "21:00"
+          },
+          "join_date": "01-10-2019",
+          "stop": false
+        }
+      },
+      "menus": {
+        "m1": {
+          "id": "m1",
+          "name": "Yummy Set",
+          "price": "100.00",
+          "image": "yummy_set.jpg",
+          "show": true,
+          "special": {
+            "type": "Season",
+            "season": "Spring"
+          }
+        },
+        "m2": {
+          "id": "m2",
+          "name": "Burger",
+          "price": "20.00",
+          "image": "burger.jpg",
+          "show": true,
+          "special": {
+            "type": "Special",
+            "start_date": "01-10-2019",
+            "end_date": "05-10-2019"
+          }
+        },
+        "m3": {
+          "id": "m3",
+          "name": "Pineapple Burger",
+          "price": "27.00",
+          "image": "pineapple_mcspicy.png",
+          "show": true,
+          "special": {
+            "type": "Temporary",
+            "start_date": "14:00",
+            "end_date": "18:00"
+          }
+        }
+      }
+      
+    },
+    "r2": {
+      "id": "r2",
+      "name": "McDonald's",
+      "owner": "4",
+      "icon": "mcd_icon.png",
+      "introduction": "McDonald is a restaurant that the main menus are burgers.",
+      "categories": ["c3", "c4"],
+      "tag": "popular",
+      "branches": {
+        "b1": {
+          "bid": "b1",
+          "address": "McDelivery 1F",
+          "tel": "23382338",
+          "businessHours": {
+            "start_time": "09:00",
+            "end_time": "21:00"
+          },
+          "join_date": "01-10-2019",
+          "stop": false
+        },
+        "b2": {
+          "bid": "b2",
+          "address": "McDelivery 2F",
+          "tel": "23382339",
+          "businessHours": {
+            "start_time": "09:00",
+            "end_time": "21:00"
+          },
+          "join_date": "01-10-2019",
+          "stop": false
+        }
+      },
+      "menus": {
+        "m1": {
+          "id": "m1",
+          "name": "Yummy Set2",
+          "price": "100.00",
+          "image": "yummy_set.jpg",
+          "show": true,
+          "special": {
+            "type": "Season",
+            "season": "Spring"
+          }
+        },
+        "m2": {
+          "id": "m2",
+          "name": "Burger2",
+          "price": "20.00",
+          "image": "burger.jpg",
+          "show": true,
+          "special": {
+            "type": "Special",
+            "start_date": "01-10-2019",
+            "end_date": "05-10-2019"
+          }
+        }
+      }
+    },
+    "r3": {
+      "id": "r3",
+      "name": "Tam Chai Yunnan Noodles",
+      "owner": "4",
+      "icon": "tamchai.jpg",
+      "introduction": "Tam Chai is a restaurant that the main menus are noodles.",
+      "categories": ["c3", "c5"],
+      "tag": "recommended",
+      "branches": {
+      },
+      "menus": {
+        "m1": {
+          "id": "m1",
+          "name": "Yummy Set2",
+          "price": "100.00",
+          "image": "yummy_set.jpg",
+          "show": true,
+          "special": {
+            "type": "Season",
+            "season": "Spring"
+          }
+        },
+        "m2": {
+          "id": "m2",
+          "name": "Burger2",
+          "price": "20.00",
+          "image": "burger.jpg",
+          "show": true,
+          "special": {
+            "type": "Special",
+            "start_date": "01-10-2019",
+            "end_date": "05-10-2019"
+          }
+        }
+      }
+    }
+  },
+
+  "comments" :{
+    "c1":{
+      "uid": "2",
+      "rid":"r1",
+      "date": "01-10-2019",
+      "rating": "4",
+      "content": "Good!"
+    },
+    "c2":{
+      "uid": "5",
+      "rid":"r1",
+      "date": "01-10-2019",
+      "rating": "5",
+      "content": "It is the best restaurant that I have been!"
+    },
+    "c3":{
+      "uid": "2",
+      "rid":"r2",
+      "date": "01-10-2019",
+      "rating": "4",
+      "content": "I like it!"
+    },
+    "c4":{
+      "uid": "5",
+      "rid":"r2",
+      "date": "01-10-2019",
+      "rating": "5",
+      "content": "It is the best restaurant that I have been!"
+    },
+    "c5":{
+      "uid": "2",
+      "rid":"r3",
+      "date": "01-10-2019",
+      "rating": "1",
+      "content": "Bad!"
+    }
+  },
+
+  "categories": {
+    "c1": {
+      "id": "c1",
+      "name": "American"
+    },
+    "c2": {
+      "id": "c2",
+      "name": "Bakery & Cake"
+    },
+    "c3": {
+      "id": "c3",
+      "name": "Beverages"
+    },
+    "c4": {
+      "id": "c4",
+      "name": "Burger"
+    },
+    "c5": {
+      "id": "c5",
+      "name": "Chinese"
+    },
+    "c6": {
+      "id": "c6",
+      "name": "Dessert"
+    },
+    "c7": {
+      "id": "c7",
+      "name": "Fast food"
+    },
+    "c8": {
+      "id": "c8",
+      "name": "French"
+    },
+    "c9": {
+      "id": "c9",
+      "name": "Halal"
+    },
+    "c10": {
+      "id": "c10",
+      "name": "Healthy food"
+    },
+    "c11": {
+      "id": "c11",
+      "name": "Indian"
+    },
+    "c12": {
+      "id": "c12",
+      "name": "Italian"
+    },
+    "c13": {
+      "id": "c13",
+      "name": "Japanese"
+    },
+    "c14": {
+      "id": "c14",
+      "name": "Korean"
+    },
+    "c15": {
+      "id": "c15",
+      "name": "Mediterranean"
+    },
+    "c16": {
+      "id": "c16",
+      "name": "Mexican"
+    },
+    "c17": {
+      "id": "c17",
+      "name": "Middle Eastern"
+    },
+    "c18": {
+      "id": "c18",
+      "name": "Noodles & Ramen"
+    },
+    "c19": {
+      "id": "c19",
+      "name": "Pizza"
+    },
+    "c20": {
+      "id": "c20",
+      "name": "Pasta"
+    },
+    "c21": {
+      "id": "c21",
+      "name": "Sandwich"
+    },
+    "c22": {
+      "id": "c22",
+      "name": "Seafood"
+    },
+    "c23": {
+      "id": "c23",
+      "name": "Singaporean"
+    },
+    "c24": {
+      "id": "c24",
+      "name": "Sushi"
+    },
+    "c25": {
+      "id": "c25",
+      "name": "Thai"
+    },
+    "c26": {
+      "id": "c26",
+      "name": "Taiwanese"
+    },
+    "c27": {
+      "id": "c27",
+      "name": "Vegetarian"
+    },
+    "c28": {
+      "id": "c28",
+      "name": "Vietnamese"
+    },
+    "c29": {
+      "id": "c29",
+      "name": "Western"
+    }
+  }
 
 }
