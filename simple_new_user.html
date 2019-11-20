@@ -1,0 +1,70 @@
+<script>
+    $("#s-password").on("focusin", function () {
+        $(this).popover('show');
+    });
+    $("#s-password").on("focusout", function () {
+        $(this).popover('hide');
+    });
+    $("#s-password").password({
+        shortPass: '<span class="text-danger">The password is too short</span>',
+        badPass: '<span class="text-danger">Weak</span>; try combining letters & numbers',
+        goodPass: '<span class="text-warning">Medium</span>; try using special characters',
+        strongPass: '<span class="text-success">Strong password</span>',
+        containsUsername: 'The password contains the username',
+        enterPass: 'Type your password',
+        showPercent: false,
+        showText: true, // shows the text tips
+        animate: true, // whether or not to animate the progress bar on input blur/focus
+        animateSpeed: 'fast', // the above animation speed
+        username: false, // select the username field (selector or jQuery instance) for better password checks
+        usernamePartialMatch: true, // whether to check for username partials
+        minimumLength: 8 // minimum password length (below this threshold, the score is 0)
+
+    });
+    $("#s-password").on("keyup", function () {
+        if ($(this).val().length < 8) {
+            $(this).addClass("is-invalid");
+            $("#invalid-password").html("");
+        } else {
+            $(this).removeClass("is-invalid");
+            $("#invalid-password").html("Password can not be empty!");
+        }
+
+    });
+    $("#reg-c-password").on("keyup", function () {
+
+    });
+</script>
+<form id="register-from">
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="inputEmail4">Username<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="s-username" placeholder="Username">
+            <div class="invalid-feedback" id="invalid-username">
+                Username can not be empty!
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="s-password">Password<span class="text-danger">*</span></label>
+            <input type="password" class="form-control" id="s-password" placeholder="Password"
+                title="Password reminder:" data-placement="top" data-content="
+                                        <ul>
+                                            <li>Use 8 t0 64 characters.</li>
+                                            <li>Besides letters, include at least a number or symbol(!@#$%^&*()_+-=`)</li>
+                                            <li>Password is case sensitive</li>
+                                            <li>Avoid using the same password for multiple sites.</li>
+                                        </ul>" data-html="true">
+            <div class="invalid-feedback" id="invalid-password">
+                Password can not be empty!
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="s-c-password">Confirm Password<span class="text-danger">*</span></label>
+            <input type="password" class="form-control" id="s-c-password">
+            <div class="invalid-feedback">
+                Two passwords are not same!!
+            </div>
+        </div>
+</form>
