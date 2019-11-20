@@ -12,11 +12,12 @@
       font-family: helvetica;
       text-decoration: none;
     }
-
+    
     a:hover {
       cursor: pointer;
       text-decoration: none;
     }
+
   </style>
   <script>
     var old = "";
@@ -44,7 +45,7 @@
           $("#restaurant-card").html(old);
         }
       }
-      
+
       $("#list-example > a").on("click", (e) => {
         $($(e.delegateTarget).siblings()).removeClass("active");
         $(e.delegateTarget).addClass("active");
@@ -52,28 +53,28 @@
       });
 
 
-       window.filter = (kw) =>{
-         $("#restaurant-card").html("");
-         $.each(loadAllRestaurants, (key, value) => {
-           var val = "";
-           val += value.tag;
-           var string = val.toLowerCase();
+      window.filter = (kw) => {
+        $("#restaurant-card").html("");
+        $.each(loadAllRestaurants, (key, value) => {
+          var val = "";
+          val += value.tag;
+          var string = val.toLowerCase();
 
-           if (string.indexOf(kw) !== -1) {
-             appendToCard(value);
-           }
+          if (string.indexOf(kw) !== -1) {
+            appendToCard(value);
+          }
 
-         });
-       }
-       
-       window.loadMyFav = () =>{
-         console.log("OK")
-         $("#restaurant-card").html("");
-         $.each(getSessionObj("currentUser").favorites, (key, value) => {
-            console.log(value);
-            appendToFav(value);
-         });
-       }
+        });
+      }
+
+      window.loadMyFav = () => {
+        console.log("OK")
+        $("#restaurant-card").html("");
+        $.each(getSessionObj("currentUser").favorites, (key, value) => {
+          console.log(value);
+          appendToFav(value);
+        });
+      }
 
 
       $.each(
@@ -90,7 +91,7 @@
         managePage(`${name}`, "customer_menu2.html", "Resturant");
       }
 
-      $("#searchbox-input").on("keyup", function () {
+      $("#searchbox-input").on("keyup", function() {
         //        console.log($(this).val());
         if ($(this).val() === "") {
           //          console.log(old);
@@ -146,7 +147,7 @@
       old += appendToCard(value);
 
     });
-    
+
     window.appendToFav = (value) => {
       if (value !== null) {
         //        https://picsum.photos/800
@@ -168,6 +169,7 @@
       }
       return content;
     }
+
   </script>
 </head>
 
