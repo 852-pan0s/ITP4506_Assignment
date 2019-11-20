@@ -4,6 +4,7 @@ const activateFunc = (user) => {
     if (user === null) {
         $(".management").addClass("hide");
     } else {
+        $("#btn-logout").removeClass("hide");
         switch (user.type) {
             case "normal_user":
                 $(".operator,.admin").addClass("hide");

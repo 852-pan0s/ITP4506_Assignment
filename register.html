@@ -1,0 +1,224 @@
+<script>
+	var checkInput = (e) => {
+		var check = true;
+		if ($(e).val().length === 0) {
+			$(e).addClass("is-invalid");
+			check = false;
+		} else {
+			$(e).removeClass("is-invalid");
+		}
+		return check;
+	}
+
+	var passwordCheck = () => {
+		if ($("#reg-c-password").val() !== $("#reg-password").val()) {
+			$("#reg-c-password").addClass("is-invalid");
+			return false;
+		} else {
+			$("#reg-c-password").removeClass("is-invalid");
+			return true;
+		}
+	};
+
+	$("#register-from input").not("#reg-password,#reg-c-password").on("keyup", function () {
+		$(this).removeClass("is-invalid");
+	}).on("change", function () {
+		$(this).removeClass("is-invalid");
+	});
+
+	$("#btn-reg").click(function () {
+		var arrCheck = [];
+		$.each($("#register-from input").not("#inputZip"), (key, value) => {
+			arrCheck[key] = checkInput(value);
+		});
+		var check = passwordCheck();
+
+		$.each(arrCheck, (key, value) => {
+			if (value === false) {
+				check = false;
+				return false;
+			}
+		});
+
+		if (check) {
+			$(this).addClass("hide");
+			$("#regLoading").removeClass("hide");
+			setTimeout(() => {
+				$(this).removeClass("hide");
+				$("#regLoading").addClass("hide");
+				$("#registerModal").modal('hide');
+				$("#loginModal").modal('show');
+				showToast(`Register successfully!!`);
+			}, 1000);
+		}
+	});
+	$("#reg-username").on("keyup", function () {
+		if ($(this).val() === "kfc" || $(this).val() === "mcd") {
+			$(this).addClass("is-invalid");
+			$("#invalid-username").html(
+				`<span style="color:green">${$(this).val()}</span> is existential. Please <a href="#" data-toggle="modal" data-target="#loginModal" onclick="$('#registerModal').modal('hide');">login</a> or change an other name.`
+			);
+		} else {
+			$(this).removeClass("is-invalid");
+			$("#invalid-username").html("Username can not be empty!");
+		}
+	});
+	$("#reg-password").on("focusin", function () {
+		$(this).popover('show');
+	});
+	$("#reg-password").on("focusout", function () {
+		$(this).popover('hide');
+	});
+	$("#reg-password").password({
+		shortPass: 'The password is too short',
+		badPass: 'Weak; try combining letters & numbers',
+		goodPass: 'Medium; try using special characters',
+		strongPass: 'Strong password',
+		containsUsername: 'The password contains the username',
+		enterPass: 'Type your password',
+		showPercent: false,
+		showText: true, // shows the text tips
+		animate: true, // whether or not to animate the progress bar on input blur/focus
+		animateSpeed: 'fast', // the above animation speed
+		username: false, // select the username field (selector or jQuery instance) for better password checks
+		usernamePartialMatch: true, // whether to check for username partials
+		minimumLength: 8 // minimum password length (below this threshold, the score is 0)
+
+	});
+	$("#reg-password").on("keyup", function () {
+		if ($(this).val().length < 8) {
+			$(this).addClass("is-invalid");
+			$("#invalid-password").html("");
+		} else {
+			$(this).removeClass("is-invalid");
+			$("#invalid-password").html("Password can not be empty!");
+		}
+		passwordCheck();
+	});
+	$("#reg-c-password").on("keyup", function () {
+		passwordCheck();
+	});
+</script>
+<form id="register-from">
+	<div class="form-row">
+		<div class="form-group col-md-12">
+			<label for="inputEmail4">Username<span class="text-danger">*</span></label>
+			<input type="text" class="form-control" id="reg-username" placeholder="Username">
+			<div class="invalid-feedback" id="invalid-username">
+				Username can not be empty!
+			</div>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="form-group col-md-6">
+			<label for="inputPareg-passwordssword4">Password<span class="text-danger">*</span></label>
+			<input type="password" class="form-control" id="reg-password" placeholder="Password"
+				title="Password reminder:" data-placement="top" data-content="
+									<ul>
+										<li>Use 8 t0 64 characters.</li>
+										<li>Besides letters, include at least a number or symbol(!@#$%^&*()_+-=`)</li>
+										<li>Password is case sensitive</li>
+										<li>Avoid using the same password for multiple sites.</li>
+									</ul>" data-html="true">
+			<div class="invalid-feedback" id="invalid-password">
+				Password can not be empty!
+			</div>
+		</div>
+
+		<div class="form-group col-md-6">
+			<label for="reg-c-password">Confirm Password<span class="text-danger">*</span></label>
+			<input type="password" class="form-control" id="reg-c-password">
+			<div class="invalid-feedback">
+				Two passwords are not same!!
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="inputAddress">Email<span class="text-danger">*</span></label>
+		<input type="email" class="form-control" id="inputAddress" placeholder="example@mail.com">
+		<div class="invalid-feedback">
+			Email can not be empty!
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="inputAddress2">Address<span class="text-danger">*</span></label>
+		<input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+		<div class="invalid-feedback">
+			Address can not be empty!
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="form-group col-md-6">
+			<label for="inputCity">City<span class="text-danger">*</span></label>
+			<input type="text" class="form-control" id="inputCity">
+			<div class="invalid-feedback">
+				City can not be empty!
+			</div>
+		</div>
+		<div class="form-group col-md-4">
+
+			<label for="inputState">State<span class="text-danger">*</span></label>
+			<select id="inputState" class="form-control">
+				<option selected>Alabama</option>
+				<option>Alaska</option>
+				<option>Arizona</option>
+				<option>Arkansas</option>
+				<option>California</option>
+				<option>Colorado</option>
+				<option>Connecticut</option>
+				<option>Delaware</option>
+				<option>Florida</option>
+				<option>Georgia</option>
+				<option>Hawaii</option>
+				<option>Idaho</option>
+				<option>IllinoisIndiana</option>
+				<option>Iowa</option>
+				<option>Kansas</option>
+				<option>Kentucky</option>
+				<option>Louisiana</option>
+				<option>Maine</option>
+				<option>Maryland</option>
+				<option>Massachusetts</option>
+				<option>Michigan</option>
+				<option>Minnesota</option>
+				<option>Mississippi</option>
+				<option>Missouri</option>
+				<option>MontanaNebraska</option>
+				<option>Nevada</option>
+				<option>New Hampshire</option>
+				<option>New Jersey</option>
+				<option>New Mexico</option>
+				<option>New York</option>
+				<option>North Carolina</option>
+				<option>North Dakota</option>
+				<option>Ohio</option>
+				<option>Oklahoma</option>
+				<option>Oregon</option>
+				<option>PennsylvaniaRhode Island</option>
+				<option>South Carolina</option>
+				<option>South Dakota</option>
+				<option>Tennessee</option>
+				<option>Texas</option>
+				<option>Utah</option>
+				<option>Vermont</option>
+				<option>Virginia</option>
+				<option>Washington</option>
+				<option>West Virginia</option>
+				<option>Wisconsin</option>
+				<option>Wyoming</option>
+			</select>
+		</div>
+		<div class="form-group col-md-2">
+			<label for="inputZip">Zip</label>
+			<input type="text" class="form-control" id="inputZip">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" id="gridCheck">
+			<label class="form-check-label" for="gridCheck">
+				I have read and understood the terms and conditions
+			</label>
+		</div>
+	</div>
+</form>

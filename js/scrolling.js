@@ -23,8 +23,8 @@ const lightStyle = () => {
     $("#navbar").addClass("bg-light navbar-light");
     $("#navbar").removeClass("navbar-dark absolute-top");
     $("#navbar").css("top", "0px");
-    $("#navbar button").not(".btn-manage").removeClass("btn-outline-light");
-    $("#navbar button").not(".btn-manage").addClass("btn-outline-dark");
+    $("#navbar button").not(".btn-manage,#btn-logout").removeClass("btn-outline-light");
+    $("#navbar button").not(".btn-manage,#btn-logout").addClass("btn-outline-dark");
     // $("#btn-ac").removeClass("btn-outline-dark");
     // $("#btn-ac").addClass("btn-outline-light");
     // $("#user-icon").addClass("text-dark");
@@ -35,8 +35,8 @@ const darkStyle = () => {
     $("#navbar").addClass("navbar-dark absolute-top");
     $("#navbar").removeClass("bg-light navbar-light ");
     $("#navbar").css("top", "-10px");
-    $("#navbar button").not(".btn-manage").removeClass("btn-outline-dark");
-    $("#navbar button").not(".btn-manage").addClass("btn-outline-light");
+    $("#navbar button").not(".btn-manage,#btn-logout").removeClass("btn-outline-dark");
+    $("#navbar button").not(".btn-manage,#btn-logout").addClass("btn-outline-light");
     // $("#btn-ac").removeClass("btn-outline-light");
     // $("#btn-ac").addClass("btn-outline-dark");
     // $("#user-icon").addClass("text-light");

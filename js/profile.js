@@ -1,12 +1,26 @@
 // import { loadUser } from "./login.js"
 import { activateFunc } from "./login.js";
 import { homePage } from "./myjs.js";
+$("#pro-form").load("../profile.html");
 $("#btn-logout").on("click", (e) => {
+    $("#btn-logout").addClass("hide");
     clearSessionObj("currentUser");
     $("#profileModal").modal("hide");
     $("#btn-ac").attr("data-target", "#loginModal");
     activateFunc(null);
+    pageReload(3);
     // clearSessionObj("restaurant");
     // loadUser();
-    location.reload();
+  
 });
+
+var pageReload = (sec) => {
+    showToast(`<span class="text-success">Log out successfully!!</span> Return to home page at <span class="text-danger">${sec}</span> second(s).`);
+    if(sec>0){
+        setTimeout(()=>{
+            pageReload(--sec);
+        }, 1000);
+    }else{
+        location.reload();
+    }
+};

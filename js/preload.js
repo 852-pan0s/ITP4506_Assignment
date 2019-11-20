@@ -4,6 +4,7 @@ import {
   lightStyle
 } from "./scrolling.js";
 
+
 /**Global variables */
 
 //Get today value return dd-mm-yyy
@@ -190,6 +191,11 @@ $(() => {
 
 
   /**On click event */
+  $(".btn-show-register").on("click",()=>{
+    // managePage("Register","register.html");
+    $("#loginModal").modal("hide");
+  });
+
   $(".btn-home, #btn-menu").on("click", () => {
     $(window).scrollTop("0");
   });

@@ -28,6 +28,15 @@
   <link rel="stylesheet" href="./css/picker.min.css">
   <script type="module" src="./js/picker.min.js"></script>
 
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+  <!-- smmantic library -->
+  <!-- <link rel="stylesheet" type="text/css" href="./semantic-ui/dist/semantic.min.css"> -->
+  <!-- <script src="./semantic-ui/dist/semantic.min.js"></script> -->
+
+  <!-- password lib -->
+  <link type="text/css" rel="stylesheet" href="./css/password.min.css" />
+  <script src="./js/password.min.js"></script>
 </head>
 
 <body>
@@ -69,7 +78,7 @@
       <!-- <button class="btn btn-outline-light my-2 my-sm-0" id="btn-search" type="submit">aA</button> -->
       <!-- </form> -->
       <div class="form-inline my-2 my-lg-0">
-        <button class="btn btn-outline-light my-2 my-sm-0" id="btn-font-size" style="margin-right:10px;">Aa</button>
+        <!-- <button class="btn btn-outline-light my-2 my-sm-0" id="btn-font-size" style="margin-right:10px;">Aa</button> -->
       </div>
       <span class="navbar-text">
         <button id="btn-ac" type="button" class="btn btn-outline-light" style="border:none;" data-toggle="modal"
@@ -78,6 +87,8 @@
             account_circle
           </i>
         </button>
+        <button type="button" class="btn btn-outline-danger hide" style="margin-left:10px;" id="btn-logout">Logout</button>
+        
       </span>
 
     </div>
@@ -87,7 +98,7 @@
   <!-- Profile Modal -->
   <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Profile</h5>
@@ -96,25 +107,16 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="login.html" method="get" id="profileForm">
-            <div class="form-group">
-              <div class="hide" id="profileEditFailMsg" style="color: red"></div>
-              <label for="username">Username</label>
-              <input type="email" class="form-control-plaintext" name="username" aria-describedby="emailHelp"
-                placeholder="Enter your username" disabled>
-            </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" name="password" placeholder="Password">
-            </div>
+              <div id="pro-form">
+
+                </div>
             <!-- <button type="button" class="btn btn-outline-primary" id="btn-login">Login</button> -->
             <div class="modal-footer">
-              <button class="btn btn-primary hide" id="saveLoading" type="button" disabled>
+              <button class="btn btn-primary hide" id="proLoading" type="button" disabled>
                 <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
                 Loading...
               </button>
-              <button type="button" class="btn btn-outline-danger" id="btn-logout">Logout</button>
-              <button type="button" class="btn btn-outline-primary" id="btn-save">Save</button>
+              <button type="button" class="btn btn-outline-primary" id="btn-pro-save">Save</button>
             </div>
           </form>
         </div>
@@ -123,7 +125,7 @@
 
     </div>
   </div>
-  <!-- Login Modal -->
+  <!-- Profile Modal -->
 
 
   <!-- Login Modal -->
@@ -132,7 +134,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalCenterTitle">Login</h5>
+          <h2 class="modal-title" id="exampleModalCenterTitle">Login</h2>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -153,9 +155,36 @@
               <input type="checkbox" class="form-check-input" id="remember">
               <label class="form-check-label" for="remember">Remember me! </label>
             </div>
-            <small id="emailHelp" class="form-text text-muted">No account yet? <a href="#"
-                id=”btn-register“>Register</a>
+            <small id="emailHelp" class="form-text text-muted" style="font-size: 16px;">No account yet? <a href="#"
+                class="btn-show-register" data-toggle="modal" data-target="#registerModal">Register</a>
               now!</small>
+            <br>
+            <div class="col-sm-12 text-center">
+              <div class="btn-group">
+                <a class='btn btn-danger' style="background-color: #a12733;"><i class="fa fa-google-plus"
+                    style="width:16px; height:20px;color:white; "></i></a>
+                <a class='btn btn-danger' href='#' style="width:12em;"> Sign in with Google</a>
+              </div>
+            </div>
+            <br>
+            <div class="col-sm-12 text-center">
+
+              <div class="btn-group">
+                <a class='btn btn-primary' style="background-color: #005abb;"><i class="fa fa-facebook"
+                    style="width:16px; height:20px;color:white; "></i></a>
+                <a class='btn btn-primary ' href='#' style="width:12em"> Sign in with Facebook</a>
+              </div>
+            </div>
+            <br>
+            <div class="col-sm-12 text-center">
+
+              <div class="btn-group">
+                <a class='btn btn-info' style="background-color: #147888;"><i class="fa fa-twitter"
+                    style="width:16px; height:20px;color:white; "></i></a>
+                <a class='btn btn-info ' href='#' style="width:12em"> Sign in with Twitter</a>
+              </div>
+            </div>
+
             <!-- <button type="button" class="btn btn-outline-primary" id="btn-login">Login</button> -->
             <div class="modal-footer">
               <button class="btn btn-primary hide" id="loginLoading" type="button" disabled>
@@ -173,9 +202,42 @@
   </div>
   <!-- Login Modal -->
 
+
+
+
+  <!-- Register Modal -->
+  <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="exampleModalCenterTitle">Register</h2>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="reg-form">
+
+          </div>
+          <!-- <button type="button" class="btn btn-outline-primary" id="btn-login">Login</button> -->
+          <div class="modal-footer">
+            <button class="btn btn-primary hide" id="regLoading" type="button" disabled>
+              <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+              Loading...
+            </button>
+            <button type="button" class="btn btn-outline-primary" id="btn-reg">Sign up</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Login Modal -->
+
   <!-- main content -->
   <div id="main">
-    <div class="container" >
+    <div class="container">
       <!-- directory -->
       <nav aria-label="breadcrumb" id="directory">
         <ol class="breadcrumb">
