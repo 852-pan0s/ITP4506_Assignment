@@ -40,9 +40,18 @@
             // console.log($($(this).parent().siblings()[3]).text());
             $("#change-type").val($($(this).parent().siblings()[3]).text());
         });
-        $("#btn-change-type").click(() => {
+        $("#btn-change-type").click(function () {
             $("#u6").text("Administrator");
             $("#changeUserModal").modal('hide');
+            showToast(
+                `<span class="text-danger">#${$("#change-id").text()}</span> user has been changed to <span class="text-success">Administrator</span> successfully!!`
+                )
+        });
+        $(".btn-user-del").click(function () {
+            $(this).parent().parent().hide();
+            showToast(
+                `<span class="text-danger">#${$($(this).parent().siblings()[0]).text()}</span> user has been deleted successfully!!`
+                )
         });
     </script>
     <style>
@@ -121,7 +130,9 @@
                         <td>KFC house</td>
                         <td>000000</td>
                         <td> <button type="button" class="btn btn-outline-success btn-user-edit" data-toggle="modal"
-                                data-target="#changeUserModal">Edit</button></td>
+                                data-target="#changeUserModal">Edit</button>
+                            <button type="button" class="btn btn-outline-danger btn-user-del">Delete</button>
+                        </td>
                     </tr>
 
                     <tr>
@@ -133,7 +144,9 @@
                         <td>Mcdonald house</td>
                         <td>000000</td>
                         <td> <button type="button" class="btn btn-outline-success btn-user-edit" data-toggle="modal"
-                                data-target="#changeUserModal">Edit</button></td>
+                                data-target="#changeUserModal">Edit</button>
+                            <button type="button" class="btn btn-outline-danger btn-user-del">Delete</button>
+                        </td>
                     </tr>
 
                     <tr>
@@ -145,7 +158,9 @@
                         <td>IVE HK ,Tsing Yi</td>
                         <td>000000</td>
                         <td> <button type="button" class="btn btn-outline-success btn-user-edit" data-toggle="modal"
-                                data-target="#changeUserModal">Edit</button></td>
+                                data-target="#changeUserModal">Edit</button>
+                            <button type="button" class="btn btn-outline-danger btn-user-del">Delete</button>
+                        </td>
                     </tr>
                     <tr>
                         <td>4</td>
@@ -156,7 +171,9 @@
                         <td>Testing</td>
                         <td>000000</td>
                         <td> <button type="button" class="btn btn-outline-success btn-user-edit" data-toggle="modal"
-                                data-target="#changeUserModal">Edit</button></td>
+                                data-target="#changeUserModal">Edit</button>
+                            <button type="button" class="btn btn-outline-danger btn-user-del">Delete</button>
+                        </td>
                     </tr>
                     <tr>
                         <td>5</td>
@@ -167,7 +184,9 @@
                         <td>n/a</td>
                         <td>000000</td>
                         <td> <button type="button" class="btn btn-outline-success btn-user-edit" data-toggle="modal"
-                                data-target="#changeUserModal">Edit</button></td>
+                                data-target="#changeUserModal">Edit</button>
+                            <button type="button" class="btn btn-outline-danger btn-user-del">Delete</button>
+                        </td>
                     </tr>
                     <tr class="muser">
                         <td>6</td>
@@ -178,7 +197,9 @@
                         <td>tester</td>
                         <td>000000</td>
                         <td> <button type="button" class="btn btn-outline-success btn-user-edit" data-toggle="modal"
-                                data-target="#changeUserModal">Edit</button></td>
+                                data-target="#changeUserModal">Edit</button>
+                            <button type="button" class="btn btn-outline-danger btn-user-del">Delete</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -243,7 +264,7 @@
                         <div class="col-sm-6">
                             <select id="change-type" class="form-control">
                                 <option value="Normal User" selected>Normal User</option>
-                                <option value="Operator" >Operator</option>
+                                <option value="Operator">Operator</option>
                                 <option value="Administrator">Administrator</option>
                             </select>
                         </div>
