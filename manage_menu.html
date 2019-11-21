@@ -108,8 +108,8 @@
 
             });
 
-            $("#btn-new-set-menu").click(()=>{
-                
+            $("#btn-new-set-menu").click(() => {
+
             });
 
             $("#menu-img-src").on("click", () => {
@@ -157,6 +157,8 @@
                 $("#menu-special-type").val("none");
                 $(".s-date,.e-date , .season").addClass("hide");
                 $("#menu-img-src").attr('src', './img/upload.png');
+                $("#is-set").prop("checked",false);
+                $("#foodSet").html("");
             });
 
             var checkAllData = () => {
@@ -318,6 +320,8 @@
                 $("#btn-new").attr("class", "btn btn-outline-success");
                 $("#new-menu").text("Edit Menu");
                 $("#menu-image").removeClass("is-invalid");
+                $("#is-set").prop("checked",false);
+                $("#foodSet").html("");
             }
 
             window.updateRow = (name, price, img, special, show) => {
@@ -418,8 +422,57 @@
                 checkData(e.delegateTarget);
             });
 
+            //food set
+           
+
+            $("#is-set").change(function () {
+                if ($(this).prop("checked")) {
+                    $("#foodSet").html(`
+                <div class="form-group row">
+                    <div class="col-sm-1">
+                        
+                    </div>
+                    <div class="col-sm-6">
+                        <select class="form-control" name="" id="">
+                            <option value="Burger">Burger</option>
+                            <option value="Pineapple Burger">Pineapple Burger</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-1">
+                        <button class="btn btn-success" type="button" onclick="addOpt();"><span aria-hidden="true">+</span></button>
+                    </div>
+                </div>`);
+                } else {
+                    $("#foodSet").html("");
+                }
+            });
+
+
+
 
         });
+        var foodOpt = `
+                <div class="form-group row">
+                    <div class="col-sm-1">
+                        <button class="close" type="button" onclick="removeOpt(this)"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="col-sm-6">
+                        <select class="form-control" name="" id="">
+                            <option value="Burger">Burger</option>
+                            <option value="Pineapple Burger">Pineapple Burger</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-1">
+                        <button class="btn btn-success" type="button" onclick="addOpt();"><span aria-hidden="true">+</span></button>
+                    </div>
+                </div>`;
+        var addOpt = () => {
+            $("#foodSet").append(foodOpt);
+        };
+
+        var removeOpt = (element) => {
+            $(element).parent().parent().remove();
+        };
     </script>
     <style>
         .tr-hover {
@@ -498,10 +551,10 @@
             <a class="btn btn-primary btn-lg" id="btn-new-menu" href="#" role="button" data-toggle="modal"
                 data-target="#menuModal" data-toggle="tooltip" data-placement="right"
                 title="Click to add a new menu.">New Menu</a>
-            <hr class="my-4">
+            <!-- <hr class="my-4">
             <a class="btn btn-primary btn-lg" id="btn-new-set-menu" href="#" role="button" data-toggle="modal"
                 data-target="#menuModal" data-toggle="tooltip" data-placement="right"
-                title="Click to add a new food set menu.">New Food Set Menu</a>
+                title="Click to add a new food set menu.">New Food Set Menu</a> -->
             <hr class="my-4">
             <table class="table table-hover" id="menu-list">
                 <thead class="thead-dark">
@@ -648,6 +701,23 @@
                                 <input type="checkbox" class="form-control" name="menu-show" id="menu-show">
                             </div>
                         </div>
+
+                        <!-- Set -->
+                        <div class="form-group row">
+                            <div class="hide" id="editMenuError" style="color: red"></div>
+                            <label for="is-set" class="col-sm-4 col-form-label">Set menu?</label>
+                            <div class="col-sm-1">
+                                <input type="checkbox" class="form-control" name="menu-show" id="is-set">
+                            </div>
+                        </div>
+                        
+
+                        <!-- Food set form -->
+
+                        <div id="foodSet">
+
+                        </div>
+
                         <!-- <button type="button" class="btn btn-outline-primary" id="btn-login">Login</button> -->
                         <div class="modal-footer">
                             <button class="btn btn-primary hide" id="new-loading" type="button" disabled>
