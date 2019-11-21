@@ -48,10 +48,14 @@
                 )
         });
         $(".btn-user-del").click(function () {
-            $(this).parent().parent().hide();
+            var id = $($(this).parent().siblings()[0]).text();
+            yesNoModal(`Are you sure to delete <span class="text-danger">#${id}</span> user?`,(y)=>{
+                $(this).parent().parent().hide();
             showToast(
                 `<span class="text-danger">#${$($(this).parent().siblings()[0]).text()}</span> user has been deleted successfully!!`
                 )
+            });
+            
         });
     </script>
     <style>
