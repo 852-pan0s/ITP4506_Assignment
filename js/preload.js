@@ -7,6 +7,8 @@ import {
 
 /**Global variables */
 
+window.style = "default";
+
 //Get today value return dd-mm-yyy
 window.today = () => {
   var today = new Date();
@@ -63,9 +65,11 @@ window.showToast = (message, type) => {
   var color = "";
   switch (type) {
     case 1:
-    case "error": color = "toast-icon-1"; break;
+    case "error":
+      color = "toast-icon-1";
+      break;
     default:
-    color = "toast-icon-0"; 
+      color = "toast-icon-0";
   }
   $(".toast").toast('dispose');
   $("#toast-message").html(message);
@@ -191,7 +195,7 @@ $(() => {
 
 
   /**On click event */
-  $(".btn-show-register").on("click",()=>{
+  $(".btn-show-register").on("click", () => {
     // managePage("Register","register.html");
     $("#loginModal").modal("hide");
   });
@@ -214,6 +218,10 @@ $(() => {
     managePage(`${$(".btn-manage").text()} / ${$(".btn-manage-user").text()}`, "manage_user.html");
   });
 
+  $(".btn-manage-style").on("click", () => {
+    managePage(`${$(".btn-manage").text()} / ${$(".btn-manage-style").text()}`, "manage_style.html");
+  });
+
   $(".btn-manage-menu").on("click", () => {
     managePage(`${$(".btn-manage").text()} / ${$(".btn-manage-menu").text()}`, "manage_menu.html");
   });
@@ -225,6 +233,38 @@ $(() => {
   $(".btn-restaurant").on("click", () => {
     managePage(`${$($(".btn-restaurant")[0]).text()}`, "customer_menu.html");
   });
+
+  var changeStyle = (inStyle) =>{
+    style = inStyle;
+    darkStyle();
+    lightStyle();
+    footerMarginFix();
+    if (home && $(window).scrollTop() <= 50) {
+      darkStyle();
+      
+    }
+  }
+
+  $("#btn-default").on("click", () => {
+    changeStyle("default");
+  });
+
+  $("#btn-red").on("click", () => {
+    changeStyle("red");
+  });
+
+  $("#btn-blue").on("click", () => {
+    changeStyle("blue");
+  });
+
+  $("#btn-orange").on("click", () => {
+    changeStyle("orange");
+  });
+
+  $("#btn-green").on("click", () => {
+    changeStyle("green");
+  });
+
 
   /**On click event */
 

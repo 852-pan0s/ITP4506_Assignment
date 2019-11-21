@@ -40,61 +40,54 @@
 </head>
 
 <body>
-  <!-- navigation bar -->
-  <nav class="navbar navbar-expand-sm navbar-dark fixed-top absolute-top animationTop" id="navbar">
-    <a class="navbar-brand btn-home" href="#home">Yummy Everywhere</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <!-- Style Modal -->
+  <div class="modal fade" id="styleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Style</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="style-form">
+            <form id="register-from">
+                <div class="form-row"></div>
+                <div class="form-group col-md-12">
+                  Choose a theme that you like:
+                </div>
+              <div class="form-row">
+                <div class="form-group col-md-2">
+                  <button type="button" class="btn btn-outline-dark" id="btn-default">&nbsp;&nbsp;</button>
+                </div>
+                <div class="form-group col-md-2">
+                    <button type="button" class="btn btn-outline-danger" id="btn-red">&nbsp;&nbsp;</button>
+                </div>
+                <div class="form-group col-md-2">
+                    <button type="button" class="btn btn-outline-warning" id="btn-orange">&nbsp;&nbsp;</button>
+                </div>
+                <div class="form-group col-md-2">
+                    <button type="button" class="btn btn-outline-primary" id="btn-blue">&nbsp;&nbsp;</button>
+                </div>
+                <div class="form-group col-md-2">
+                    <button type="button" class="btn btn-outline-success" id="btn-green">&nbsp;&nbsp;</button>
+                </div>
+              </div>
+            </form>
 
-    <!-- Navigation bar  -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <!-- Link button -->
-        <!-- <li class="nav-item ">
-          <a class="nav-link" href="#menu" id="btn-menu">Menu</a>
-        </li> -->
-        <li class="nav-item ">
-          <a class="nav-link btn-restaurant" href="#restaurant">Restaurant</a>
-        </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li> -->
-        <li class="nav-item dropdown management hide">
-          <button type="button" class="btn btn-outline-warning btn-manage dropdown-toggle dropdown-toggle-split"
-            id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">Management</button>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item btn-manage-restaurant operator hide" href="#">Restaurant</a>
-            <a class="dropdown-item btn-manage-branch operator hide" href="#">Branches</a>
-            <a class="dropdown-item btn-manage-menu operator hide" href="#">Menu</a>
-            <a class="dropdown-item btn-manage-user admin hide" href="#">Users</a>
           </div>
-        </li>
-      </ul>
-      <!-- <form class="form-inline my-2 my-lg-0" style="margin: 0 10px"> -->
-      <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
-      <!-- <button class="btn btn-outline-light my-2 my-sm-0" id="btn-search" type="submit">aA</button> -->
-      <!-- </form> -->
-      <div class="form-inline my-2 my-lg-0">
-        <!-- <button class="btn btn-outline-light my-2 my-sm-0" id="btn-font-size" style="margin-right:10px;">Aa</button> -->
+          <!-- <button type="button" class="btn btn-outline-primary" id="btn-login">Login</button> -->
+
+        </div>
+
       </div>
-      <span class="navbar-text">
-        <button id="btn-ac" type="button" class="btn btn-outline-light" style="border:none;" data-toggle="modal"
-          data-target="#loginModal">
-          <i class="material-icons" id="user-icon" style="font-size: 36px; position: relative; margin-top:6px">
-            account_circle
-          </i>
-        </button>
-        <button type="button" class="btn btn-outline-danger hide" style="margin-left:10px;"
-          id="btn-logout">Logout</button>
-
-      </span>
-
     </div>
-  </nav>
-  <!-- navigation bar -->
+  </div>
+  <!-- Style Modal -->
+
+
 
   <!-- Profile Modal -->
   <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -244,9 +237,6 @@
   </div>
   <!-- Login Modal -->
 
-
-
-
   <!-- Register Modal -->
   <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
@@ -283,31 +273,8 @@
 
     </div>
   </div>
-  <!-- Login Modal -->
+  <!-- Register Modal -->
 
-  <!-- main content -->
-  <div id="main">
-    <div class="container">
-      <!-- directory -->
-      <nav aria-label="breadcrumb" id="directory">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#home" class="btn-home">Home</a></li>
-          <li class="breadcrumb-item" id="third" aria-current="page"><a href="#restaurant"
-              class="btn-restaurant">Restaurant</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Menu</li>
-        </ol>
-      </nav>
-      <div class="main-content"></div>
-      <!-- Content here -->
-    </div>
-
-  </div>
-  <!-- main content -->
-  <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
-    <div class="container text-center">
-      <small>Copyright &copy; InnoTech HK Inc. - Yummy Everywhere</small>
-    </div>
-  </footer>
   <!-- Message toast -->
   <div aria-live="polite" aria-atomic="true" style="position: fixed; min-height: 400px; z-index: 99999;">
     <div class="toast" style=" position: fixed; bottom: 0%; left:50%; margin-left:-200px; width:400px">
@@ -324,6 +291,7 @@
       </div>
     </div>
   </div>
+  <!-- Message toast -->
 
   <!-- Yes No Modal -->
   <div class="modal fade" id="yesNo-modal" tabindex="-1" role="dialog" aria-labelledby="new-branch" aria-hidden="true">
@@ -348,6 +316,96 @@
       </div>
     </div>
   </div>
+  <!-- Yes No Modal -->
+
+  <!-- navigation bar -->
+  <nav class="navbar navbar-expand-sm navbar-dark fixed-top absolute-top animationTop" id="navbar">
+    <a class="navbar-brand btn-home" href="#home">Yummy Everywhere</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navigation bar  -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <!-- Link button -->
+        <!-- <li class="nav-item ">
+          <a class="nav-link" href="#menu" id="btn-menu">Menu</a>
+        </li> -->
+        <li class="nav-item ">
+          <a class="nav-link btn-restaurant" href="#restaurant">Restaurant</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li> -->
+        <li class="nav-item dropdown management hide">
+          <button type="button" class="btn btn-outline-warning btn-manage dropdown-toggle dropdown-toggle-split"
+            id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">Management</button>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item btn-manage-restaurant operator hide" href="#">Restaurant</a>
+            <a class="dropdown-item btn-manage-branch operator hide" href="#">Branches</a>
+            <a class="dropdown-item btn-manage-menu operator hide" href="#">Menu</a>
+            <a class="dropdown-item btn-manage-user admin hide" href="#">Users</a>
+            <a class="dropdown-item btn-manage-style admin hide" href="#">Style</a>
+          </div>
+        </li>
+      </ul>
+      <!-- <form class="form-inline my-2 my-lg-0" style="margin: 0 10px"> -->
+      <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+      <!-- <button class="btn btn-outline-light my-2 my-sm-0" id="btn-search" type="submit">aA</button> -->
+      <!-- </form> -->
+      <div class="form-inline my-2 my-lg-0">
+        <button class="btn btn-outline-light my-2 my-sm-0 btn-style" style="border:none; margin-right:10px;"
+          data-toggle="modal" data-target="#styleModal">
+          <i class="material-icons" id="user-icon" style="font-size: 24px; position: relative; margin-top:6px">
+            format_paint
+          </i>
+
+        </button>
+      </div>
+      <span class="navbar-text">
+        <button id="btn-ac" type="button" class="btn btn-outline-light" style="border:none;" data-toggle="modal"
+          data-target="#loginModal">
+          <i class="material-icons" id="user-icon" style="font-size: 36px; position: relative; margin-top:6px">
+            account_circle
+          </i>
+        </button>
+        <button type="button" class="btn btn-danger hide" style="margin-left:10px;"
+          id="btn-logout">Logout</button>
+
+      </span>
+
+    </div>
+  </nav>
+  <!-- navigation bar -->
+
+
+  <!-- main content -->
+  <div id="main">
+    <div class="container">
+      <!-- directory -->
+      <nav aria-label="breadcrumb" id="directory">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#home" class="btn-home">Home</a></li>
+          <li class="breadcrumb-item" id="third" aria-current="page"><a href="#restaurant"
+              class="btn-restaurant">Restaurant</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Menu</li>
+        </ol>
+      </nav>
+      <div class="main-content"></div>
+      <!-- Content here -->
+    </div>
+
+  </div>
+  <!-- main content -->
+  <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+    <div class="container text-center">
+      <small>Copyright &copy; InnoTech HK Inc. - Yummy Everywhere</small>
+    </div>
+  </footer>
+
 </body>
 
 </html>
