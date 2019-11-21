@@ -13,13 +13,11 @@
         $("#new-user-from").load("../register.html");
         $("#c-type").on("change", function () {
             switch ($(this).val()) {
-                case "n":
+                case "Normal User":
                     $("#new-user-from").load("../register.html");
                     break;
-                case "a":
-                    $("#new-user-from").load("../simple_new_user.html");
-                    break;
-                case "o":
+                case "Administrator":
+                case "Operator":
                     $("#new-user-from").load("../simple_new_user.html");
                     break;
             }
@@ -27,7 +25,7 @@
         $("#btn-user").on("click", function () {
             $(this).removeClass("hide");
             $("#userModal").modal('hide');
-            showToast(`User added successfully!!`);
+            showToast(`<span class="text-danger">Tester</span> has been added successfully!!`);
             $(".muser").show();
         });
 
@@ -36,7 +34,7 @@
         });
 
         $(".btn-user-edit").on("click", function () {
-            $("#change-id").text($($(this).parent().siblings()[0]).text());
+            $("#change-id").val($($(this).parent().siblings()[0]).text());
             // console.log($($(this).parent().siblings()[3]).text());
             $("#change-type").val($($(this).parent().siblings()[3]).text());
         });
@@ -45,17 +43,17 @@
             $("#changeUserModal").modal('hide');
             showToast(
                 `<span class="text-danger">#${$("#change-id").text()}</span> user has been changed to <span class="text-success">Administrator</span> successfully!!`
-                )
+            )
         });
         $(".btn-user-del").click(function () {
             var id = $($(this).parent().siblings()[0]).text();
-            yesNoModal(`Are you sure to delete <span class="text-danger">#${id}</span> user?`,(y)=>{
+            yesNoModal(`Are you sure to delete <span class="text-danger">#${id}</span> user?`, (y) => {
                 $(this).parent().parent().hide();
-            showToast(
-                `<span class="text-danger">#${$($(this).parent().siblings()[0]).text()}</span> user has been deleted successfully!!`
+                showToast(
+                    `<span class="text-danger">#${$($(this).parent().siblings()[0]).text()}</span> user has been deleted successfully!!`
                 )
             });
-            
+
         });
     </script>
     <style>
@@ -262,8 +260,13 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group row">
-
-                        <label for="menu-id" class="col-sm-12 col-form-label">ID#:<span id="change-id"></span></label>
+                        <label for="menu-id" class="col-sm-4 col-form-label">ID#:</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control-plaintext" name="menu-id" id="change-id"
+                                placeholder="Enter your username" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="branch-id" class="col-sm-4 col-form-label">Choose user type:</label>
                         <div class="col-sm-6">
                             <select id="change-type" class="form-control">

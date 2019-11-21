@@ -234,14 +234,33 @@ $(() => {
     managePage(`${$($(".btn-restaurant")[0]).text()}`, "customer_menu.html");
   });
 
-  var changeStyle = (inStyle) =>{
+  var changeStyle = (inStyle) => {
     style = inStyle;
+    var c = "";
+    switch (style) {
+      case "red":
+        c = "text-danger";
+        break;
+      case "blue":
+        c = "text-primary";
+        break;
+      case "orange":
+        c = "text-warning";
+        break;
+      case "green":
+        c = "text-success";
+        break;
+      default:
+        c = "text-secondary";
+        break;
+    }
+    showToast(`Style has been changed to <span class="${c}">${inStyle}</span> successfully!`);
     darkStyle();
     lightStyle();
     footerMarginFix();
     if (home && $(window).scrollTop() <= 50) {
       darkStyle();
-      
+
     }
   }
 

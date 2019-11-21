@@ -9,32 +9,19 @@
     <script type="module" src="./js/restaurant.js"></script>
     <title>Document</title>
     <script>
+        $(".addedStyle").hide();
         var showColorPreview = (element) => {
             $(element).popover('show');
         };
         var hideColorPreview = (element) => {
             $(element).popover('hide');
         };
-        $(".mstyle").hide();
-        $("#new-style-from").load("../register.html");
-        $("#c-type").on("change", function () {
-            switch ($(this).val()) {
-                case "n":
-                    $("#new-style-from").load("../register.html");
-                    break;
-                case "a":
-                    $("#new-style-from").load("../simple_new_style.html");
-                    break;
-                case "o":
-                    $("#new-style-from").load("../simple_new_style.html");
-                    break;
-            }
-        });
-        $("#btn-style").on("click", function () {
+
+        $("#btn-new-s").on("click", function () {
             $(this).removeClass("hide");
-            $("#styleModal").modal('hide');
-            showToast(`User added successfully!!`);
-            $(".mstyle").show();
+            $("#newStyleModal").modal('hide');
+            showToast(`<span class="text-danger">Green</span> has been added successfully!!`);
+            $(".addedStyle").show();
         });
 
         $("#btn-change-type").on("click", function () {
@@ -42,13 +29,17 @@
         });
 
         $(".btn-style-edit").on("click", function () {
-            $("#change-id").text($($(this).parent().siblings()[0]).text());
+            $("#style-id").val($($(this).parent().siblings()[0]).text());
+            $("#style-name").val($($(this).parent().siblings()[1]).text());
+            // console.log($($(this).parent().siblings()[2]).text())
+            $("#style-color").val($($(this).parent().siblings()[2]).text());
+            // console.log(($($(this).parent().siblings()[1]).text()));
             // console.log($($(this).parent().siblings()[3]).text());
             $("#change-type").val($($(this).parent().siblings()[3]).text());
         });
         $("#btn-change-type").click(function () {
             $("#u6").text("Administrator");
-            $("#changeUserModal").modal('hide');
+            $("#changeStyleModal").modal('hide');
             showToast(
                 `<span class="text-danger">#${$("#change-id").text()}</span> style has been changed to <span class="text-success">Administrator</span> successfully!!`
             )
@@ -114,7 +105,7 @@
             <p class="lead">You can manage the style here.</p>
             <hr class="my-4">
             <a class="btn btn-primary btn-lg" id="btn-new-style" href="#" role="button" data-toggle="modal"
-                data-target="#styleModal" data-toggle="tooltip" data-placement="right"
+                data-target="#newStyleModal" data-toggle="tooltip" data-placement="right"
                 title="Click to add a new style.">New style</a>
             <hr class="my-4">
             <table class="table table-hover" id="style-list">
@@ -130,13 +121,9 @@
                     <tr>
                         <td>1</td>
                         <td>Default</td>
-                        <td onmouseenter="showColorPreview(this)" onmouseleave="hideColorPreview(this)" data-html="true"
-                            data-placement="top"
-                            data-content='<a type="button" class="btn btn-outline-dark" id="btn-default">&nbsp;&nbsp;</a>'>
-                            #dc3545
-                        </td>
+                        <td onmouseenter="showColorPreview(this)" onmouseleave="hideColorPreview(this)" data-html="true" data-placement="top" data-content='<a type="button" class="btn btn-outline-dark" id="btn-default">&nbsp;&nbsp;</a>'>#dc3545</td>
                         <td> <button type="button" class="btn btn-outline-success btn-style-edit" data-toggle="modal"
-                                data-target="#changeUserModal">Edit</button>
+                                data-target="#changeStyleModal">Edit</button>
                             <button type="button" class="btn btn-outline-danger btn-style-del">Delete</button>
                         </td>
                     </tr>
@@ -144,13 +131,9 @@
                     <tr>
                         <td>2</td>
                         <td>Red</td>
-                        <td onmouseenter="showColorPreview(this)" onmouseleave="hideColorPreview(this)" data-html="true"
-                            data-placement="top"
-                            data-content='<a type="button" class="btn btn-outline-danger" id="btn-default">&nbsp;&nbsp;</a>'>
-                            #dc3545
-                        </td>
+                        <td onmouseenter="showColorPreview(this)" onmouseleave="hideColorPreview(this)" data-html="true" data-placement="top" data-content='<a type="button" class="btn btn-outline-danger" id="btn-default">&nbsp;&nbsp;</a>'>#dc354</td>
                         <td> <button type="button" class="btn btn-outline-success btn-style-edit" data-toggle="modal"
-                                data-target="#changeUserModal">Edit</button>
+                                data-target="#changeStyleModal">Edit</button>
                             <button type="button" class="btn btn-outline-danger btn-style-del">Delete</button>
                         </td>
                     </tr>
@@ -158,39 +141,27 @@
                     <tr>
                         <td>3</td>
                         <td>Orange</td>
-                        <td onmouseenter="showColorPreview(this)" onmouseleave="hideColorPreview(this)" data-html="true"
-                            data-placement="top"
-                            data-content='<a type="button" class="btn btn-outline-warning" id="btn-default">&nbsp;&nbsp;</a>'>
-                            #ffc107
-                        </td>
+                        <td onmouseenter="showColorPreview(this)" onmouseleave="hideColorPreview(this)" data-html="true" data-placement="top" data-content='<a type="button" class="btn btn-outline-warning" id="btn-default">&nbsp;&nbsp;</a>'>#ffc107</td>
                         <td> <button type="button" class="btn btn-outline-success btn-style-edit" data-toggle="modal"
-                                data-target="#changeUserModal">Edit</button>
+                                data-target="#changeStyleModal">Edit</button>
                             <button type="button" class="btn btn-outline-danger btn-style-del">Delete</button>
                         </td>
                     </tr>
                     <tr>
                         <td>4</td>
                         <td>Blue</td>
-                        <td onmouseenter="showColorPreview(this)" onmouseleave="hideColorPreview(this)" data-html="true"
-                            data-placement="top"
-                            data-content='<a type="button" class="btn btn-outline-primary" id="btn-default">&nbsp;&nbsp;</a>'>
-                            #007bff
-                        </td>
+                        <td onmouseenter="showColorPreview(this)" onmouseleave="hideColorPreview(this)" data-html="true" data-placement="top" data-content='<a type="button" class="btn btn-outline-primary" id="btn-default">&nbsp;&nbsp;</a>'>#007bff</td>
                         <td> <button type="button" class="btn btn-outline-success btn-style-edit" data-toggle="modal"
-                                data-target="#changeUserModal">Edit</button>
+                                data-target="#changeStyleModal">Edit</button>
                             <button type="button" class="btn btn-outline-danger btn-style-del">Delete</button>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="addedStyle">
                         <td>5</td>
                         <td>Green</td>
-                        <td onmouseenter="showColorPreview(this)" onmouseleave="hideColorPreview(this)" data-html="true"
-                            data-placement="top"
-                            data-content='<a type="button" class="btn btn-outline-success" id="btn-default">&nbsp;&nbsp;</a>'>
-                            #28a745
-                        </td>
+                        <td onmouseenter="showColorPreview(this)" onmouseleave="hideColorPreview(this)" data-html="true" data-placement="top" data-content='<a type="button" class="btn btn-outline-success" id="btn-default">&nbsp;&nbsp;</a>'>#28a745</td>
                         <td> <button type="button" class="btn btn-outline-success btn-style-edit" data-toggle="modal"
-                                data-target="#changeUserModal">Edit</button>
+                                data-target="#changeStyleModal">Edit</button>
                             <button type="button" class="btn btn-outline-danger btn-style-del">Delete</button>
                         </td>
                     </tr>
@@ -200,34 +171,37 @@
     </div>
 
     <!-- User Type Modal -->
-    <div class="modal fade" id="styleModal" tabindex="-1" role="dialog" aria-labelledby="new-style" aria-hidden="true">
+    <div class="modal fade" id="newStyleModal" tabindex="-1" role="dialog" aria-labelledby="new-style"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered  " role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="new-style">New User</h5>
+                    <h5 class="modal-title" id="new-style">New Style</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label for="branch-id" class="col-sm-4 col-form-label">Choose style type:</label>
+                        <label for="style-name-n" class="col-sm-3 col-form-label">Style Name:</label>
                         <div class="col-sm-6">
-                            <select id="c-type" class="form-control">
-                                <option value="Normal User">Normal User</option>
-                                <option value="Operator">Operator</option>
-                                <option value="Administrator">Administrator</option>
-                            </select>
+                            <input type="text" class="form-control" id="style-name-n" value="">
                         </div>
                     </div>
-                    <div id="new-style-from"></div>
+                    <div class="form-group row">
+                        <label for="style-color-n" class="col-sm-3 col-form-label">Color:</label>
+                        <div class="col-sm-6">
+                            <input type="color" class="form-control" id="style-color-n" value="">
+                        </div>
+                    </div>
+
                     <!-- <button type="button" class="btn btn-outline-primary" id="btn-login">Login</button> -->
                     <div class="modal-footer">
                         <button class="btn btn-primary hide" id="new-loading" type="button" disabled>
                             <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
                             Loading...
                         </button>
-                        <button type="button" class="btn btn-outline-warning" id="btn-style">New</button>
+                        <button type="button" class="btn btn-outline-warning" id="btn-new-s">New</button>
                     </div>
                 </div>
                 </form>
@@ -239,29 +213,37 @@
     <!-- User type Modal -->
 
     <!-- Change User Type Modal -->
-    <div class="modal fade" id="changeUserModal" tabindex="-1" role="dialog" aria-labelledby="new-style"
+    <div class="modal fade" id="changeStyleModal" tabindex="-1" role="dialog" aria-labelledby="new-style"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered  " role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="change-type">Change User Type</h5>
+                    <h5 class="modal-title" id="change-type">Edit Style</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group row">
-
-                        <label for="menu-id" class="col-sm-12 col-form-label">ID#:<span id="change-id"></span></label>
-                        <label for="branch-id" class="col-sm-4 col-form-label">Choose style type:</label>
-                        <div class="col-sm-6">
-                            <select id="change-type" class="form-control">
-                                <option value="Normal User" selected>Normal User</option>
-                                <option value="Operator">Operator</option>
-                                <option value="Administrator">Administrator</option>
-                            </select>
+                        <label for="style-id" class="col-sm-3 col-form-label">ID#:</label>
+                        <div class="col-sm-2">
+                                <input type="text" class="form-control-plaintext" name="menu-id" id="style-id"
+                                placeholder="Enter your username" readonly>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="style-name" class="col-sm-3 col-form-label">Style Name:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="style-name" value="">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="style-color" class="col-sm-3 col-form-label">Color:</label>
+                        <div class="col-sm-6">
+                            <input type="color" class="form-control" id="style-color" value="">
+                        </div>
+                    </div>
+
                     <div id="new-style-from"></div>
                     <!-- <button type="button" class="btn btn-outline-primary" id="btn-login">Login</button> -->
                     <div class="modal-footer">
