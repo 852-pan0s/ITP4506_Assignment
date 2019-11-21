@@ -180,7 +180,7 @@ $(() => {
     footerFix();
   }
   //***************** Declare Functions *****************/ 
-
+$("#password").keyboard();
 
 
   if (sessionStorage.getItem("currentUser") !== null) {

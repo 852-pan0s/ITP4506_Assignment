@@ -77,6 +77,8 @@
 	$("#reg-password").on("focusout", function () {
 		$(this).popover('hide');
 	});
+	
+
 	$("#reg-password").password({
 		shortPass: '<span class="text-danger">The password is too short</span>',
 		badPass: '<span class="text-danger">Weak</span>; try combining letters & numbers',
