@@ -193,6 +193,13 @@ $(() => {
   $(window).scroll(footerMarginFix);
   homePage();
 
+  window.showPopover = (element) => {
+    $(element).popover('show');
+  }
+
+  window.hidePopover = (element) => {
+    $(element).popover('hide');
+  }
 
   /**On click event */
   $(".btn-show-register").on("click", () => {
