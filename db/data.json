@@ -84,7 +84,7 @@
       "id": "r1",
       "name": "KFC",
       "owner": "3",
-      "icon": "kfc_icon.png",
+      "icon": "kfc4.png",
       "introduction": "KFC is a restaurant that the main menus are fried chickens.",
       "categories": ["c1", "c4", "c7"],
       "tag": "popular",
@@ -155,7 +155,7 @@
       "id": "r2",
       "name": "McDonald's",
       "owner": "4",
-      "icon": "mcd_icon.png",
+      "icon": "mcdonald.jpg",
       "introduction": "McDonald is a restaurant that the main menus are burgers.",
       "categories": ["c3", "c4"],
       "tag": "popular",
@@ -212,9 +212,225 @@
     "r3": {
       "id": "r3",
       "name": "Tam Chai Yunnan Noodles",
-      "owner": "4",
-      "icon": "tamchai.jpg",
+      "owner": "5",
+      "icon": "tamchai2.png",
       "introduction": "Tam Chai is a restaurant that the main menus are noodles.",
+      "categories": ["c3", "c5"],
+      "tag": "recommended",
+      "branches": {
+      },
+      "menus": {
+        "m1": {
+          "id": "m1",
+          "name": "Yummy Set2",
+          "price": "100.00",
+          "image": "yummy_set.jpg",
+          "show": true,
+          "special": {
+            "type": "Season",
+            "season": "Spring"
+          }
+        },
+        "m2": {
+          "id": "m2",
+          "name": "Burger2",
+          "price": "20.00",
+          "image": "burger.jpg",
+          "show": true,
+          "special": {
+            "type": "Special",
+            "start_date": "01-10-2019",
+            "end_date": "05-10-2019"
+          }
+        }
+      }
+    },
+    "r4": {
+      "id": "r4",
+      "name": "Anna Dessert",
+      "owner": "6",
+      "icon": "anna.jpeg",
+      "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+      "categories": ["c3", "c5"],
+      "tag": "recommended",
+      "branches": {
+      },
+      "menus": {
+        "m1": {
+          "id": "m1",
+          "name": "Yummy Set2",
+          "price": "100.00",
+          "image": "yummy_set.jpg",
+          "show": true,
+          "special": {
+            "type": "Season",
+            "season": "Spring"
+          }
+        },
+        "m2": {
+          "id": "m2",
+          "name": "Burger2",
+          "price": "20.00",
+          "image": "burger.jpg",
+          "show": true,
+          "special": {
+            "type": "Special",
+            "start_date": "01-10-2019",
+            "end_date": "05-10-2019"
+          }
+        }
+      }
+    },
+    "r5": {
+      "id": "r5",
+      "name": "Tong Shui Hung",
+      "owner": "7",
+      "icon": "hung.jpeg",
+      "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+      "categories": ["c3", "c5"],
+      "tag": "recommended",
+      "branches": {
+      },
+      "menus": {
+        "m1": {
+          "id": "m1",
+          "name": "Yummy Set2",
+          "price": "100.00",
+          "image": "yummy_set.jpg",
+          "show": true,
+          "special": {
+            "type": "Season",
+            "season": "Spring"
+          }
+        },
+        "m2": {
+          "id": "m2",
+          "name": "Burger2",
+          "price": "20.00",
+          "image": "burger.jpg",
+          "show": true,
+          "special": {
+            "type": "Special",
+            "start_date": "01-10-2019",
+            "end_date": "05-10-2019"
+          }
+        }
+      }
+    },
+    "r6": {
+      "id": "r6",
+      "name": "Shau Shau Shau Thai Food",
+      "owner": "8",
+      "icon": "shau.jpeg",
+      "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+      "categories": ["c3", "c5"],
+      "tag": "recommended",
+      "branches": {
+      },
+      "menus": {
+        "m1": {
+          "id": "m1",
+          "name": "Yummy Set2",
+          "price": "100.00",
+          "image": "yummy_set.jpg",
+          "show": true,
+          "special": {
+            "type": "Season",
+            "season": "Spring"
+          }
+        },
+        "m2": {
+          "id": "m2",
+          "name": "Burger2",
+          "price": "20.00",
+          "image": "burger.jpg",
+          "show": true,
+          "special": {
+            "type": "Special",
+            "start_date": "01-10-2019",
+            "end_date": "05-10-2019"
+          }
+        }
+      }
+    },
+    "r7": {
+      "id": "r7",
+      "name": "Tung Hoi Congee",
+      "owner": "9",
+      "icon": "tong.jpg",
+      "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+      "categories": ["c3", "c5"],
+      "tag": "recommended",
+      "branches": {
+      },
+      "menus": {
+        "m1": {
+          "id": "m1",
+          "name": "Yummy Set2",
+          "price": "100.00",
+          "image": "yummy_set.jpg",
+          "show": true,
+          "special": {
+            "type": "Season",
+            "season": "Spring"
+          }
+        },
+        "m2": {
+          "id": "m2",
+          "name": "Burger2",
+          "price": "20.00",
+          "image": "burger.jpg",
+          "show": true,
+          "special": {
+            "type": "Special",
+            "start_date": "01-10-2019",
+            "end_date": "05-10-2019"
+          }
+        }
+      }
+    },
+    "r8": {
+      "id": "r8",
+      "name": "MaLaLao",
+      "owner": "9",
+      "icon": "malalao.jpg",
+      "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+      "categories": ["c3", "c5"],
+      "tag": "recommended",
+      "branches": {
+      },
+      "menus": {
+        "m1": {
+          "id": "m1",
+          "name": "Yummy Set2",
+          "price": "100.00",
+          "image": "yummy_set.jpg",
+          "show": true,
+          "special": {
+            "type": "Season",
+            "season": "Spring"
+          }
+        },
+        "m2": {
+          "id": "m2",
+          "name": "Burger2",
+          "price": "20.00",
+          "image": "burger.jpg",
+          "show": true,
+          "special": {
+            "type": "Special",
+            "start_date": "01-10-2019",
+            "end_date": "05-10-2019"
+          }
+        }
+      }
+    },
+    "r9": {
+      "id": "r8",
+      "name": "Chuan Po Po",
+      "owner": "9",
+      "icon": "chuan4.png",
+      "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
       "categories": ["c3", "c5"],
       "tag": "recommended",
       "branches": {

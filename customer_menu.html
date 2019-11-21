@@ -126,7 +126,7 @@
     window.appendToCard = (value) => {
       if (value !== null) {
         //        https://picsum.photos/800
-        content = `<div class="card mb-2" style="width: 15rem;">
+        content = `<div class="card mb-3" style="width: 15rem;">
           <a href="#" onclick="if(getSessionObj('currentUser')){changePage(this,\`${value.name}\`,'${value.id}')}else{$('#btn-ac').click()}">
             <img src="img/icon/${value.icon}" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
             <div class="card-body">
@@ -185,48 +185,10 @@
 -->
 
   <div class="row">
-    <!--sidebar-->
-    <div class="col-3">
-      <!--     searchbox-->
-      <div class="input-group" style="margin-bottom: 10px;">
-        <input class="form-control" type="search" placeholder="Search" id="searchbox-input">
-        <div class="input-group-append">
-          <div class="input-group-text" id="search-icon"><i class="fa fa-search"></i></div>
-        </div>
-      </div>
-      <!--      /searchbox-->
-
-      <div id="list-example" class="list-group">
-        <div class="list-group-item">Restaurant choices</div>
-        <div class="list-group-item">
-          <!-- Default dropright button -->
-          <div class="btn-group dropright">
-            <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdown-category">
-              Category
-            </button>
-            <div class="dropdown-menu">
-              <!-- Dropdown menu links -->
-              <button type="button" class="dropdown-item" onclick="search('all')">All</button>
-              <button type="button" class="dropdown-item" onclick="search('burger')">Burger</button>
-              <button type="button" class="dropdown-item" onclick="search('chinese')">Chinese</button>
-              <button type="button" class="dropdown-item" onclick="search('italian')">Italian</button>
-              <button type="button" class="dropdown-item" onclick="search('japanese')">Japanese</button>
-              <button type="button" class="dropdown-item" onclick="search('mexican')">Mexican</button>
-              <button type="button" class="dropdown-item" onclick="search('thai')">Thai</button>
-            </div>
-          </div>
-        </div>
-        <a class="list-group-item list-group-item-action" href="#list-item-1" onclick="filter('popular')">Popular</a>
-        <a class="list-group-item list-group-item-action" href="#list-item-2" onclick="filter('recommend')">Recommended</a>
-        <a class="list-group-item list-group-item-action" href="#list-item-3" onclick="filter('high-rate')">Highest Rated</a>
-        <a class="list-group-item list-group-item-action" href="#list-item-4" onclick="filter('high-review')">Most Reviewed</a>
-        <a class="list-group-item list-group-item-action" href="#list-item-4" onclick="if(getSessionObj('currentUser')){loadMyFav()}else{$('#btn-ac').click()}">My Favourite</a>
-      </div>
-    </div>
 
     <!--restaurant card-->
 
-    <div class="col-9">
+    <div class="col-md-12">
       <div class="card-deck" id="restaurant-card">
       </div>
     </div>
