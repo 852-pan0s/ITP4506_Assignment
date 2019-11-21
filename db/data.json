@@ -426,10 +426,118 @@
       }
     },
     "r9": {
-      "id": "r8",
+      "id": "r9",
       "name": "Chuan Po Po",
       "owner": "9",
       "icon": "chuan4.png",
+      "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+      "categories": ["c3", "c5"],
+      "tag": "recommended",
+      "branches": {
+      },
+      "menus": {
+        "m1": {
+          "id": "m1",
+          "name": "Yummy Set2",
+          "price": "100.00",
+          "image": "yummy_set.jpg",
+          "show": true,
+          "special": {
+            "type": "Season",
+            "season": "Spring"
+          }
+        },
+        "m2": {
+          "id": "m2",
+          "name": "Burger2",
+          "price": "20.00",
+          "image": "burger.jpg",
+          "show": true,
+          "special": {
+            "type": "Special",
+            "start_date": "01-10-2019",
+            "end_date": "05-10-2019"
+          }
+        }
+      }
+    },
+    "r10": {
+      "id": "r10",
+      "name": "Satay King",
+      "owner": "9",
+      "icon": "curry2.png",
+      "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+      "categories": ["c3", "c5"],
+      "tag": "recommended",
+      "branches": {
+      },
+      "menus": {
+        "m1": {
+          "id": "m1",
+          "name": "Yummy Set2",
+          "price": "100.00",
+          "image": "yummy_set.jpg",
+          "show": true,
+          "special": {
+            "type": "Season",
+            "season": "Spring"
+          }
+        },
+        "m2": {
+          "id": "m2",
+          "name": "Burger2",
+          "price": "20.00",
+          "image": "burger.jpg",
+          "show": true,
+          "special": {
+            "type": "Special",
+            "start_date": "01-10-2019",
+            "end_date": "05-10-2019"
+          }
+        }
+      }
+    },
+    "r11": {
+      "id": "r11",
+      "name": "Wing's Catering",
+      "owner": "9",
+      "icon": "wings.png",
+      "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+      "categories": ["c3", "c5"],
+      "tag": "recommended",
+      "branches": {
+      },
+      "menus": {
+        "m1": {
+          "id": "m1",
+          "name": "Yummy Set2",
+          "price": "100.00",
+          "image": "yummy_set.jpg",
+          "show": true,
+          "special": {
+            "type": "Season",
+            "season": "Spring"
+          }
+        },
+        "m2": {
+          "id": "m2",
+          "name": "Burger2",
+          "price": "20.00",
+          "image": "burger.jpg",
+          "show": true,
+          "special": {
+            "type": "Special",
+            "start_date": "01-10-2019",
+            "end_date": "05-10-2019"
+          }
+        }
+      }
+    },
+    "r12": {
+      "id": "r12",
+      "name": "Slow Life",
+      "owner": "9",
+      "icon": "slowlife2.png",
       "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
       "categories": ["c3", "c5"],
       "tag": "recommended",
