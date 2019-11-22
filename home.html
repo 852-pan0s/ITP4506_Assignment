@@ -22,6 +22,7 @@
         $(document).ready(() => {
             $(".btn-restaurant").on("click", () => {
                 managePage(`${$($(".btn-restaurant")[0]).text()}`, "customer_menu.html");
+                $(window).scrollTop("0");
             });
             const resizeCarousel = () => {
                 $(".carousel-item>img").css("maxHeight", window.innerHeight);
@@ -118,7 +119,7 @@
                                     <h4>Get Start</h4>
                                     Yummy Everywhere provides an easy and quick way to let you view the restaurant
                                     menu.!<br>
-                                    <button type="button" class="btn btn-primary btn-restaurant">View Now</button>
+                                    <button type="button" class="btn btn-primary btn-restaurant" >View Now</button>
                                 </div>
                             </div>
                         </div>
