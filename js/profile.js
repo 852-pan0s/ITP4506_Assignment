@@ -26,6 +26,6 @@ var pageReload = (sec) => {
             pageReload(--sec);
         }, 1000);
     }else{
-        homePage();
+        location.reload();
     }
 };
