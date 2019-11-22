@@ -3,6 +3,9 @@ import {
   darkStyle,
   lightStyle
 } from "./scrolling.js";
+import {
+  login
+} from "./login.js";
 
 
 /**Global variables */
@@ -180,11 +183,11 @@ $(() => {
     footerFix();
   }
   //***************** Declare Functions *****************/ 
-$("#password").keyboard();
+  $("#password").keyboard();
 
 
   if (sessionStorage.getItem("currentUser") !== null) {
-    $("#btn-ac").attr("data-target", "#profileModal").attr("data-content",`Click me to edit your profile!`);
+    $("#btn-ac").attr("data-target", "#profileModal").attr("data-content", `Click me to edit your profile!`);
   } else {
     $("#btn-ac").attr("data-target", "#loginModal");
   }
@@ -289,6 +292,30 @@ $("#password").keyboard();
 
   $("#btn-green").on("click", () => {
     changeStyle("green");
+  });
+
+  var fakeLogin = (username, password) => {
+    var ac = {
+      username,
+      password
+    };
+    var myWindow = window.open("", "Loading...", "width=500,height=500");
+    login(ac);
+    setTimeout(() => {
+      myWindow.close();
+    }, 1000);
+  };
+
+  $(".g-login").on("click", () => {
+    fakeLogin("user","user");
+  });
+
+  $(".f-login").on("click", () => {
+    fakeLogin("kfc","kfc");
+  });
+
+  $(".t-login").on("click", () => {
+    fakeLogin("admin","admin");
   });
 
 

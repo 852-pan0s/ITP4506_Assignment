@@ -39,13 +39,17 @@ $("#btn-login").on("click", (e) => {
         "username": $("#username").val(),
         "password": $("#password").val(),
     }
+    login(ac);
+});
+
+const login = (ac) => {
     if (ac.username === "") {
         showErrorMsg("Your must enter your username!");
     } else if (ac.password === "") {
         showErrorMsg("Your must enter your password!");
     } else {
         $("#username, #password, #remember").attr("disabled", "disabled");
-        $(e.delegateTarget).addClass("hide");
+        $("#btn-login").addClass("hide");
         $("#loginLoading").removeClass("hide");
         /* Login function*/
         var isValid = false;
@@ -64,18 +68,21 @@ $("#btn-login").on("click", (e) => {
                 var user = getSessionObj("currentUser");
                 activateFunc(user);
                 $("#loginModal").modal('hide');
-                $("#btn-ac").attr("data-target", "#profileModal").attr("data-content",`Click me to edit your profile!`);
-
+                $("#btn-ac").attr("data-target", "#profileModal").attr("data-content", `Click me to edit your profile!`);
+                showToast(`Welcome back!! <span class="text-danger">${ac.username}</span>`);
             } else {
                 showErrorMsg("Your username or password is wrong!");
             }
-            $(e.delegateTarget).removeClass("hide");
+            $("#btn-login").removeClass("hide");
             $("#loginLoading").addClass("hide");
         }, 1000);
     }
-});
+}
 
-export { activateFunc }
+export {
+    activateFunc,
+    login
+}
 
 
 
