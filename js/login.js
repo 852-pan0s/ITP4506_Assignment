@@ -64,7 +64,7 @@ $("#btn-login").on("click", (e) => {
                 var user = getSessionObj("currentUser");
                 activateFunc(user);
                 $("#loginModal").modal('hide');
-                $("#btn-ac").attr("data-target", "#profileModal");
+                $("#btn-ac").attr("data-target", "#profileModal").attr("data-content",`Click me to edit your profile!`);
 
             } else {
                 showErrorMsg("Your username or password is wrong!");

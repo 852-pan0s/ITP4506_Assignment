@@ -184,7 +184,7 @@ $("#password").keyboard();
 
 
   if (sessionStorage.getItem("currentUser") !== null) {
-    $("#btn-ac").attr("data-target", "#profileModal");
+    $("#btn-ac").attr("data-target", "#profileModal").attr("data-content",`Click me to edit your profile!`);
   } else {
     $("#btn-ac").attr("data-target", "#loginModal");
   }

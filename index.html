@@ -40,7 +40,7 @@
 
   <!-- keyboard -->
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
-		<!-- <link rel="stylesheet" href="jqbtk.css"> -->
+  <!-- <link rel="stylesheet" href="jqbtk.css"> -->
   <link rel="stylesheet" href="./css/jqbtk.min.css">
   <script src="./js/jqbtk.js"></script>
 
@@ -69,9 +69,8 @@
               <div class="form-row">
                 <div class="form-group col-md-2">
                   <button type="button" class="btn btn-outline-dark style-choose" id="btn-default" title="Style:"
-                    data-placement="bottom" data-content="<span class='text-secondary'>Default</span>"
-                    data-html="true" onmouseenter="showPopover(this)"
-                    onmouseleave="hidePopover(this)">&nbsp;&nbsp;</button>
+                    data-placement="bottom" data-content="<span class='text-secondary'>Default</span>" data-html="true"
+                    onmouseenter="showPopover(this)" onmouseleave="hidePopover(this)">&nbsp;&nbsp;</button>
                 </div>
                 <div class="form-group col-md-2">
                   <button type="button" class="btn btn-outline-danger  style-choose" id="btn-red" title="Style:"
@@ -80,9 +79,8 @@
                 </div>
                 <div class="form-group col-md-2">
                   <button type="button" class="btn btn-outline-warning  style-choose" id="btn-orange" title="Style:"
-                    data-placement="bottom" data-content="<span class='text-warning'>Orange</span>"
-                    data-html="true" onmouseenter="showPopover(this)"
-                    onmouseleave="hidePopover(this)">&nbsp;&nbsp;</button>
+                    data-placement="bottom" data-content="<span class='text-warning'>Orange</span>" data-html="true"
+                    onmouseenter="showPopover(this)" onmouseleave="hidePopover(this)">&nbsp;&nbsp;</button>
                 </div>
                 <div class="form-group col-md-2">
                   <button type="button" class="btn btn-outline-primary  style-choose" id="btn-blue" title="Style:"
@@ -100,10 +98,6 @@
           </div>
           <!-- <button type="button" class="btn btn-outline-primary" id="btn-login">Login</button> -->
           <div class="modal-footer">
-            <button class="btn btn-primary hide" id="proLoading" type="button" disabled>
-              <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-              Loading...
-            </button>
             <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Close</button>
           </div>
           </form>
@@ -364,15 +358,32 @@
           <a class="nav-link" href="#menu" id="btn-menu">Menu</a>
         </li> -->
         <li class="nav-item ">
-          <a class="nav-link btn-restaurant" href="#restaurant">Restaurant</a>
+          <button type="button" class="btn btn-outline-light btn-restaurant" style="border:none;" title="Restaurant"
+            data-placement="bottom" data-content="View restaurant list here!" data-html="true"
+            onmouseenter="showPopover(this)" onmouseleave="hidePopover(this)" onclick="$(window).scrollTop('0')">
+            <i class="material-icons" style="font-size: 24px; position: relative; margin-top:6px">
+              restaurant
+            </i>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-outline-light my-2 my-sm-0 btn-style" style="border:none; margin-right:10px;"
+            data-toggle="modal" data-target="#styleModal" title="Style" data-placement="bottom"
+            data-content="Choose your favorite style here!" data-html="true" onmouseenter="showPopover(this)"
+            onmouseleave="hidePopover(this)">
+            <i class="material-icons" id="user-icon" style="font-size: 24px; position: relative; margin-top:6px">
+              format_paint
+            </i>
+
+          </button>
         </li>
         <!-- <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li> -->
         <li class="nav-item dropdown management hide">
           <button type="button" class="btn btn-warning btn-manage dropdown-toggle dropdown-toggle-split"
-            id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">Management</button>
+            id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            style="position: relative; margin-top:6px; margin-left: 6px;">Management</button>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item btn-manage-restaurant operator hide" href="#">Restaurant</a>
             <a class="dropdown-item btn-manage-branch operator hide" href="#">Branches</a>
@@ -386,18 +397,11 @@
       <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
       <!-- <button class="btn btn-outline-light my-2 my-sm-0" id="btn-search" type="submit">aA</button> -->
       <!-- </form> -->
-      <div class="form-inline my-2 my-lg-0">
-        <button class="btn btn-outline-light my-2 my-sm-0 btn-style" style="border:none; margin-right:10px;"
-          data-toggle="modal" data-target="#styleModal">
-          <i class="material-icons" id="user-icon" style="font-size: 24px; position: relative; margin-top:6px">
-            format_paint
-          </i>
-
-        </button>
-      </div>
+    
       <span class="navbar-text">
         <button id="btn-ac" type="button" class="btn btn-outline-light" style="border:none;" data-toggle="modal"
-          data-target="#loginModal">
+          data-target="#loginModal" title="Account" data-placement="bottom" data-content="Click me to login!"
+          data-html="true" onmouseenter="showPopover(this)" onmouseleave="hidePopover(this)">
           <i class="material-icons" id="user-icon" style="font-size: 36px; position: relative; margin-top:6px">
             account_circle
           </i>
