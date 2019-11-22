@@ -131,6 +131,7 @@ $(() => {
     setTimeout(footerMarginFix, 50);
     marginFix();
     darkStyle();
+    $(window).scrollTop("0");
   };
 
   window.menuPage = () => {
