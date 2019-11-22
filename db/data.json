@@ -157,7 +157,7 @@
       "owner": "4",
       "icon": "mcdonald.jpg",
       "introduction": "McDonald is a restaurant that the main menus are burgers.",
-      "categories": ["c3", "c4"],
+      "categories": ["c4", "c1"],
       "tag": "popular",
       "branches": {
         "b1": {
@@ -215,7 +215,7 @@
       "owner": "5",
       "icon": "tamchai2.png",
       "introduction": "Tam Chai is a restaurant that the main menus are noodles.",
-      "categories": ["c3", "c5"],
+      "categories": ["c5"],
       "tag": "recommended",
       "branches": {
       },
@@ -251,7 +251,7 @@
       "owner": "6",
       "icon": "anna.jpeg",
       "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-      "categories": ["c3", "c5"],
+      "categories": ["c6", "c5"],
       "tag": "recommended",
       "branches": {
       },
@@ -287,7 +287,7 @@
       "owner": "7",
       "icon": "hung.jpeg",
       "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-      "categories": ["c3", "c5"],
+      "categories": ["c6", "c5"],
       "tag": "recommended",
       "branches": {
       },
@@ -359,7 +359,7 @@
       "owner": "9",
       "icon": "tong.jpg",
       "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-      "categories": ["c3", "c5"],
+      "categories": ["c2", "c5"],
       "tag": "recommended",
       "branches": {
       },
@@ -395,7 +395,7 @@
       "owner": "9",
       "icon": "malalao.jpg",
       "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-      "categories": ["c3", "c5"],
+      "categories": ["c5"],
       "tag": "recommended",
       "branches": {
       },
@@ -431,7 +431,7 @@
       "owner": "9",
       "icon": "chuan4.png",
       "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-      "categories": ["c3", "c5"],
+      "categories": ["c5"],
       "tag": "recommended",
       "branches": {
       },
@@ -467,7 +467,7 @@
       "owner": "9",
       "icon": "curry2.png",
       "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-      "categories": ["c3", "c5"],
+      "categories": ["c1"],
       "tag": "recommended",
       "branches": {
       },
@@ -503,7 +503,7 @@
       "owner": "9",
       "icon": "wings.png",
       "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-      "categories": ["c3", "c5"],
+      "categories": ["c1"],
       "tag": "recommended",
       "branches": {
       },
@@ -539,7 +539,7 @@
       "owner": "9",
       "icon": "slowlife2.png",
       "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-      "categories": ["c3", "c5"],
+      "categories": ["c2"],
       "tag": "recommended",
       "branches": {
       },
