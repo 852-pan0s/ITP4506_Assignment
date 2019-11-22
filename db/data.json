@@ -211,7 +211,7 @@
     },
     "r3": {
       "id": "r3",
-      "name": "Tam Chai Yunnan Noodles",
+      "name": "Tam Chai Yunnan",
       "owner": "5",
       "icon": "tamchai2.png",
       "introduction": "Tam Chai is a restaurant that the main menus are noodles.",
@@ -250,7 +250,7 @@
       "name": "Anna Dessert",
       "owner": "6",
       "icon": "anna.jpeg",
-      "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+      "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. adipisicing elit.",
       "categories": ["c6", "c5"],
       "tag": "recommended",
       "branches": {
@@ -319,7 +319,7 @@
     },
     "r6": {
       "id": "r6",
-      "name": "Shau Shau Shau Thai Food",
+      "name": "Shau Shau Shau Thai",
       "owner": "8",
       "icon": "shau.jpeg",
       "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
