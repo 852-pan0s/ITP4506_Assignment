@@ -308,15 +308,15 @@ $(() => {
   };
 
   $(".g-login").on("click", () => {
-    fakeLogin("user","user");
+    fakeLogin("user", "user");
   });
 
   $(".f-login").on("click", () => {
-    fakeLogin("kfc","kfc");
+    fakeLogin("kfc", "kfc");
   });
 
   $(".t-login").on("click", () => {
-    fakeLogin("admin","admin");
+    fakeLogin("admin", "admin");
   });
 
 
@@ -324,6 +324,24 @@ $(() => {
 
   $('[data-toggle="popover"]').popover();
   $('[data-toggle="tooltip"]').tooltip();
+
+  //on change event
+  $(".font-size").change(function () {
+    switch ($(this).val()) {
+      case "n":
+        $("#main").attr("class","");
+        break;
+      case "l":
+          $("#main").attr("class","font-l");
+        break;
+      case "xl":
+          $("#main").attr("class","font-xl");
+        break;
+      case "xxl":
+          $("#main").attr("class","font-xxl");
+        break;
+    }
+  });
 
 });
 

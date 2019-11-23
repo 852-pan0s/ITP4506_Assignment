@@ -56,3 +56,19 @@
     background-color: rgb(255, 0, 13);
     border-radius: 30%
 }
+
+.font-n{
+    font-size: medium;
+}
+
+.font-l{
+    font-size: large;
+}
+
+.font-xl{
+    font-size: x-large;
+}
+
+.font-xxl{
+    font-size: xx-large;
+}
