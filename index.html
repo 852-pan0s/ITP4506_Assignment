@@ -46,7 +46,7 @@
 
 </head>
 
-<body>
+<body id="main">
   <!-- Style Modal -->
   <div class="modal fade" id="styleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
@@ -62,35 +62,46 @@
           <div id="style-form">
             <form id="register-from">
               <div class="form-row">
-                <div class="form-group col-md-12">
-                  Choose a theme that you like:
+                <div class="form-group col-md-4">
+                  Theme:
                 </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-1">
                   <button type="button" class="btn btn-outline-dark style-choose" id="btn-default" title="Style:"
                     data-placement="bottom" data-content="<span class='text-secondary'>Default</span>" data-html="true"
                     onmouseenter="showPopover(this)" onmouseleave="hidePopover(this)">&nbsp;&nbsp;</button>
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-1">
                   <button type="button" class="btn btn-outline-danger  style-choose" id="btn-red" title="Style:"
                     data-placement="bottom" data-content="<span class='text-danger'>Red</span>" data-html="true"
                     onmouseenter="showPopover(this)" onmouseleave="hidePopover(this)">&nbsp;&nbsp;</button>
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-1">
                   <button type="button" class="btn btn-outline-warning  style-choose" id="btn-orange" title="Style:"
                     data-placement="bottom" data-content="<span class='text-warning'>Orange</span>" data-html="true"
                     onmouseenter="showPopover(this)" onmouseleave="hidePopover(this)">&nbsp;&nbsp;</button>
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-1">
                   <button type="button" class="btn btn-outline-primary  style-choose" id="btn-blue" title="Style:"
                     data-placement="bottom" data-content="<span class='text-primary'>Blue</span>" data-html="true"
                     onmouseenter="showPopover(this)" onmouseleave="hidePopover(this)">&nbsp;&nbsp;</button>
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-1">
                   <button type="button" class="btn btn-outline-success  style-choose" id="btn-green" title="Style:"
                     data-placement="bottom" data-content="<span class='text-success'>Green</span>" data-html="true"
                     onmouseenter="showPopover(this)" onmouseleave="hidePopover(this)">&nbsp;&nbsp;</button>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  Font Size:
+                </div>
+                <div class="form-group col-md-5">
+                  <select name="font-size" class="font-size form-control">
+                    <option value="n">Normal (Default)</option>
+                    <option value="l">Large</option>
+                    <option value="xl">X Large</option>
+                    <option value="xxl">XX Large</option>
+                  </select>
                 </div>
               </div>
             </form>
@@ -397,7 +408,7 @@
       <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
       <!-- <button class="btn btn-outline-light my-2 my-sm-0" id="btn-search" type="submit">aA</button> -->
       <!-- </form> -->
-    
+
       <span class="navbar-text">
         <button id="btn-ac" type="button" class="btn btn-outline-light" style="border:none;" data-toggle="modal"
           data-target="#loginModal" title="Account" data-placement="bottom" data-content="Click me to login!"
