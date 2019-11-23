@@ -1,0 +1,11 @@
+Normal User
+AC: user
+PW: user
+
+Operator:
+AC: kfc
+pw: kfc
+
+Administrator:
+AC: admin
+pw: admin
