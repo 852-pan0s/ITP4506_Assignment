@@ -19,7 +19,10 @@
     }
   </style>
   <script>
-    $(".fake-result").hide();
+    $(".set1,.set2,.set3,.set4,.set5").hide();
+    var fakeHide = () => {
+      $(".set1,.set2,.set3,.set4,.set5").hide();
+    };
     var old = "";
     $(() => {
       var categories = {};
@@ -178,20 +181,30 @@
       console.log($(e.delegateTarget).text());
     });
 
-    $("#btn-adv-search").click(function(){
-      $("#restaurant-card").html("");
-      $(".set1, .set2, .set3, .set4, .set5").hide();
+    $("#btn-adv-search").click(function () {
+      $("#restaurant-card").hide();
+      fakeHide();
       $(this).hide();
       $("#searchLoading").removeClass("hide");
-      setTimeout(()=>{
+      setTimeout(() => {
         $("#advSearchModal").modal('hide');
         $(this).show();
-      $("#searchLoading").addClass("hide");
-      },2000);
-      if($("#adv-img").val() !== ""){
-        $(".set1").show();
-      }
+        $("#searchLoading").addClass("hide");
+        $(".grid").attr("style", "");
+        if ($("#adv-img").val() !== "") {
+          $(".set1").show();
+        } else if($("#adv-range").val()>10){
+          $(".set3").show();
+        } else if($("#adv-dinein").prop("checked")){
+          $(".set1, set2, set3").show();
+        }
+      }, 2000);
+
+
     });
+    var change = (e) =>{
+        $("#adv-price").text($(e).val());
+    };
   </script>
 </head>
 
@@ -268,241 +281,225 @@
   </form>
 
   <div class="col-md-12" style="margin-top: -20px;">
-    <div class="grid">
-      <div class="card-deck" id="restaurant-card">
-
-        <div class="fake-result set1">
-          <div class="card mb-3 item" style="width: 15rem;">
-            <a href="#"
-              onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
-              <img src="img/icon/kfc4.png" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
-              <div class="card-body">
-                <h5 class="card-title">KFC</h5>
-                <p class="card-text">KFC is a restaurant that the main menus are fried chickens.</p>
-              </div>
-            </a>
-          </div>
+    <div class="fake-result card-deck">
+      <div class="set1">
+        <div class="card mb-3 item" style="width: 15rem;">
+          <a href="#" onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
+            <img src="img/icon/kfc4.png" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
+            <div class="card-body">
+              <h5 class="card-title">KFC</h5>
+              <p class="card-text">KFC is a restaurant that the main menus are fried chickens.</p>
+            </div>
+          </a>
         </div>
-
-        <div class="fake-result set1">
-          <div class="card mb-3 item" style="width: 15rem;">
-            <a href="#"
-              onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
-              <img src="img/icon/kfc_icon.png" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
-              <div class="card-body">
-                <h5 class="card-title">Super KFC</h5>
-                <p class="card-text">KFC is a restaurant that the main menus are fried chickens.</p>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="fake-result set1">
-          <div class="card mb-3 item" style="width: 15rem;">
-            <a href="#"
-              onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
-              <img src="img/icon/mcd_icon.png" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
-              <div class="card-body">
-                <h5 class="card-title">McDonald's</h5>
-                <p class="card-text">McDonald is a restaurant that the main menus are burgers.</p>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="fake-result set1">
-          <div class="card mb-3 item" style="width: 15rem;">
-            <a href="#"
-              onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
-              <img src="img/icon/mcdonald.jpg" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
-              <div class="card-body">
-                <h5 class="card-title">Super Burger</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem vero assumenda
-                  magni, unde voluptas quidem sint animi officiis praesentium velit delectus, quis autem eligendi.
-                  Repellat tempore aliquid eos error similique?</p>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="fake-result set2">
-          <div class="card mb-3 item" style="width: 15rem;">
-            <a href="#"
-              onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
-              <img src="img/icon/chuan4.png" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
-              <div class="card-body">
-                <h5 class="card-title">Noodle House</h5>
-                <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis corrupti distinctio
-                  consequuntur cumque? Exercitationem harum aut ut et. Accusantium numquam dolor repudiandae deleniti
-                  iste accusamus molestias, explicabo sequi modi minus.</p>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="fake-result set2">
-          <div class="card mb-3 item" style="width: 15rem;">
-            <a href="#"
-              onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
-              <img src="img/icon/tamchai.jpg" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
-              <div class="card-body">
-                <h5 class="card-title">Tam Chai</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati nesciunt
-                  mollitia ad corrupti accusantium fugiat, alias, ipsum ut necessitatibus quae voluptate culpa
-                  doloremque. Pariatur perspiciatis quasi soluta delectus suscipit laudantium.</p>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="fake-result set2">
-          <div class="card mb-3 item" style="width: 15rem;">
-            <a href="#"
-              onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
-              <img src="img/icon/tamchai2.png" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
-              <div class="card-body">
-                <h5 class="card-title">Cup noodle</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis in, nulla
-                  debitis porro soluta alias ad, suscipit tenetur temporibus, cum ex dolores sed! Numquam officiis omnis
-                  doloribus, accusantium molestiae at!</p>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="fake-result set2">
-          <div class="card mb-3 item" style="width: 15rem;">
-            <a href="#"
-              onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
-              <img src="img/icon/malalao.jpg" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
-              <div class="card-body">
-                <h5 class="card-title">Spicy</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis in, nulla
-                  debitis porro soluta alias ad, suscipit tenetur temporibus, cum ex dolores sed! Numquam officiis omnis
-                  doloribus, accusantium molestiae at!</p>
-              </div>
-            </a>
-          </div>
-        </div>
-
-
-
-
-        <div class="fake-result set3">
-          <div class="card mb-3 item" style="width: 15rem;">
-            <a href="#"
-              onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
-              <img src="img/icon/kfc4.png" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
-              <div class="card-body">
-                <h5 class="card-title">KFC</h5>
-                <p class="card-text">KFC is a restaurant that the main menus are fried chickens.</p>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="fake-result set3">
-          <div class="card mb-3 item" style="width: 15rem;">
-            <a href="#"
-              onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
-              <img src="img/icon/kfc_icon.png" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
-              <div class="card-body">
-                <h5 class="card-title">Super KFC</h5>
-                <p class="card-text">KFC is a restaurant that the main menus are fried chickens.</p>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="fake-result set3">
-          <div class="card mb-3 item" style="width: 15rem;">
-            <a href="#"
-              onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
-              <img src="img/icon/mcd_icon.png" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
-              <div class="card-body">
-                <h5 class="card-title">McDonald's</h5>
-                <p class="card-text">McDonald is a restaurant that the main menus are burgers.</p>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="fake-result set4">
-          <div class="card mb-3 item" style="width: 15rem;">
-            <a href="#"
-              onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
-              <img src="img/icon/mcdonald.jpg" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
-              <div class="card-body">
-                <h5 class="card-title">Super Burger</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem vero assumenda
-                  magni, unde voluptas quidem sint animi officiis praesentium velit delectus, quis autem eligendi.
-                  Repellat tempore aliquid eos error similique?</p>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="fake-result set4">
-          <div class="card mb-3 item" style="width: 15rem;">
-            <a href="#"
-              onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
-              <img src="img/icon/chuan4.png" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
-              <div class="card-body">
-                <h5 class="card-title">Noodle House</h5>
-                <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis corrupti distinctio
-                  consequuntur cumque? Exercitationem harum aut ut et. Accusantium numquam dolor repudiandae deleniti
-                  iste accusamus molestias, explicabo sequi modi minus.</p>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="fake-result set4">
-          <div class="card mb-3 item" style="width: 15rem;">
-            <a href="#"
-              onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
-              <img src="img/icon/tamchai.jpg" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
-              <div class="card-body">
-                <h5 class="card-title">Tam Chai</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati nesciunt
-                  mollitia ad corrupti accusantium fugiat, alias, ipsum ut necessitatibus quae voluptate culpa
-                  doloremque. Pariatur perspiciatis quasi soluta delectus suscipit laudantium.</p>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="fake-result set5">
-          <div class="card mb-3 item" style="width: 15rem;">
-            <a href="#"
-              onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
-              <img src="img/icon/tamchai2.png" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
-              <div class="card-body">
-                <h5 class="card-title">Cup noodle</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis in, nulla
-                  debitis porro soluta alias ad, suscipit tenetur temporibus, cum ex dolores sed! Numquam officiis omnis
-                  doloribus, accusantium molestiae at!</p>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="fake-result set5">
-          <div class="card mb-3 item" style="width: 15rem;">
-            <a href="#"
-              onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
-              <img src="img/icon/malalao.jpg" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
-              <div class="card-body">
-                <h5 class="card-title">Spicy</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis in, nulla
-                  debitis porro soluta alias ad, suscipit tenetur temporibus, cum ex dolores sed! Numquam officiis omnis
-                  doloribus, accusantium molestiae at!</p>
-              </div>
-            </a>
-          </div>
-        </div>
-
       </div>
+
+      <div class="set1">
+        <div class="card mb-3 item" style="width: 15rem;">
+          <a href="#" onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
+            <img src="img/icon/kfc_icon.png" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
+            <div class="card-body">
+              <h5 class="card-title">Super KFC</h5>
+              <p class="card-text">KFC is a restaurant that the main menus are fried chickens.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="set1">
+        <div class="card mb-3 item" style="width: 15rem;">
+          <a href="#" onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
+            <img src="img/icon/mcd_icon.png" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
+            <div class="card-body">
+              <h5 class="card-title">McDonald's</h5>
+              <p class="card-text">McDonald is a restaurant that the main menus are burgers.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="set1">
+        <div class="card mb-3 item" style="width: 15rem;">
+          <a href="#" onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
+            <img src="img/icon/mcdonald.jpg" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
+            <div class="card-body">
+              <h5 class="card-title">Super Burger</h5>
+              <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem vero assumenda
+                magni, unde voluptas quidem sint animi officiis praesentium velit delectus, quis autem eligendi.
+                Repellat tempore aliquid eos error similique?</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="set2">
+        <div class="card mb-3 item" style="width: 15rem;">
+          <a href="#" onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
+            <img src="img/icon/chuan4.png" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
+            <div class="card-body">
+              <h5 class="card-title">Noodle House</h5>
+              <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis corrupti distinctio
+                consequuntur cumque? Exercitationem harum aut ut et. Accusantium numquam dolor repudiandae deleniti
+                iste accusamus molestias, explicabo sequi modi minus.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="set2">
+        <div class="card mb-3 item" style="width: 15rem;">
+          <a href="#" onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
+            <img src="img/icon/tamchai.jpg" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
+            <div class="card-body">
+              <h5 class="card-title">Tam Chai</h5>
+              <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati nesciunt
+                mollitia ad corrupti accusantium fugiat, alias, ipsum ut necessitatibus quae voluptate culpa
+                doloremque. Pariatur perspiciatis quasi soluta delectus suscipit laudantium.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="set2">
+        <div class="card mb-3 item" style="width: 15rem;">
+          <a href="#" onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
+            <img src="img/icon/tamchai2.png" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
+            <div class="card-body">
+              <h5 class="card-title">Cup noodle</h5>
+              <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis in, nulla
+                debitis porro soluta alias ad, suscipit tenetur temporibus, cum ex dolores sed! Numquam officiis omnis
+                doloribus, accusantium molestiae at!</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="set2">
+        <div class="card mb-3 item" style="width: 15rem;">
+          <a href="#" onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
+            <img src="img/icon/malalao.jpg" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
+            <div class="card-body">
+              <h5 class="card-title">Spicy</h5>
+              <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis in, nulla
+                debitis porro soluta alias ad, suscipit tenetur temporibus, cum ex dolores sed! Numquam officiis omnis
+                doloribus, accusantium molestiae at!</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+
+
+
+      <div class="set3">
+        <div class="card mb-3 item" style="width: 15rem;">
+          <a href="#" onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
+            <img src="img/icon/kfc4.png" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
+            <div class="card-body">
+              <h5 class="card-title">KFC</h5>
+              <p class="card-text">KFC is a restaurant that the main menus are fried chickens.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="set3">
+        <div class="card mb-3 item" style="width: 15rem;">
+          <a href="#" onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
+            <img src="img/icon/kfc_icon.png" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
+            <div class="card-body">
+              <h5 class="card-title">Super KFC</h5>
+              <p class="card-text">KFC is a restaurant that the main menus are fried chickens.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="set3">
+        <div class="card mb-3 item" style="width: 15rem;">
+          <a href="#" onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
+            <img src="img/icon/mcd_icon.png" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
+            <div class="card-body">
+              <h5 class="card-title">McDonald's</h5>
+              <p class="card-text">McDonald is a restaurant that the main menus are burgers.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="set4">
+        <div class="card mb-3 item" style="width: 15rem;">
+          <a href="#" onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
+            <img src="img/icon/mcdonald.jpg" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
+            <div class="card-body">
+              <h5 class="card-title">Super Burger</h5>
+              <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem vero assumenda
+                magni, unde voluptas quidem sint animi officiis praesentium velit delectus, quis autem eligendi.
+                Repellat tempore aliquid eos error similique?</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="set4">
+        <div class="card mb-3 item" style="width: 15rem;">
+          <a href="#" onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
+            <img src="img/icon/chuan4.png" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
+            <div class="card-body">
+              <h5 class="card-title">Noodle House</h5>
+              <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis corrupti distinctio
+                consequuntur cumque? Exercitationem harum aut ut et. Accusantium numquam dolor repudiandae deleniti
+                iste accusamus molestias, explicabo sequi modi minus.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="set4">
+        <div class="card mb-3 item" style="width: 15rem;">
+          <a href="#" onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
+            <img src="img/icon/tamchai.jpg" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
+            <div class="card-body">
+              <h5 class="card-title">Tam Chai</h5>
+              <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati nesciunt
+                mollitia ad corrupti accusantium fugiat, alias, ipsum ut necessitatibus quae voluptate culpa
+                doloremque. Pariatur perspiciatis quasi soluta delectus suscipit laudantium.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="set5">
+        <div class="card mb-3 item" style="width: 15rem;">
+          <a href="#" onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
+            <img src="img/icon/tamchai2.png" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
+            <div class="card-body">
+              <h5 class="card-title">Cup noodle</h5>
+              <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis in, nulla
+                debitis porro soluta alias ad, suscipit tenetur temporibus, cum ex dolores sed! Numquam officiis omnis
+                doloribus, accusantium molestiae at!</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="set5">
+        <div class="card mb-3 item" style="width: 15rem;">
+          <a href="#" onclick="if(getSessionObj('currentUser')){changePage(this,'KFC','r1')}else{$('#btn-ac').click()}">
+            <img src="img/icon/malalao.jpg" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
+            <div class="card-body">
+              <h5 class="card-title">Spicy</h5>
+              <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis in, nulla
+                debitis porro soluta alias ad, suscipit tenetur temporibus, cum ex dolores sed! Numquam officiis omnis
+                doloribus, accusantium molestiae at!</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+    <div class="grid">
+      <div class="card-deck" id="restaurant-card"></div>
     </div>
   </div>
 
@@ -536,15 +533,27 @@
           </button>
         </div>
         <div class="modal-body">
+
+          <div class="form-row">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <button id="button-addon2" type="submit" class="btn btn-link text-warning"><i
+                    class="fa fa-search"></i></button>
+              </div>
+              <input type="search" class="quicksearch form-control border-0 bg-light" placeholder="Search"
+                aria-describedby="button-addon2" />
+            </div>
+          </div>
+          <br>
           <div class="form-row">
             <div class="form-group col-md-2">
               Price:
             </div>
             <div class="form-group col-md-6">
-              <input type="range" class="form-control-range" min="10" max="1000">
+              <input type="range" id="adv-range" oninput="change(this)" class="form-control-range" value="10" min="10" max="1000">
             </div>
             <div class="form-group col-md-4">
-              <span id="adv-price">(Current: 10)</span>
+              <span>(Current: $<span id="adv-price">10</span>.00)</span>
             </div>
           </div>
 
@@ -563,8 +572,7 @@
             </div>
             <div class="form-group col-md-2">
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="adv-dinein" value="Dine in"
-                  checked>
+                <input class="form-check-input" type="radio" name="exampleRadios" id="adv-dinein" value="Dine in">
                 <label class="form-check-label" for="adv-dinein">
                   Dine in
                 </label>
@@ -647,6 +655,8 @@
   $('.button-group').each(function (i, buttonGroup) {
     var $buttonGroup = $(buttonGroup);
     $buttonGroup.on('click', '.button', function () {
+      fakeHide();
+      $("#restaurant-card").show();
       //      $buttonGroup.find('.is-checked').removeClass('is-checked');
       //      $(this).addClass('is-checked');
       $buttonGroup.find('.active').removeClass('active');

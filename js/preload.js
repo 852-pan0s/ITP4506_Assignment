@@ -8,6 +8,7 @@ import {
 } from "./login.js";
 
 
+
 /**Global variables */
 
 window.style = "default";
@@ -329,16 +330,16 @@ $(() => {
   $(".font-size").change(function () {
     switch ($(this).val()) {
       case "n":
-        $("#main").attr("class","");
+        $("#main").attr("class", "");
         break;
       case "l":
-          $("#main").attr("class","font-l");
+        $("#main").attr("class", "font-l");
         break;
       case "xl":
-          $("#main").attr("class","font-xl");
+        $("#main").attr("class", "font-xl");
         break;
       case "xxl":
-          $("#main").attr("class","font-xxl");
+        $("#main").attr("class", "font-xxl");
         break;
     }
   });
