@@ -126,7 +126,7 @@
     window.appendToCard = (value) => {
       if (value !== null) {
         //        https://picsum.photos/800
-        content = `<div class="card mb-3 item ${value.categories[0]}" style="width: 15rem;">
+        content = `<div class="card mb-3 item ${value.categories[0]} ${value.price}" style="width: 15rem;">
           <a href="#" onclick="if(getSessionObj('currentUser')){changePage(this,\`${value.name}\`,'${value.id}')}else{$('#btn-ac').click()}">
             <img src="img/icon/${value.icon}" class="card-img-top" alt="..." style="width: 15rem; height: 15rem;">
             <div class="card-body">
@@ -172,12 +172,20 @@
       return content;
     }
 
+    $(".pagination > li").on("click", (e) => {
+      $($(e.delegateTarget).siblings()).removeClass("active");
+      $(e.delegateTarget).addClass("active");
+      console.log($(e.delegateTarget).text());
+    });
+
   </script>
 </head>
 
 <body>
 
-  <div class="row">
+  <!--  <div class="row">-->
+
+  <!--
     <div class="col-lg-12">
       <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
         <div class="input-group">
@@ -187,37 +195,72 @@
           <input type="search" class="quicksearch form-control border-0 bg-light" placeholder="Search" aria-describedby="button-addon2" />
         </div>
       </div>
+
     </div>
+-->
 
-
-    <div class="col-md-12" style="margin-top: -20px;">
-      <div class="filters text-center">
-        <div class="ui-group">
-          <ul class="button-group js-radio-button-group filters">
-            <li class="button is-checked active" data-filter="*"><a href="#!">All</a></li>
-            <li class="button" data-filter=".c1"><a href="#!">American</a></li>
-            <li class="button" data-filter=".c2"><a href="#!">Bakery</a></li>
-            <li class="button" data-filter=".c3"><a href="#!">Beverages</a></li>
-            <li class="button" data-filter=".c4"><a href="#!">Burger</a></li>
-            <li class="button" data-filter=".c5"><a href="#!">Chinese</a></li>
-            <li class="button" data-filter=".c6"><a href="#!">Dessert</a></li>
-          </ul>
+  <form>
+    <div class="row">
+      <div class="form-group" style="margin-left: 25px; margin-top: 3px">
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            More Filter
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 800px">
+            <div class="filters text-center">
+             <div style="text-align: left; margin-left: 60px; margin-top: 20px; font-size: large;">Price:</div>
+              <div class="ui-group" style="text-align: left; margin-left: 60px;">
+                <ul class="button-group js-radio-button-group filters" data-filter-group="price">
+                  <li class="button is-checked active" data-filter="*"><a href="#!">All</a></li>
+                  <li class="button" data-filter=".1"><a href="#!">$</a></li>
+                  <li class="button" data-filter=".2"><a href="#!">$$</a></li>
+                  <li class="button" data-filter=".3"><a href="#!">$$$</a></li>
+                </ul>
+              </div>
+              <div style="text-align: left; margin-left: 60px; font-size: large;">Category:</div>
+              <div class="ui-group">
+                <ul class="button-group js-radio-button-group filters" data-filter-group="category">
+                  <li class="button is-checked active" data-filter="*"><a href="#!">All</a></li>
+                  <li class="button" data-filter=".c1"><a href="#!">American</a></li>
+                  <li class="button" data-filter=".c2"><a href="#!">Bakery</a></li>
+                  <li class="button" data-filter=".c3"><a href="#!">Beverages</a></li>
+                  <li class="button" data-filter=".c4"><a href="#!">Burger</a></li>
+                  <li class="button" data-filter=".c5"><a href="#!">Chinese</a></li>
+                  <li class="button" data-filter=".c6"><a href="#!">Dessert</a></li>
+                  
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div class="grid">
-        <div class="card-deck" id="restaurant-card">
+      <div class="form-group col-md-9">
+        <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <button id="button-addon2" type="submit" class="btn btn-link text-warning"><i class="fa fa-search"></i></button>
+            </div>
+            <input type="search" class="quicksearch form-control border-0 bg-light" placeholder="Search" aria-describedby="button-addon2" />
+          </div>
         </div>
       </div>
     </div>
+  </form>
 
-   <div class="col-md-12">
-     <nav>
+  <div class="col-md-12" style="margin-top: -20px;">
+    <div class="grid">
+      <div class="card-deck" id="restaurant-card">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <nav>
       <ul class="pagination justify-content-center">
         <li class="page-item disabled">
           <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
         </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item active"><a class="page-link" href="#">1</a></li>
         <li class="page-item"><a class="page-link" href="#">2</a></li>
         <li class="page-item"><a class="page-link" href="#">3</a></li>
         <li class="page-item">
@@ -225,11 +268,9 @@
         </li>
       </ul>
     </nav>
-   </div>
-    
   </div>
 
-
+  <!--  </div>-->
 
 </body>
 
@@ -261,8 +302,8 @@
     // combine filters
     buttonFilter = concatValues(buttonFilters);
     // active button
-    $('ul.filters > li').removeClass('active');
-    $(this).addClass('active');
+    //    $('ul.filters > li').removeClass('active');
+    //    $(this).addClass('active');
     // Isotope arrange
     $grid.isotope();
   });
@@ -276,9 +317,11 @@
   // change is-checked class on buttons
   $('.button-group').each(function(i, buttonGroup) {
     var $buttonGroup = $(buttonGroup);
-    $buttonGroup.on('click', 'button', function() {
-      $buttonGroup.find('.is-checked').removeClass('is-checked');
-      $(this).addClass('is-checked');
+    $buttonGroup.on('click', '.button', function() {
+      //      $buttonGroup.find('.is-checked').removeClass('is-checked');
+      //      $(this).addClass('is-checked');
+      $buttonGroup.find('.active').removeClass('active');
+      $(this).addClass('active');
     });
   });
 

@@ -88,6 +88,7 @@
       "introduction": "KFC is a restaurant that the main menus are fried chickens.",
       "categories": ["c1", "c4", "c7"],
       "tag": "popular",
+      "price": "1",
       "branches": {
         "b1": {
           "bid": "b1",
@@ -159,6 +160,7 @@
       "introduction": "McDonald is a restaurant that the main menus are burgers.",
       "categories": ["c4", "c1"],
       "tag": "popular",
+      "price": "1",
       "branches": {
         "b1": {
           "bid": "b1",
@@ -217,6 +219,7 @@
       "introduction": "Tam Chai is a restaurant that the main menus are noodles.",
       "categories": ["c5"],
       "tag": "recommended",
+      "price": "1",
       "branches": {
       },
       "menus": {
@@ -253,6 +256,7 @@
       "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. adipisicing elit.",
       "categories": ["c6", "c5"],
       "tag": "recommended",
+      "price": "2",
       "branches": {
       },
       "menus": {
@@ -289,6 +293,7 @@
       "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
       "categories": ["c6", "c5"],
       "tag": "recommended",
+      "price": "1",
       "branches": {
       },
       "menus": {
@@ -325,6 +330,7 @@
       "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
       "categories": ["c3", "c5"],
       "tag": "recommended",
+      "price": "2",
       "branches": {
       },
       "menus": {
@@ -361,6 +367,7 @@
       "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
       "categories": ["c2", "c5"],
       "tag": "recommended",
+      "price": "1",
       "branches": {
       },
       "menus": {
@@ -397,6 +404,7 @@
       "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
       "categories": ["c5"],
       "tag": "recommended",
+      "price": "3",
       "branches": {
       },
       "menus": {
@@ -433,6 +441,7 @@
       "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
       "categories": ["c5"],
       "tag": "recommended",
+      "price": "3",
       "branches": {
       },
       "menus": {
@@ -469,6 +478,7 @@
       "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
       "categories": ["c1"],
       "tag": "recommended",
+      "price": "3",
       "branches": {
       },
       "menus": {
@@ -505,6 +515,7 @@
       "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
       "categories": ["c1"],
       "tag": "recommended",
+      "price": "2",
       "branches": {
       },
       "menus": {
@@ -541,6 +552,7 @@
       "introduction": "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
       "categories": ["c2"],
       "tag": "recommended",
+      "price": "3",
       "branches": {
       },
       "menus": {
